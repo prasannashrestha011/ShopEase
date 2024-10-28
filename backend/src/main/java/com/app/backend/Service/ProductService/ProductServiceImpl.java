@@ -34,11 +34,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String createProduct(ProductEntity productEntity, MultipartFile file) {
+    public String createProduct(ProductEntity productEntity, MultipartFile file, String sellerId) {
         if (productEntity != null) {
             Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(file);
             productEntity.setProductImage(fileInfo.get("secure_url").toString());
-
+            productEntity.setSellerId(sellerId);
             productRepo.save(productEntity);
             return productEntity + " has been added ";
         }

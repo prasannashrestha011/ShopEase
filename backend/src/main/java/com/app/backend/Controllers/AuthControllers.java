@@ -67,10 +67,11 @@ public class AuthControllers {
                 roles.add(userRole);
             }
             roles.add("USER");
-            var response = userService.registerNewUser(newUser, roles);
+            userService.registerNewUser(newUser, roles);
+            var response = new ApiResponse("user registered");
             return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
         } catch (Exception e) {
-            ApiResponse err = new ApiResponse(e.getMessage());
+            ApiResponse err = new ApiResponse("user already registered");
             return new ResponseEntity<ApiResponse>(err, HttpStatus.BAD_REQUEST);
         }
     }

@@ -9,4 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ApiResponse {
     public String message;
+
 }

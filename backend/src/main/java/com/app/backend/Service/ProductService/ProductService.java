@@ -11,7 +11,7 @@ public interface ProductService {
 
     ProductEntity getProductByName(String product_name);
 
-    String createProduct(ProductEntity productEntity, MultipartFile file);
+    String createProduct(ProductEntity productEntity, MultipartFile file, String sellerId);
 
     List<ProductEntity> getAllProducts();
 }

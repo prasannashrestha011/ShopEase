@@ -1,8 +1,7 @@
 package com.app.backend.Service.UserService;
 
-import java.sql.Date;
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.app.backend.Entities.UserEntity;
 import com.app.backend.Repositories.UserServiceRepository;
-import com.app.backend.Responses.ApiResponse;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,31 +32,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ApiResponse registerNewUser(UserEntity user, List<String> userRoles) {
+    @Transactional
+    public String registerNewUser(UserEntity user, List<String> userRoles) {
         try {
 
             if (user != null) {
 
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-                user.setCreated_at(new Date(System.currentTimeMillis()));
                 user.setRoles(userRoles);
                 userServiceRepository.save(user);
-                return new ApiResponse(user.getUsername() + " has been registered");
+                return user.getUsername() + " has been registered";
             }
             throw new Exception("Invalid user info");
         } catch (Exception e) {
-            return new ApiResponse(e.getMessage());
+            return e.getMessage();
         }
     }
 
     @Override
     public UserEntity findUserById(String userId) throws UsernameNotFoundException {
-        UserEntity user = userServiceRepository.findById(userId);
-        if (user != null) {
-            return user;
-        }
-        return null;
+        return userServiceRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + userId));
     }
 
 }

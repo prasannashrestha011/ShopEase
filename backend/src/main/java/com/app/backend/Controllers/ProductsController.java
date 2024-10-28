@@ -43,15 +43,14 @@ public class ProductsController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createNewProduct(
             @RequestPart("productEntities") List<ProductEntity> productEntities,
-            @RequestPart("productImages") List<MultipartFile> product_images) {
-        for (MultipartFile file : product_images) {
-            logger.info("Received image: Name = {}, Size = {} bytes", file.getOriginalFilename(), file.getSize());
-        }
+            @RequestPart("productImages") List<MultipartFile> product_images,
+            @RequestParam(value = "seller_id") String sellerId) {
+
         for (ProductEntity productEntity : productEntities) {
             logger.info("Received product entity: Name = {}, Price = {}, Retailer = {}",
-                    productEntity.getProductName(), // assuming this getter exists
-                    productEntity.getProductPrice(), // assuming this getter exists
-                    productEntity.getSellerId()); // assuming this getter exists
+                    productEntity.getProductName(),
+                    productEntity.getProductPrice(),
+                    productEntity.getSellerId());
         }
         if (productEntities != null && product_images != null) {
 
@@ -60,7 +59,7 @@ public class ProductsController {
                 {
                     ProductEntity product = productEntities.get(i);
                     MultipartFile productImage = product_images.get(i);
-                    response = productService.createProduct(product, productImage);
+                    response = productService.createProduct(product, productImage, sellerId);
 
                 }
 

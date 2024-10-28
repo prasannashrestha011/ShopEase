@@ -12,7 +12,20 @@ body {
     text-wrap: balance;
   }
 }
-
+@font-face {
+  font-family: gemunu;
+  src: url(../public/fonts/GemunuLibre-Regular.ttf);
+}
+.gemunu{
+  font-family: gemunu;
+}
+@font-face {
+  font-family: gemunuMd;
+  src: url(../public/fonts//GemunuLibre-Medium.ttf);
+}
+.gemunuMd{
+  font-family: gemunuMd;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

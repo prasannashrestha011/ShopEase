@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.backend.Entities.UserEntity;
 import com.app.backend.Service.UserService.UserServiceImpl;
 
 @RestController
@@ -21,7 +22,7 @@ public class UserController {
     UserServiceImpl userServiceImpl;
 
     @GetMapping("/details")
-    public ResponseEntity<Map<String, Object>> getUserDetails(
+    public ResponseEntity<UserEntity> getUserDetails(
             @RequestParam(value = "user_id", required = false) String user_id,
             @RequestParam(value = "username", required = false) String username) {
 
@@ -31,11 +32,10 @@ public class UserController {
         Map<String, Object> apiResponse = new HashMap<>();
         if (response == null) {
 
-            apiResponse.put("error", "user not found !!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiResponse);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         apiResponse.put("data", response);
-        return ResponseEntity.ok().body(apiResponse);
+        return ResponseEntity.ok().body(response);
     }
 
 }
