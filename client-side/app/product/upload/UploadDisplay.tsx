@@ -4,11 +4,12 @@ import { Button } from '@/Components/ui/button'
 import { Input } from '@/Components/ui/input'
 import { UploadAction } from './uploadAction'
 import {ProductStruct} from '../class/productClass'
+import { useAppSelector } from '@/app/redux/Store'
 
 
 const UploadDisplay = () => {
   const [productList,setProductList]=useState<ProductStruct[]>([])
- 
+  const {items,loading,error}=useAppSelector((state)=>state.userDetails);
   const addProductList=()=>{
     const newProduct=new ProductStruct("",0,"","",new File([],""))
     setProductList(prevList=>[...prevList,newProduct])
@@ -60,7 +61,7 @@ const UploadDisplay = () => {
           </div>
         ))}
       </main>
-      <Button className='w-60 bg-blue-600' onClick={()=>UploadAction(productList)} >Submit</Button>
+      <Button className='w-60 bg-blue-600' onClick={()=>items?UploadAction(productList,items.id):console.log("warning no id !!!")} >Submit</Button>
       <br/>
      
     </div>

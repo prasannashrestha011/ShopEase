@@ -26,6 +26,13 @@ body {
 .gemunuMd{
   font-family: gemunuMd;
 }
+@font-face{
+  font-family: yatraone;
+  src: url(../public/fonts/YatraOne-Regular.ttf);
+}
+.yatraone{
+  font-family: yatraone;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

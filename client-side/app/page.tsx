@@ -1,5 +1,5 @@
 
-import HomePg from "../Components/HomeCmp/HomePg";
+import HomePg from "./HomeCmp/HomePg";
 
 export default function Home() {
   return (

@@ -1,36 +1,22 @@
 "use client"
-import { ProductInfo } from '@/app/product/class/productClass';
-import { GetAllProducts } from '@/app/product/upload/getProducts';
+
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/app/redux/Store';
 const ProductList = () => {
     const router=useRouter()
-
-    const [list,setList]=useState<ProductInfo[]>([]);
-    const fetchProductList=async()=>{
-     try{
-      const list=await GetAllProducts();
-      if(list!=null){
-        setList(list);
-      }
-     }catch(err){
-       setList([])
-     }
-
-    }
+    const {items,loading,error}=useAppSelector((state)=>state.productList)
     const handleOrder=async(product_id:string)=>{
       console.log(product_id);
       router.push(`/product/order/${product_id}`)
     }
-    useEffect(()=>{
-        fetchProductList();
-      },[])
+
   return (
  
-       <ul className='grid md:grid-cols-4 md:gap-4 gap-2'>
-          {list&& list.map((item,idx)=>(
+       <ul className='grid md:grid-cols-4 md:gap-4 gap-2 yatraone'>
+          {items&& items.map((item,idx)=>(
           <>
           <li key={idx}>
             <Card>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ProductStruct} from "../class/productClass";
 
-export async function UploadAction(productObject:ProductStruct[] ):Promise<{message:string,statusCode:number}>{
+export async function UploadAction(productObject:ProductStruct[],sellerId:string ):Promise<{message:string,statusCode:number}>{
     try{
      
         const formData=new FormData();
@@ -16,7 +16,7 @@ export async function UploadAction(productObject:ProductStruct[] ):Promise<{mess
        }
        
        )
-     const response=await axios.post(`http://localhost:8080/product/create`,formData,{
+     const response=await axios.post(`http://localhost:8080/product/create?seller_id=${sellerId}`,formData,{
         withCredentials:true,
         headers:{
             'Accept': 'application/json',
