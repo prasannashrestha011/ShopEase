@@ -1,10 +1,14 @@
 package com.app.backend.Service.ProductService;
 
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.Entities.ProductEntity;
@@ -19,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     CloudinaryImageServiceImpl cloudinaryImageService;
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Override
     public ProductEntity getProductById(String product_id) {
@@ -34,21 +39,47 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String createProduct(ProductEntity productEntity, MultipartFile file, String sellerId) {
-        if (productEntity != null) {
-            Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(file);
-            productEntity.setProductImage(fileInfo.get("secure_url").toString());
-            productEntity.setSellerId(sellerId);
-            productRepo.save(productEntity);
-            return productEntity + " has been added ";
+    public String createProduct(ProductEntity productEntity,
+            MultiValueMap<String, MultipartFile> files, String sellerId) {
+        logger.info("File size {}", files.size());
+        List<String> productImages = new ArrayList<String>();
+        for (Map.Entry<String, List<MultipartFile>> file : files.entrySet()) {
+            if (productEntity != null) {
+
+                var imageList = file.getValue(); // Assign file.getValue() to imageList, which is List<MultipartFile>
+                for (MultipartFile multipartFile : imageList) {
+                    if (!"blob".equals(multipartFile.getOriginalFilename())) {
+                        logger.info("uploaded file name {}", multipartFile.getOriginalFilename());
+                        Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(multipartFile);
+                        productImages.add(fileInfo.get("secure_url").toString());
+                    }
+
+                }
+
+            }
         }
-        return null;
+        productEntity.setProductImages(productImages);
+        productEntity.setSellerId(sellerId);
+        productRepo.save(productEntity);
+        return productEntity.getProductName() + " has been added ";
+
     }
 
     @Override
     public List<ProductEntity> getAllProducts() {
         var productList = productRepo.findAll();
         return productList;
+    }
+
+    @Override
+    public String deleteAllProductList() {
+        try {
+            productRepo.deleteAll();
+            cloudinaryImageService.deleteCollection();
+            return "deleted";
+        } catch (Exception e) {
+            throw new RuntimeException("throw new error");
+        }
     }
 
 }

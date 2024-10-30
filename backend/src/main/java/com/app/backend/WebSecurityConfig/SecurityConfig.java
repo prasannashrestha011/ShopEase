@@ -31,7 +31,7 @@ public class SecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
-                        authorizeHttpRequests -> authorizeHttpRequests.requestMatchers("/account/**")
+                        authorizeHttpRequests -> authorizeHttpRequests.requestMatchers("/account/**", "/files/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

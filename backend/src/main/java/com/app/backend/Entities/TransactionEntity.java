@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "transactions_table")
-public class ShoppingEntity {
+public class TransactionEntity {
     @Id
     @Column(name = "transaction_id", unique = true, nullable = false)
     private String transactionId;

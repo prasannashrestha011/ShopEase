@@ -15,7 +15,8 @@ export const FetchUserDetails=createAsyncThunk<UserStruct|null,void>('/fetch/dat
       try{
         const response=await axios.get(`http://localhost:8080/user/details?username=${username}`,{withCredentials:true})
         if(response.status!==200) throw new Error("failed to fetch user data")
-        return response.data as UserStruct
+            
+            return response.data as UserStruct
       }catch(err){
         console.error(err);
         return null;

@@ -9,19 +9,17 @@ export async function UploadAction(productObject:ProductStruct[],sellerId:string
         ProductEntity.forEach(item=>console.log(item))
 
         formData.append("productEntities", new Blob([JSON.stringify(ProductEntity)], { type: "application/json" }));
-        
-        productObject.map((product)=>{
-
-        formData.append("productImages",product.productImage)
-       }
+        console.log(productObject[0].productImages[0])
+        productObject.map((product,idx)=>{
+            product.productImages.map((image)=>(
+                formData.append(`productImages[${idx}]`,image)
+            ))
+        })
        
-       )
+       
      const response=await axios.post(`http://localhost:8080/product/create?seller_id=${sellerId}`,formData,{
         withCredentials:true,
-        headers:{
-            'Accept': 'application/json',
-          
-        }
+      
      },)
      if(response.status!==200)
      {

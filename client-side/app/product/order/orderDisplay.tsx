@@ -5,6 +5,7 @@ import { GetProductById } from './getProductById'
 import { useParams } from 'next/navigation'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card'
 import { Button } from '@/Components/ui/button'
+import { ProductCarousel } from '@/app/HomeCmp/ProductsList/ProductCarousel'
 interface OrderDisplayProp{
     product_id:string
 }
@@ -27,32 +28,48 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
     },[product_id])
   return (
     <div>
-        <Card className='flex flex-col justify-center items-center'>
+        <Card className='flex flex-col justify-center items-center yatraone h-svh md:mt-2 border-none'>
             <CardHeader>
                 <CardTitle>{product_details?.productName}</CardTitle>
             </CardHeader>
-            <CardContent className='flex flex-col justify-center items-center '>
+            <CardContent className='flex flex-col md:flex-row w-full justify-center items-center '>
 
-                    <img src={product_details?.productImage} className='md:w-5/12 mx-auto'/>
+                    {product_details?.productImages&&
+                    <div className='md:flex-1 md:pl-8'>
+                        <ProductCarousel  images={product_details?.productImages}/>
+                    </div>
+                    }
+
                   
                   
-                    <div className='  w-5/12 flex  justify-end'>${product_details?.productPrice}</div>
+                  <div className=' flex-1 h-full border p-2 w-full rounded-md'>
+                 
                     <div className='flex flex-col justify-center items-start  gap-4  w-5/12 '>
                     
-
-                        <header className='font-bold mx-auto'>Description</header>
-                        <p className=' mx-auto text-wrap'>{product_details?.productDes}</p>
+                        <section>
+                            
+                        <header className='font-bold '>Description</header>
+                        <p className=' text-wrap'>{product_details?.productDes}</p>
+                        </section>
                         
-                           <div>
-                           <p>Retailer:</p>
-                           <span>{product_details?.retailer}</span>
-                           </div>
+                      
+                            <section>
+                            <p className='font-bold '>Retailer:</p>
+                            <span>{product_details?.sellerId}</span>
+                            </section>
+                           
+                         
+                           <section>
+                           <p className='font-bold '>Price</p>
+                           ${product_details?.productPrice}
+                           </section>
 
                     </div>
+                  </div>
                    
             </CardContent>
             <CardFooter >
-                <Button>Order now</Button>
+              
             </CardFooter>
         </Card>
        

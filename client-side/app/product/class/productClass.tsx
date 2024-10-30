@@ -3,13 +3,13 @@ class ProductStruct{
     productPrice:number;
     productDes:string;
     retailer:string;
-    productImage:File;
-    constructor(product_name:string,product_price:number,productDes:string,retailer:string,product_image:File){
+    productImages:File[];
+    constructor(product_name:string,product_price:number,productDes:string,retailer:string,product_image:File[]){
         this.productName=product_name;
         this.productPrice=product_price;
         this.productDes=productDes;
         this.retailer=retailer;
-        this.productImage=product_image;
+        this.productImages=product_image;
     }
 }
 class ProductInfo{
@@ -18,16 +18,16 @@ class ProductInfo{
     productPrice:number;
     productDes:string;
     sellerId:string;
-    productImage:string;
+    productImages:string[];
     createdAt:Date | null;
     updatedAt:Date |null;
-    constructor(product_id:string,product_name:string,product_price:number,productDes:string,sellerId:string,product_image:string,created_at:Date,updated_at:Date){
+    constructor(product_id:string,product_name:string,product_price:number,productDes:string,sellerId:string,product_images:string[],created_at:Date,updated_at:Date){
         this.productId=product_id;
         this.productName=product_name;
         this.productPrice=product_price;
         this.productDes=productDes;
         this.sellerId=sellerId;
-        this.productImage=product_image;
+        this.productImages=product_images;
         this.createdAt=created_at;
         this.updatedAt=updated_at
       

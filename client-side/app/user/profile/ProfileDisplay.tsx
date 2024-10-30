@@ -20,24 +20,24 @@ const ProfileDisplay:React.FC = () => {
         <header className=' font-semibold '> Credentials</header>
          <section className='flex flex-col  md:w-96 w-80'>
           <label>Email</label>
-          <Input className='bg-slate-300' value={items?.email}/>
+          <Input className='bg-slate-300 text-xl' value={items?.email}/>
          </section>
          <section className='flex flex-col  md:w-96 w-80 ' >
           <label>Username</label>
-          <Input className='bg-slate-300' value={items?.username}/>
+          <Input className='bg-slate-300 text-xl ' value={items?.username}/>
          </section>
          <section className='flex flex-col  md:w-96 w-80 ' >
           <label>Contact Number</label>
-          <Input className='bg-slate-300' value={items?.contactNumber}/>
+          <Input className='bg-slate-300 text-xl' value={items?.contactNumber}/>
          </section>
          <section className='flex flex-col  md:w-96 w-80 ' >
           <label>Contact Address</label>
-          <Input className='bg-slate-300' value={items?.address}/>
+          <Input className='bg-slate-300 text-xl' value={items?.address}/>
          </section>
          <section className='flex flex-col  md:w-96 w-80 ' >
           <label>Role</label>
           <span className='bg-slate-300 '>
-          <Input className='bg-slate-300' value={items?.roles.map((role)=>(role))}/>
+          <Input className='bg-slate-300 text-xl' value={items?.roles.map((role)=>(role))}/>
            
             </span>
          </section>

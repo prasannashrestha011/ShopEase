@@ -1,4 +1,5 @@
 
+import { ChartStruct } from "../product/chart/ChartStruct";
 import { ProductInfo } from "../product/class/productClass";
 import { UserStruct } from "../user/userClass/UserStruct";
 
@@ -13,5 +14,10 @@ interface ProductDataState{
     loading:boolean;
     error:string|null|undefined
 }
+interface ChartDataState{
+    items:ChartStruct[]|null;
+    loading:boolean;
+    error:string|null|undefined
+}
 
-export type {UserDataState,ProductDataState}
+export type {UserDataState,ProductDataState,ChartDataState}

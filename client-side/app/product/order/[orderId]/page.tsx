@@ -8,7 +8,7 @@ const page:React.FC<PageProp> = ({params}) => {
 
   return (
     <div>
-      <header>Order  </header>
+      
       <OrderDisplay product_id={params.orderId}/>
     </div>
   )
