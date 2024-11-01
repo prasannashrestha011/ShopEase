@@ -33,6 +33,13 @@ body {
 .yatraone{
   font-family: yatraone;
 }
+@font-face {
+  font-family: merriwheather;
+  src: url(../public/fonts/MerriweatherSans-Regular.ttf);
+}
+.merriwheather{
+  font-family: merriwheather;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

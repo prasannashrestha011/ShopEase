@@ -1,9 +1,8 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import { UserStruct } from '../userClass/UserStruct'
-import { GetUserDetails } from './getUserDetails'
-import { Input } from '@/Components/ui/input'
-import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
+import React from 'react'
+
+import { Input } from '@/components/ui/input'
+import {  useAppSelector } from '@/app/redux/Store'
 
 
 const ProfileDisplay:React.FC = () => {
