@@ -1,7 +1,7 @@
 "use client"
 import React, { ChangeEvent, useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 import {  useRouter } from 'next/navigation'
 import axios from "axios";
 

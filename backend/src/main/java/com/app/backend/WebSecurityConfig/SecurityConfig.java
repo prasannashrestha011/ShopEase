@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.app.backend.Filters.JwtFilters;
+import com.app.backend.cors.CorsConfig;
 
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -26,10 +27,13 @@ public class SecurityConfig {
 
     @Autowired
     JwtFilters jwtFilters;
+    @Autowired
+    CorsConfig corsConfig;
 
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.disable())
+        httpSecurity.cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests.requestMatchers("/account/**", "/files/**")
                                 .permitAll()

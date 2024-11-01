@@ -1,13 +1,13 @@
 "use client"
 import React, { useEffect } from 'react'
-import { Input } from '../../Components/ui/input'
+import { Input } from '../../components/ui/input'
 import ProductList from './ProductsList/ProductList'
 import { useAppSelector } from '../redux/Store'
 import { useRouter } from 'next/navigation'
 import Chart from '../product/chart/Chart'
 
 const HomeDisplay = () => {
-  const {items,loading,error}=useAppSelector((state)=>state.userDetails)
+  const {items}=useAppSelector((state)=>state.userDetails)
   
   const router=useRouter()
   const navAction=()=>{

@@ -64,7 +64,7 @@ public class AuthControllers {
         try {
             List<String> roles = new ArrayList<>();
             if (userRole != null) {
-                roles.add(userRole);
+                roles.add(userRole.toUpperCase());
             }
             roles.add("USER");
             userService.registerNewUser(newUser, roles);

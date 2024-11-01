@@ -2,14 +2,14 @@
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 
-import { Card, CardContent } from "@/Components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/Components/ui/carousel"
+} from "@/components/ui/carousel"
 
 interface CarouselProp{
     images:string[]
@@ -22,7 +22,7 @@ export function ProductCarousel({images}:CarouselProp) {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-xl"
+      className="w-full md:max-w-xl "
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >

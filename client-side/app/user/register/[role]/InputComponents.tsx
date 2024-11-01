@@ -1,6 +1,6 @@
 "use client"
-import { Button } from '@/Components/ui/button'
-import { Input } from '@/Components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
@@ -37,7 +37,8 @@ const InputComponents:React.FC<Prop> = ({role}) => {
       const fieldError=result.error?.flatten().fieldErrors;
       if(result.success){
         setErrors({ email:"",username:"",password:"",contactNumber:"",address:""})
-        const userDetails=new UserStruct("",formData.email,formData.username,formData.password,Number(formData.contactNumber),formData.address,null);
+        const userDetails=new UserStruct("",formData.email,formData.username,formData.password,"",
+          Number(formData.contactNumber),formData.address,null,[]);
         const response=await RegisterUser(role,userDetails)
         router.push("/login")
       }else{

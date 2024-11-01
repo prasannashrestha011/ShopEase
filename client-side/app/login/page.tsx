@@ -1,5 +1,6 @@
 
-import LoginInputs from '@/Components/LoginInputs/LoginInputs'
+
+import LoginInputs from '@/AppComponents/LoginInputs/LoginInputs'
 import React from 'react'
 
 
