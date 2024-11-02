@@ -1,7 +1,7 @@
 "use client"
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Button } from '@/Components/ui/button'
-import { Input } from '@/Components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { UploadAction } from './uploadAction'
 import {ProductStruct} from '../class/productClass'
 import { useAppSelector } from '@/app/redux/Store'

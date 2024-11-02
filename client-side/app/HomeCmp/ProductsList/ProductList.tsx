@@ -1,5 +1,4 @@
 "use client"
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import React, { useEffect } from 'react'
@@ -22,9 +21,9 @@ const ProductList = () => {
  
        <ul className='grid md:grid-cols-4 md:gap-4 gap-2 yatraone'>
           {items&& items.map((item,idx)=>(
-          <>
+    
           <li key={idx}>
-            <Card >
+            <Card  >
               <CardHeader>
                 <CardTitle>{item.productName}</CardTitle>
                 <CardDescription>$ {item.productPrice}</CardDescription>
@@ -40,7 +39,7 @@ const ProductList = () => {
               </CardFooter>
             </Card>
           </li>
-          </>
+   
         ))}
           </ul>
    

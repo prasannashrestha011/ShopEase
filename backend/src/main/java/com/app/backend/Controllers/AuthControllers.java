@@ -42,7 +42,11 @@ public class AuthControllers {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword()));
             ApiResponse response = new ApiResponse("User authenticated");
-            var authToken = jwtService.generateToken(authUser);
+            var authUserDetails = userService.findUserByUsername(authUser.username);
+            if (authUserDetails == null)
+                throw new Exception("User details empty");
+
+            var authToken = jwtService.generateToken(authUserDetails);
             ResponseCookie cookie = ResponseCookie.from("Authorization", authToken)
                     .httpOnly(true)
                     .secure(true)

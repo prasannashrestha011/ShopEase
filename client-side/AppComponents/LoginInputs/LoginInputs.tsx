@@ -31,8 +31,9 @@ const LoginInputs = () => {
         }
         setResponseMessage(response.data)
         window.localStorage.setItem("UUID",username.toString())
+   
         router.replace('/')
-        router.push(`/`)
+    
       }catch( err){
         const errorMessage=err as Error;
         setErrorMessage(errorMessage.message)
