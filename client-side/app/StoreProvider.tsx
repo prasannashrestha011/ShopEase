@@ -7,7 +7,7 @@ import { FetchUserDetails } from './redux/UserDataSplice'
 import DispatcherProvider from './redux/DispatcherProvider'
 
 const StoreProvider = ({children}:{children:ReactNode}) => {
-
+  
   return (
     <Provider store={Store}>
       <DispatcherProvider>

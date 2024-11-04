@@ -57,4 +57,27 @@ public class TransactionsController {
         }
     }
 
+    @PreAuthorize("hasRole('SELLER')")
+    @PostMapping("/seller/update/entry/status")
+    public ResponseEntity<ApiResponse> updateEntryStatus(@RequestParam(name = "transactionId") String transactionId,
+            @RequestParam(name = "status") String status) {
+        try {
+            if (status != null) {
+                checkoutServiceImpl.updateEntryStatus(transactionId, status);
+                ApiResponse response = new ApiResponse("entry has been updated");
+                return ResponseEntity.ok().body(response);
+            }
+            ApiResponse error = new ApiResponse("failed to update the entry");
+            return ResponseEntity.badRequest().body(error);
+        } catch (Exception e) {
+            if (status != null) {
+                checkoutServiceImpl.updateEntryStatus(transactionId, status);
+                ApiResponse response = new ApiResponse("entry has been updated");
+                return ResponseEntity.ok().body(response);
+            }
+            ApiResponse error = new ApiResponse(e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
+    }
+
 }

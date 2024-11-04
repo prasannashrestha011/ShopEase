@@ -33,6 +33,9 @@ public class TransactionEntity {
     @Column(name = "customer_contact", nullable = false)
     private Long customerContact;
 
+    @Column(name = "customer_email", nullable = false)
+    private String customerEmail;
+
     @Column(name = "product_name", nullable = false)
     private String productName;
 

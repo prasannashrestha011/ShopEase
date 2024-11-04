@@ -12,7 +12,7 @@ interface OrderDisplayProp{
 }
 const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
     const [product_details,setProductDetails]=useState<ProductInfo|null>(null)
-  
+    
     const fetchProduct=async()=>{
         try{
             const product=await GetProductById(product_id);

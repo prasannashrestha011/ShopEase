@@ -3,6 +3,8 @@ package com.app.backend.Service.CheckoutService;
 import com.app.backend.Entities.TransactionEntity;
 import com.app.backend.Repositories.TransactionRepository;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,5 +45,13 @@ public class CheckoutServiceImpl implements CheckoutService {
             return transactionList;
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void updateEntryStatus(String transactionId, String status) {
+        if (transactionId != null && status != null) {
+            transactionRepo.updateStatusById(transactionId, status);
+        }
     }
 }

@@ -9,6 +9,7 @@ const DispatcherProvider = ({children}:{children:ReactNode}) => {
     useEffect(()=>{
       dispatch(FetchUserDetails())
       dispatch(FetchProductList())
+ 
     },[])
   return (
     <>

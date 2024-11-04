@@ -17,7 +17,7 @@ export async function middleware(req:NextRequest){
     var pathName=req.nextUrl.pathname;
     if(!authToken ){
         if(pathName==="/login"){
-          NextResponse.next()
+          return NextResponse.next()
         }
         return NextResponse.redirect(new URL("/login",req.url)) 
     }

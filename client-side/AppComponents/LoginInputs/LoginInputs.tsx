@@ -33,7 +33,7 @@ const LoginInputs = () => {
         window.localStorage.setItem("UUID",username.toString())
    
         router.replace('/')
-    
+
       }catch( err){
         const errorMessage=err as Error;
         setErrorMessage(errorMessage.message)

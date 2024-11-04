@@ -17,7 +17,8 @@ import confetti from 'canvas-confetti';
   interface Props{
     productName:string,
     price:number,
-    sellerId:string
+    sellerId:string,
+
   }
   
 const OrderDialog = ({productName,price,sellerId}:Props) => {
@@ -27,7 +28,7 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
     const {items}=useAppSelector((state)=>state.userDetails)
     const handleOrderConfirmation=async(sellerId:string)=>{
       if(items){
-        const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,
+        const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,items.email,
           productName,quantityValue,totalAmt,null,null,"pending"
         )
         const response=await OrderAction(transactionDetails);

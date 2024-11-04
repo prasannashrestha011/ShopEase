@@ -4,6 +4,7 @@ class TransactionStruct{
     customerId:string|null
     customerName:string
     customerContact:number
+    customerEmail:string
     productName:string
     productQuantity:number
     productAmount:number
@@ -15,6 +16,7 @@ class TransactionStruct{
         customerId:string,
         customerName:string,
         customerContact:number,
+        customerEmail:string,
         productName:string,
         productQuantity:number,       
         productAmount:number,
@@ -27,6 +29,7 @@ class TransactionStruct{
         this.customerId=customerId
         this.customerName=customerName
         this.customerContact=customerContact
+        this.customerEmail=customerEmail
         this.productName=productName
         this.productQuantity=productQuantity
         this.productAmount=productAmount
