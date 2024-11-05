@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.backend.Entities.UserDto;
 import com.app.backend.Entities.UserEntity;
 import com.app.backend.Service.UserService.UserServiceImpl;
 
@@ -36,6 +37,17 @@ public class UserController {
         }
         apiResponse.put("data", response);
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<UserDto> getMethodName(@RequestParam(value = "id") String id) {
+        if (id != null) {
+            var response = userServiceImpl.findUserById(id);
+            UserDto filterUser = new UserDto(response.getId(), response.getUsername(), response.getEmail(),
+                    response.contactNumber, response.address);
+            return ResponseEntity.ok().body(filterUser);
+        }
+        return ResponseEntity.badRequest().body(null);
     }
 
 }
