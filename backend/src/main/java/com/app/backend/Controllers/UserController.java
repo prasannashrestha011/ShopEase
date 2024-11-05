@@ -21,8 +21,8 @@ public class UserController {
     @Autowired
     UserServiceImpl userServiceImpl;
 
-    @GetMapping("/details")
-    public ResponseEntity<UserEntity> getUserDetails(
+    @GetMapping("/credentials")
+    public ResponseEntity<UserEntity> getUserCredentials(
             @RequestParam(value = "user_id", required = false) String user_id,
             @RequestParam(value = "username", required = false) String username) {
 
