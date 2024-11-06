@@ -1,6 +1,6 @@
 package com.app.backend.Entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,9 @@ public class UserEntity {
     @Column(name = "created_at", nullable = false)
     public Date createdAt;
 
+    @Column(name = "updated_at", nullable = false)
+    public Date updateAt;
+
     @Column(name = "email", nullable = false, unique = true)
     public String email;
 
@@ -45,6 +49,9 @@ public class UserEntity {
 
     @Column(name = "contact_number", nullable = false)
     public Long contactNumber;
+
+    @Column(name = "active_status", nullable = false)
+    public boolean activeStatus;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -55,6 +62,13 @@ public class UserEntity {
     private void OnUserCreate() {
         id = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
         userImage = "https://res.cloudinary.com/ddaobeapp/image/upload/v1730002910/Untitled_design_2_ite60e.png";
-        createdAt = new Date(System.currentTimeMillis());
+        createdAt = new Date();
+        updateAt = createdAt;
+        activeStatus = false;
+    }
+
+    @PreUpdate
+    private void OnUserUpdate() {
+        updateAt = new Date();
     }
 }

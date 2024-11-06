@@ -16,4 +16,8 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
     @Modifying
     @Query("UPDATE TransactionEntity  t set t.status=?2 WHERE t.transactionId=?1 ")
     void updateStatusById(String transactionId, String status);
+
+    @Modifying
+    @Query("UPDATE TransactionEntity t set t.isRead=true WHERE t.transactionId=?1")
+    void updateReadStatus(String transactionId);
 }

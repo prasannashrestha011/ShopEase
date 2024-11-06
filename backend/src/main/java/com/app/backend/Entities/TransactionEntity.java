@@ -1,7 +1,9 @@
 package com.app.backend.Entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,18 +53,22 @@ public class TransactionEntity {
     @Column(name = "updated_at", nullable = false)
     private Date updateAt;
 
+    @Column(name = "is_read", nullable = false)
+    @JsonProperty("isRead")
+    private boolean isRead = false;
+
     @Column(name = "status", nullable = false)
     private String status = "pending";
 
     @PrePersist
     private void OnTransactionCreated() {
         transactionId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
-        createdAt = new Date(System.currentTimeMillis());
-        updateAt = new Date(System.currentTimeMillis());
+        createdAt = new Date();
+        updateAt = new Date();
     }
 
     @PreUpdate
     private void OnTransactionUpdate() {
-        updateAt = new Date(System.currentTimeMillis());
+        updateAt = new Date();
     }
 }

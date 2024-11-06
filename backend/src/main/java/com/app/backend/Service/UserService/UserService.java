@@ -1,5 +1,6 @@
 package com.app.backend.Service.UserService;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,4 +13,8 @@ public interface UserService {
     UserEntity findUserByUsername(String username) throws UsernameNotFoundException;
 
     String registerNewUser(UserEntity user, List<String> role);
+
+    void updateUserActiveStatus(String id, boolean status);
+
+    Date findUserLastUpdate(String id);
 }

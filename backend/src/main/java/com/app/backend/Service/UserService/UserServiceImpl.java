@@ -1,12 +1,16 @@
 package com.app.backend.Service.UserService;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.app.backend.Controllers.UserController;
 
 import com.app.backend.Entities.UserEntity;
 import com.app.backend.Repositories.UserServiceRepository;
@@ -21,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Override
     public UserEntity findUserByUsername(String username) throws UsernameNotFoundException {
@@ -54,6 +59,23 @@ public class UserServiceImpl implements UserService {
     public UserEntity findUserById(String userId) throws UsernameNotFoundException {
         return userServiceRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + userId));
+    }
+
+    @Override
+    public Date findUserLastUpdate(String id) {
+        if (id != null) {
+            var data = userServiceRepository.findUpdateAtById(id);
+            logger.info("data {}", data);
+            return data.getUpdateAt();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateUserActiveStatus(String id, boolean status) {
+        if (id != null) {
+            userServiceRepository.updateUserActiveStatus(id, status);
+        }
     }
 
 }

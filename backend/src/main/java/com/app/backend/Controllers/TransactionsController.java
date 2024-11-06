@@ -81,4 +81,17 @@ public class TransactionsController {
         }
     }
 
+    @PreAuthorize("hasRole('SELLER')")
+    @PutMapping("/update/readstatus")
+    public ResponseEntity<ApiResponse> updateEntryReadStatus(
+            @RequestParam(value = "transactionId") String transactionId) {
+        if (!transactionId.trim().isEmpty()) {
+            checkoutServiceImpl.updateReadStatus(transactionId);
+            ApiResponse response = new ApiResponse(transactionId + " has been updated");
+            return ResponseEntity.ok().body(response);
+        }
+        ApiResponse responseErr = new ApiResponse("failed to updated the entry");
+        return ResponseEntity.internalServerError().body(responseErr);
+    }
+
 }

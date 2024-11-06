@@ -38,7 +38,7 @@ const InputComponents:React.FC<Prop> = ({role}) => {
       if(result.success){
         setErrors({ email:"",username:"",password:"",contactNumber:"",address:""})
         const userDetails=new UserStruct("",formData.email,formData.username,formData.password,"",
-          Number(formData.contactNumber),formData.address,null,[]);
+          Number(formData.contactNumber),formData.address,null,null,[]);
         const response=await RegisterUser(role,userDetails)
         router.push("/login")
       }else{

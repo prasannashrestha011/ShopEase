@@ -29,7 +29,7 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
     const handleOrderConfirmation=async(sellerId:string)=>{
       if(items){
         const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,items.email,
-          productName,quantityValue,totalAmt,null,null,"pending"
+          productName,quantityValue,totalAmt,null,null,false,"pending"
         )
         const response=await OrderAction(transactionDetails);
         setIsOrderSuccess(true)

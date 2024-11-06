@@ -9,7 +9,8 @@ class TransactionStruct{
     productQuantity:number
     productAmount:number
     createdAt:Date|null
-    updatedAt:Date|null
+    updateAt:Date|null
+    isRead:boolean
     status:string
     constructor(transactionId:string | null,
         sellerId:string,
@@ -21,7 +22,8 @@ class TransactionStruct{
         productQuantity:number,       
         productAmount:number,
         createdAt:Date | null,
-        updatedAt:Date | null,
+        updateAt:Date | null,
+        isRead:boolean,
         status:string
     ){
         this.transactionId=transactionId
@@ -34,7 +36,8 @@ class TransactionStruct{
         this.productQuantity=productQuantity
         this.productAmount=productAmount
         this.createdAt=createdAt
-        this.updatedAt=updatedAt
+        this.updateAt=updateAt
+        this.isRead=isRead
         this.status=status
     }
 }

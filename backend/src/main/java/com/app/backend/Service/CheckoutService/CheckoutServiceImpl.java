@@ -54,4 +54,14 @@ public class CheckoutServiceImpl implements CheckoutService {
             transactionRepo.updateStatusById(transactionId, status);
         }
     }
+
+    @Override
+    @Transactional
+    public void updateReadStatus(String transactionId) {
+
+        if (!transactionId.trim().isEmpty()) {
+            transactionRepo.updateReadStatus(transactionId);
+        }
+
+    }
 }

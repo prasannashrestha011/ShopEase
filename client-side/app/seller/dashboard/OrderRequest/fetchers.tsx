@@ -4,8 +4,7 @@ import { CustomerStruct } from "../class";
 
 export async function UpdateOrderStatus(transactionId:string,status:string):Promise<String|null>{
     try{
-        console.log("transaction id ->",transactionId)
-        console.log("status ->",status)
+       
       if(transactionId&&status){
         const response=await axios.put(`http://localhost:8080/transaction/seller/update/entry/status?transactionId=${transactionId}&status=${status}`,{},{
             withCredentials:true,
@@ -19,6 +18,24 @@ export async function UpdateOrderStatus(transactionId:string,status:string):Prom
         console.log(err)
         return null;
     }
+}
+export async function UpdateEntryReadStatus(transactionId:string):Promise<String|null>{
+  try{
+     
+    if(transactionId){
+      console.log(transactionId)
+      const response=await axios.put(`http://localhost:8080/transaction/update/readstatus?transactionId=${transactionId}`,{},{
+          withCredentials:true,
+        
+      })
+      console.log(response.data)
+      return response.data;
+    }
+    throw new Error("invalid form data")
+  }catch(err){
+      console.log(err)
+      return null;
+  }
 }
 export async function GetCustomerDetails(customerId:string):Promise<CustomerStruct|null>{
   try{

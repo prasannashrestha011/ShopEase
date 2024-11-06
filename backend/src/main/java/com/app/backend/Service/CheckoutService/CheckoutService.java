@@ -13,4 +13,5 @@ public interface CheckoutService {
 
      List<TransactionEntity> getEntiresBysellerId(String sellerId);
 
+     void updateReadStatus(String transactionId);
 }

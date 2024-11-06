@@ -1,6 +1,6 @@
 package com.app.backend.Entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,12 +52,12 @@ public class ProductEntity {
     @PrePersist
     protected void OnCreated() {
         productId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
-        createdAt = new Date(System.currentTimeMillis());
+        createdAt = new Date();
         updatedAt = createdAt;
     }
 
     @PreUpdate
     protected void OnUpdate() {
-        updatedAt = new Date(System.currentTimeMillis());
+        updatedAt = new Date();
     }
 }
