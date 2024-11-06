@@ -60,6 +60,9 @@ public class TransactionEntity {
     @Column(name = "status", nullable = false)
     private String status = "pending";
 
+    @Column(name = "delivery_type", nullable = false)
+    private String deliveryType;
+
     @PrePersist
     private void OnTransactionCreated() {
         transactionId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);

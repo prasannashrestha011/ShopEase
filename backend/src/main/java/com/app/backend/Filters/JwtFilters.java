@@ -46,7 +46,7 @@ public class JwtFilters extends OncePerRequestFilter {
     }
 
     private String retriveJwtFromRequest(HttpServletRequest request) {
-        // Retrieve cookies from the request using Jakarta EE
+
         jakarta.servlet.http.Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {

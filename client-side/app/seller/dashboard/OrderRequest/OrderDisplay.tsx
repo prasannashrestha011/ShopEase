@@ -23,6 +23,7 @@ const OrderDisplay = () => {
         'Quantity',
         'Amount',
         'Customer Id',
+        '',
         ''
     ]
    useEffect(()=>{
@@ -44,7 +45,7 @@ const OrderDisplay = () => {
         <TableBody>
         
                 {orderRequests&&orderRequests.map((order,idx)=>(
-                     <TableRow key={idx} className='bg-gradient-to-b from-[#FCF3F3] to-[#EBE8E8] hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' >
+                     <TableRow key={idx} className='bg-gradient-to-b border-none  from-[#FCF3F3] to-[#fff6f6] hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' >
                     <TableCell className='truncate' >{order.transactionId}</TableCell>
                     <TableCell className='truncate'>{order.productName}</TableCell>
                     <TableCell className='truncate'>{order.productQuantity}</TableCell>
@@ -54,7 +55,9 @@ const OrderDisplay = () => {
                         {order.isRead?"":<span className='bg-blue-700 px-4  py-1 text-xs text-slate-100 cursor-pointer'>New</span>}
 
                         </TableCell>
-                    <TableCell className='truncate'><span className='underline cursor-pointer' onClick={()=>{setIsCheckDetails(!isCheckDetails);setCustomderDetails({customerId:order.customerId??"", transactionId:order.transactionId??"",status:order.status})}}>Check Details</span></TableCell>
+                    <TableCell className='truncate'>
+                        <button className='bg-gradient-to-b rounded-md p-1   from-[#FCF3F3] to-[#CCC9C9] hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' onClick={()=>{setIsCheckDetails(!isCheckDetails);setCustomderDetails({customerId:order.customerId??"", transactionId:order.transactionId??"",status:order.status})}}>Check Details</button>
+                        </TableCell>
                     </TableRow>
                 ))}
            

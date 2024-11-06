@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,8 @@ public class AuthControllers {
 
     @Autowired
     JwtService jwtService;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthControllers.class);
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> signInUser(@RequestBody UserEntity authUser) {
@@ -71,6 +75,8 @@ public class AuthControllers {
                 roles.add(userRole.toUpperCase());
             }
             roles.add("USER");
+            logger.info("user cred -> {}", newUser.username, newUser.password, newUser.contactNumber, newUser.address,
+                    newUser.postalCode, newUser.province);
             userService.registerNewUser(newUser, roles);
             var response = new ApiResponse("user registered");
             return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);

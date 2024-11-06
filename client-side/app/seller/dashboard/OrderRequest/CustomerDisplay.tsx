@@ -13,15 +13,15 @@ interface Props{
 }
 const CustomerDisplay:React.FC<Props> = ({customerId,transactionId,status}) => {
     const [customerDetails,setCustomerDetails]=useState<CustomerStruct|null>(null)
-    const {items:user}=useAppSelector((state)=>state.userDetails);
-    const dispatcher=useAppDispatch()
+    
+    const [orderStatus,setOrderStatus]=useState<string>(status??"pending")
     const fetchCustomerDetails=async()=>{
         const response=await GetCustomerDetails(customerId);
         setCustomerDetails(response)
     }
     const handleOrderStatus=async(transactionId:string,status:string)=>{
       await UpdateOrderStatus(transactionId,status);
-      
+      setOrderStatus(status)
     }
     useEffect(()=>{
         UpdateEntryReadStatus(transactionId)
@@ -43,14 +43,20 @@ const CustomerDisplay:React.FC<Props> = ({customerId,transactionId,status}) => {
         </main>
         <footer>
         <section className='ml-4 mb-4 '> 
-            {status=="approved"?(
+          {orderStatus=="pending" &&(
+            <>
+            <Button className='bg-gradient-to-t from-[#4C600B] to-[#FF6363] hover:from[#FF7777] hover:to-[#546617]' size={'sm'} onClick={()=>handleOrderStatus(transactionId??"","approved")} ><FaCheck/></Button>
+            <Button className='bg-gradient-to-b from-[#FCA5A5] to-[#F40303] rounded-sm ' size={'sm'} onClick={()=>handleOrderStatus(transactionId??"","rejected")}><FaTimes/></Button>
+          </>
+          )}
+            {orderStatus=="approved"&&(
               <button className='bg-green-500 p-2 cursor-pointer text-slate-200 active:scale-90 border-r-2 border-b-2 border-green-800 '>Approved</button>
-            ):(
-              <>
-                <Button className='bg-gradient-to-t from-[#4C600B] to-[#FF6363] hover:from[#FF7777] hover:to-[#546617]' size={'sm'} onClick={()=>handleOrderStatus(transactionId??"","approved")} ><FaCheck/></Button>
-                <Button className='bg-gradient-to-b from-[#FCA5A5] to-[#F40303] rounded-sm ' size={'sm'} onClick={()=>handleOrderStatus(transactionId??"","rejected")}><FaTimes/></Button>
-              </>
             )}
+            {
+              orderStatus=="rejected"&&(
+                <button className='bg-red-500 p-2 cursor-pointer text-slate-200 active:scale-90 border-r-2 border-b-2 border-red-800 '>Rejected</button>
+              )
+            }
            </section>
         </footer>
         </div>

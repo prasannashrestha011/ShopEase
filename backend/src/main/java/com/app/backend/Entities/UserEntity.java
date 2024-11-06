@@ -44,14 +44,17 @@ public class UserEntity {
     @Column(name = "email", nullable = false, unique = true)
     public String email;
 
-    @Column(name = "address", nullable = false)
-    public String address;
-
     @Column(name = "contact_number", nullable = false)
     public Long contactNumber;
 
-    @Column(name = "active_status", nullable = false)
-    public boolean activeStatus;
+    @Column(name = "address", nullable = false)
+    public String address;
+
+    @Column(name = "postal_code", nullable = false)
+    public Long postalCode;
+
+    @Column(name = "province", nullable = false)
+    public String province;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -64,7 +67,7 @@ public class UserEntity {
         userImage = "https://res.cloudinary.com/ddaobeapp/image/upload/v1730002910/Untitled_design_2_ite60e.png";
         createdAt = new Date();
         updateAt = createdAt;
-        activeStatus = false;
+
     }
 
     @PreUpdate

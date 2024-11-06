@@ -13,9 +13,9 @@ const DashBoardDisplay = () => {
         dispatcher(FetchOrderRequest(items?.id??""))
     })
   return (
-    <div>
+    <div className="merriwheather">
         <Tabs defaultValue="dashboard" className="flex ">
-            <TabsList className="flex flex-col items-start justify-start h-screen p-6">
+            <TabsList className="flex flex-col items-start justify-start h-screen p-6 border-r-2 border-t-2 border-gray-200 rounded-none ">
                 <TabsTrigger value="analytics" className="w-full">analytics</TabsTrigger>
                 <TabsTrigger value="orderRequest" className="w-full">Order Request</TabsTrigger>
             </TabsList>

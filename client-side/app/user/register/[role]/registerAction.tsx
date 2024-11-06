@@ -14,7 +14,7 @@ export async function RegisterUser(role:string,userDetails:UserStruct):Promise<s
    }catch(err){
     const error = err as Error;
   
-
+    console.error(error.message)
     return "400"
 
     }
