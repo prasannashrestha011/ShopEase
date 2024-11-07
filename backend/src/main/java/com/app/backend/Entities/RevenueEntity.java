@@ -7,12 +7,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "revenue_records")
 public class RevenueEntity {
@@ -30,11 +35,12 @@ public class RevenueEntity {
     private Long amount;
 
     @Column(name = "created_at")
-    private Date createAt;
+    private Date createdAt;
 
     @PrePersist
     private void onRevenueCreated() {
         revenueId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
-        createAt = new Date();
+        createdAt = new Date();
     }
+
 }

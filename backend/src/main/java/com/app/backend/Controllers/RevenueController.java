@@ -2,6 +2,8 @@ package com.app.backend.Controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +26,8 @@ public class RevenueController {
     @Autowired
     RevenueServiceImpl revenueServiceImpl;
 
+    private static final Logger logger = LoggerFactory.getLogger(RevenueController.class);
+
     @GetMapping("/records")
     public ResponseEntity<List<RevenueEntity>> getAllRecords(@RequestParam(value = "sellerId") String sellerId) {
         try {
@@ -37,12 +41,17 @@ public class RevenueController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createNewRecord(@RequestBody RevenueEntity revenueEntity) {
         try {
-            if (revenueEntity != null) {
-                revenueServiceImpl.createRevenueRecord(revenueEntity);
-                ApiResponse response = new ApiResponse("new record has been added");
-                return ResponseEntity.ok().body(response);
+
+            if (revenueEntity == null) {
+                throw new Exception("failed to insert the data");
             }
-            throw new Exception("invalid request body");
+            logger.info("revenue details {} {} {}", revenueEntity.getSellerId(), revenueEntity.getTransactionId(),
+                    revenueEntity.getAmount());
+
+            var response = revenueServiceImpl.UpdateRevenueRecord(revenueEntity);
+            ApiResponse message = new ApiResponse(response);
+            return ResponseEntity.ok().body(message);
+
         } catch (Exception e) {
             ApiResponse responseErr = new ApiResponse(e.getMessage());
             return ResponseEntity.internalServerError().body(responseErr);

@@ -7,7 +7,8 @@ import CustomerDisplay from './CustomerDisplay'
 interface customerActionProp{
     customerId:string,
     transactionId:string,
-    status:string
+    status:string,
+    amount:number
 }
 const OrderDisplay = () => {
   
@@ -15,7 +16,7 @@ const OrderDisplay = () => {
     const [error,setError]=useState<string>("")
     const [isCheckDetails,setIsCheckDetails]=useState<boolean>(false)
     const [customerDetails,setCustomderDetails]=useState<customerActionProp>()
-    const userLastOnline=window.localStorage.getItem("userLastOnline")
+   
    
     const headers=[
         'Invoice',
@@ -56,7 +57,7 @@ const OrderDisplay = () => {
 
                         </TableCell>
                     <TableCell className='truncate'>
-                        <button className='bg-gradient-to-b rounded-md p-1   from-[#FCF3F3] to-[#CCC9C9] hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' onClick={()=>{setIsCheckDetails(!isCheckDetails);setCustomderDetails({customerId:order.customerId??"", transactionId:order.transactionId??"",status:order.status})}}>Check Details</button>
+                        <button className='bg-gradient-to-b rounded-md p-1   from-[#FCF3F3] to-[#CCC9C9] hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' onClick={()=>{setIsCheckDetails(!isCheckDetails);setCustomderDetails({customerId:order.customerId??"", transactionId:order.transactionId??"",status:order.status,amount:order.productAmount})}}>Check Details</button>
                         </TableCell>
                     </TableRow>
                 ))}
@@ -66,7 +67,7 @@ const OrderDisplay = () => {
 
     {isCheckDetails&& customerDetails&&
     <div className='border-2 w-8/12'>
-        <CustomerDisplay customerId={customerDetails.customerId} transactionId={customerDetails.transactionId} status={customerDetails.status}/>
+        <CustomerDisplay customerId={customerDetails.customerId} transactionId={customerDetails.transactionId} status={customerDetails.status} amount={customerDetails.amount}/>
     </div>}
     </div>
   )

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { headers } from "next/headers";
-import { CustomerStruct } from "../class";
+
+import { CustomerStruct, RevenueStruct } from "../class";
 
 export async function UpdateOrderStatus(transactionId:string,status:string):Promise<String|null>{
     try{
@@ -46,4 +46,24 @@ export async function GetCustomerDetails(customerId:string):Promise<CustomerStru
     return null;
   }
 
+}
+export async function AddRevenueRecord(revenueDetails:RevenueStruct):Promise<String|null>{
+  try{
+    console.log("revenue details-> ",revenueDetails)
+      const response=await axios.post(`http://localhost:8080/revenue/create`,revenueDetails,{withCredentials:true})
+      console.log(response.data)
+      return response.data;
+  }catch(err){
+    console.error(err)
+    return null;
+  }
+}
+export async function GetRevenueRecords(sellerId:String):Promise<RevenueStruct[]|null>{
+  try{
+      const response=await axios.get(`http://localhost:8080/revenue/records?sellerId=${sellerId}`,{withCredentials:true})
+      return response.data as RevenueStruct[]
+  }catch(err){
+    console.error(err)
+    return null;
+  }
 }

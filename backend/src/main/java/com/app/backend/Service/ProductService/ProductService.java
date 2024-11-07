@@ -1,7 +1,6 @@
 package com.app.backend.Service.ProductService;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;

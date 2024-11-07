@@ -1,5 +1,6 @@
 package com.app.backend.Service.RevenueService;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,17 @@ public class RevenueServiceImpl implements RevenueService {
             revenueRepo.findBySellerId(sellerId);
         }
         return null;
+    }
+
+    @Override
+    public String UpdateRevenueRecord(RevenueEntity revenueEntity) {
+        var isPresent = revenueRepo.UpdateRevenueRecord(revenueEntity.getSellerId(), new Date(),
+                revenueEntity.getAmount());
+        if (isPresent > 0) {
+            return "revenue record updated";
+        }
+        revenueRepo.save(revenueEntity);
+        return " new revenue record has been created";
     }
 
 }

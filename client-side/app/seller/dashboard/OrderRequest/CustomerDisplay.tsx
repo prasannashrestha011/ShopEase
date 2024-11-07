@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { GetCustomerDetails, UpdateEntryReadStatus, UpdateOrderStatus } from './fetchers'
-import { CustomerStruct } from '../class'
+import { AddRevenueRecord, GetCustomerDetails, UpdateEntryReadStatus, UpdateOrderStatus } from './fetchers'
+import { CustomerStruct, RevenueStruct } from '../class'
 import { FaCheck, FaTimes } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
@@ -9,11 +9,11 @@ interface Props{
     customerId:string,
     transactionId:string,
     status:string,
- 
+    amount:number
 }
-const CustomerDisplay:React.FC<Props> = ({customerId,transactionId,status}) => {
+const CustomerDisplay:React.FC<Props> = ({customerId,transactionId,status,amount}) => {
     const [customerDetails,setCustomerDetails]=useState<CustomerStruct|null>(null)
-    
+    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
     const [orderStatus,setOrderStatus]=useState<string>(status??"pending")
     const fetchCustomerDetails=async()=>{
         const response=await GetCustomerDetails(customerId);
@@ -21,7 +21,17 @@ const CustomerDisplay:React.FC<Props> = ({customerId,transactionId,status}) => {
     }
     const handleOrderStatus=async(transactionId:string,status:string)=>{
       await UpdateOrderStatus(transactionId,status);
+      if(status=="approved"){
+        handleRevenueSubmit()
+      }
       setOrderStatus(status)
+    }
+    const handleRevenueSubmit=async()=>{
+     if(userDetails){
+      const RevenueDetails= new RevenueStruct("",userDetails?.id,transactionId,amount,null)
+      await AddRevenueRecord(RevenueDetails)
+     }
+       
     }
     useEffect(()=>{
         UpdateEntryReadStatus(transactionId)

@@ -12,4 +12,18 @@ class CustomerStruct{
         this.address=address
     }
 }
-export {CustomerStruct}
+class RevenueStruct{
+     revenueId:string
+     sellerId:string
+     transactionId:string
+     amount:number
+     createdAt:Date|null
+     constructor(revenueId:string,sellerId:string,transactionId:string,amount:number,createdAt:Date|null){
+        this.revenueId=revenueId;
+        this.sellerId=sellerId;
+        this.transactionId=transactionId;
+        this.amount=amount;
+        this.createdAt=createdAt;
+     }
+}
+export {CustomerStruct,RevenueStruct}
