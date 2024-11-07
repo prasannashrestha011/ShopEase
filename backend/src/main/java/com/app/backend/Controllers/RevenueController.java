@@ -51,6 +51,20 @@ public class RevenueController {
         }
     }
 
+    @GetMapping("/records/day")
+    public ResponseEntity<List<RevenueEntity>> getRecords(@RequestParam(value = "sellerId") String sellerId,
+            @RequestParam(value = "dayOffset") int dayOffset) {
+        try {
+            if (sellerId.trim().isEmpty())
+                throw new Error("invalid input");
+            var recordList = revenueServiceImpl.getRecordsDay(sellerId, dayOffset);
+            return ResponseEntity.ok().body(recordList);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createNewRecord(@RequestBody RevenueEntity revenueEntity) {
         try {

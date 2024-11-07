@@ -44,4 +44,9 @@ public class RevenueServiceImpl implements RevenueService {
         return revenueRepo.getRevenueRecordOfCurrentWeek(sellerId);
     }
 
+    @Override
+    public List<RevenueEntity> getRecordsDay(String sellerId, int dayOffset) {
+        return revenueRepo.getRevenueRecordOfDay(sellerId, dayOffset);
+    }
+
 }

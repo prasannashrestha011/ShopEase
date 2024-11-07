@@ -11,6 +11,8 @@ public interface RevenueService {
 
     List<RevenueEntity> getCurrentWeekRecords(String sellerId);
 
+    List<RevenueEntity> getRecordsDay(String sellerId, int dayOffset);
+
     String UpdateRevenueRecord(RevenueEntity revenueEntity);
 
 }
