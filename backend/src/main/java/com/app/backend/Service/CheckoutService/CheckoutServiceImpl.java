@@ -64,4 +64,12 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
 
     }
+
+    @Override
+    public List<TransactionEntity> getApprovedEntries(String sellerId) {
+        if (!sellerId.trim().isEmpty()) {
+            return transactionRepo.getApprovedTransactionEntity(sellerId);
+        }
+        return null;
+    }
 }

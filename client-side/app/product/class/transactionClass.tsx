@@ -12,6 +12,7 @@ class TransactionStruct{
     updateAt:Date|null
     isRead:boolean
     status:string
+    deliveryType:string
     constructor(transactionId:string | null,
         sellerId:string,
         customerId:string,
@@ -24,7 +25,8 @@ class TransactionStruct{
         createdAt:Date | null,
         updateAt:Date | null,
         isRead:boolean,
-        status:string
+        status:string,
+        deliveryType:string
     ){
         this.transactionId=transactionId
         this.sellerId=sellerId
@@ -39,6 +41,7 @@ class TransactionStruct{
         this.updateAt=updateAt
         this.isRead=isRead
         this.status=status
+        this.deliveryType=deliveryType
     }
 }
 export {TransactionStruct}

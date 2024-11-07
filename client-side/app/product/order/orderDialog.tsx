@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -14,6 +14,7 @@ import { OrderAction } from './orderAction'
 import { TransactionStruct } from '../class/transactionClass'
 import confetti from 'canvas-confetti';
 
+
   interface Props{
     productName:string,
     price:number,
@@ -24,12 +25,13 @@ import confetti from 'canvas-confetti';
 const OrderDialog = ({productName,price,sellerId}:Props) => {
     const [quantityValue,setQuantityValue]=useState<number>(0);
     const [totalAmt,setTotalAmt]=useState<number>(0);
+    const [deliveryType,setDeliveryType]=useState<string>("cashOnDelivery")
     const [isOrderSucess,setIsOrderSuccess]=useState<boolean>(false)
     const {items}=useAppSelector((state)=>state.userDetails)
     const handleOrderConfirmation=async(sellerId:string)=>{
       if(items){
         const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,items.email,
-          productName,quantityValue,totalAmt,null,null,false,"pending"
+          productName,quantityValue,totalAmt,null,null,false,"pending",deliveryType
         )
         const response=await OrderAction(transactionDetails);
         setIsOrderSuccess(true)
@@ -82,6 +84,13 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
        
        </p>
         <p>{quantityValue}</p>
+        <p>
+          <select value={deliveryType} onChange={(e:ChangeEvent<HTMLSelectElement>)=>{setDeliveryType(e.target.value)}} >
+            <option value={"cashOnDelivery"}>Cash on Delivery</option>
+            <option value={"Esewa"}>Esewa</option>
+            <option value={"Khalti"}>Khalti</option>
+          </select>
+        </p>
         <br/>
         <p className='mb-8'>Total: ${totalAmt}</p>
         <p>

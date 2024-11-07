@@ -12,3 +12,12 @@ export async function GetOrderRequests(sellerId:string):Promise<TransactionStruc
     }
  
 }
+export async function GetRecentSales(sellerId:string):Promise<TransactionStruct[]|null>{
+    try{
+        const response=await axios.get(`http://localhost:8080/transaction/approved/entries?sellerId=${sellerId}`,{withCredentials:true})
+        return response.data as TransactionStruct[];
+    }catch(err){
+        console.error(err);
+        return null
+    }
+}

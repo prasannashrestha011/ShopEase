@@ -94,4 +94,15 @@ public class TransactionsController {
         return ResponseEntity.internalServerError().body(responseErr);
     }
 
+    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("/approved/entries")
+    public ResponseEntity<List<TransactionEntity>> getApprovedEntries(
+            @RequestParam(value = "sellerId") String sellerId) {
+        try {
+            var approvedEntries = checkoutServiceImpl.getApprovedEntries(sellerId);
+            return ResponseEntity.ok().body(approvedEntries);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
 }

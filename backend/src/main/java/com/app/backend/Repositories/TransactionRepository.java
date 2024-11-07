@@ -20,4 +20,7 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
     @Modifying
     @Query("UPDATE TransactionEntity t set t.isRead=true WHERE t.transactionId=?1")
     void updateReadStatus(String transactionId);
+
+    @Query("SELECT t From TransactionEntity t WHERE t.status='approved' AND t.sellerId=?1 ")
+    List<TransactionEntity> getApprovedTransactionEntity(String sellerId);
 }

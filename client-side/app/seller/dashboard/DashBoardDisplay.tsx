@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import OrderDisplay from "./OrderRequest/OrderDisplay"
 import { useAppDispatch, useAppSelector } from "@/app/redux/Store"
 import { FetchOrderRequest } from "@/app/redux/OrderRequestSplice"
+import Analytics from "./analytics/Analytics"
 
 const DashBoardDisplay = () => {
     const dispatcher=useAppDispatch();
@@ -19,7 +20,10 @@ const DashBoardDisplay = () => {
                 <TabsTrigger value="analytics" className="w-full">analytics</TabsTrigger>
                 <TabsTrigger value="orderRequest" className="w-full">Order Request</TabsTrigger>
             </TabsList>
-            <TabsContent value="analytics">Dashboard</TabsContent>
+            <TabsContent value="analytics">
+                
+                <Analytics/>
+                </TabsContent>
             <TabsContent value="orderRequest" className="overflow-hidden w-full">
                 <OrderDisplay/>
             </TabsContent>
