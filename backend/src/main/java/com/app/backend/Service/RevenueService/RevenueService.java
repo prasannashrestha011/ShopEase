@@ -9,5 +9,8 @@ public interface RevenueService {
 
     List<RevenueEntity> getAllRevenueRecords(String sellerId);
 
+    List<RevenueEntity> getCurrentWeekRecords(String sellerId);
+
     String UpdateRevenueRecord(RevenueEntity revenueEntity);
+
 }

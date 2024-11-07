@@ -38,6 +38,19 @@ public class RevenueController {
         }
     }
 
+    @GetMapping("/current/week/records")
+    public ResponseEntity<List<RevenueEntity>> getCurrentWeekRecords(
+            @RequestParam(value = "sellerId") String sellerId) {
+        try {
+            if (sellerId.trim().isEmpty())
+                throw new Exception("invalid request input");
+            var records = revenueServiceImpl.getCurrentWeekRecords(sellerId);
+            return ResponseEntity.ok().body(records);
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(null);
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createNewRecord(@RequestBody RevenueEntity revenueEntity) {
         try {

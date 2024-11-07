@@ -39,4 +39,9 @@ public class RevenueServiceImpl implements RevenueService {
         return " new revenue record has been created";
     }
 
+    @Override
+    public List<RevenueEntity> getCurrentWeekRecords(String sellerId) {
+        return revenueRepo.getRevenueRecordOfCurrentWeek(sellerId);
+    }
+
 }
