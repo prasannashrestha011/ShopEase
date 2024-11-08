@@ -39,16 +39,16 @@ public interface RevenueRepository extends JpaRepository<RevenueEntity, String> 
                         "AND EXTRACT(YEAR FROM r.created_at) = EXTRACT(YEAR FROM CURRENT_DATE) " +
                         "AND r.seller_id = ?1", nativeQuery = true)
 
-        List<RevenueEntity> getRevenueRecordOfDay(String sellerId, int day);
+        List<RevenueEntity> getCurrentWeekDailyRecords(String sellerId, int day);
 
         @Query(value = "SELECT r.* FROM revenue_records r " +
-                        "WHERE DATE(r.created_at) = DATE(CURRENT_DATE - INTERVAL '1 day' * (EXTRACT(DOW FROM CURRENT_DATE) - ?2)) "
+                        "WHERE DATE(r.created_at) = DATE(CURRENT_DATE - INTERVAL '1 day' * (EXTRACT(DOW FROM CURRENT_DATE) - ?2)- Interval '1 week') "
                         +
                         "AND EXTRACT(MONTH FROM r.created_at) = EXTRACT(MONTH FROM CURRENT_DATE) " +
                         "AND EXTRACT(YEAR FROM r.created_at) = EXTRACT(YEAR FROM CURRENT_DATE) " +
                         "AND r.seller_id = ?1", nativeQuery = true)
 
-        List<RevenueEntity> getRevenueRecordOfPrevDay(String sellerId, int day);
+        List<RevenueEntity> getPrevWeekDailyRecords(String sellerId, int day);
 
         @Modifying
         @Transactional

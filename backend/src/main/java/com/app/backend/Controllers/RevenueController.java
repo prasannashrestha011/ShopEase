@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.backend.App_class.RevenueRecordByDay;
 import com.app.backend.Entities.RevenueEntity;
 import com.app.backend.Responses.ApiResponse;
 import com.app.backend.Service.RevenueService.RevenueServiceImpl;
+
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 @RestController
 @RequestMapping("/revenue")
@@ -76,6 +79,20 @@ public class RevenueController {
             if (sellerId.trim().isEmpty())
                 throw new Error("invalid input");
             var recordList = revenueServiceImpl.getRecordsDay(sellerId);
+            return ResponseEntity.ok().body(recordList);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
+    @GetMapping("/prev/current/week/records")
+    public ResponseEntity<Object> comparePrevAndCurrentRecords(
+            @RequestParam(value = "sellerId") String sellerId) {
+        try {
+            if (sellerId.trim().isEmpty())
+                throw new Error("invalid input");
+            var recordList = revenueServiceImpl.getRecordsOfPrevAndCurrentWeek(sellerId);
             return ResponseEntity.ok().body(recordList);
 
         } catch (Exception e) {

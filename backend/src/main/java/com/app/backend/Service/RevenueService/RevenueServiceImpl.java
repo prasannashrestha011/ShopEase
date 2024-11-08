@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.backend.App_class.RevenueRecordByDay;
 import com.app.backend.Entities.RevenueEntity;
 import com.app.backend.Repositories.RevenueRepository;
 
@@ -55,11 +56,37 @@ public class RevenueServiceImpl implements RevenueService {
     public Map<Integer, List<RevenueEntity>> getRecordsDay(String sellerId) {
         Map<Integer, List<RevenueEntity>> recordlist = new HashMap<>();
         for (int i = 0; i < 7; i++) {
-            var record = revenueRepo.getRevenueRecordOfDay(sellerId, i);
+            var record = revenueRepo.getCurrentWeekDailyRecords(sellerId, i);
             recordlist.put(i, record);
 
         }
         return recordlist;
+    }
+
+    @Override
+    public Map<Integer, RevenueRecordByDay> getRecordsOfPrevAndCurrentWeek(String sellerId) {
+        RevenueRecordByDay prevRecordMap = new RevenueRecordByDay();
+        RevenueRecordByDay currentRecordMap = new RevenueRecordByDay();
+        Map<Integer, RevenueRecordByDay> aggregateRecordMap = new HashMap<>();
+        // for previous week
+        Map<Integer, List<RevenueEntity>> prevRecords = new HashMap<>();
+        for (int i = 0; i < 7; i++) {
+            var record = revenueRepo.getPrevWeekDailyRecords(sellerId, i);
+            prevRecords.put(i, record);
+        }
+        prevRecordMap.setRecords(prevRecords);
+
+        // for current week
+        Map<Integer, List<RevenueEntity>> currentRecords = new HashMap<>();
+        for (int i = 0; i < 7; i++) {
+            var record = revenueRepo.getPrevWeekDailyRecords(sellerId, i);
+            currentRecords.put(i, record);
+        }
+        currentRecordMap.setRecords(currentRecords);
+        // aggregate records
+        aggregateRecordMap.put(0, prevRecordMap);
+        aggregateRecordMap.put(1, currentRecordMap);
+        return aggregateRecordMap;
     }
 
 }
