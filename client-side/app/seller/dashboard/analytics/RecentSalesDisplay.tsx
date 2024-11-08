@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { GetRecentSales } from '../fetchers'
 import { useAppSelector } from '@/app/redux/Store'
 import { Scrollbars } from 'react-custom-scrollbars';
+import { RevenueStruct } from '../class'
+import moment from 'moment'
 const RecentSalesDisplay = () => {
-    const [recentSales,setRecentSales]=useState<TransactionStruct[]|null>([])
+    const [recentSales,setRecentSales]=useState<RevenueStruct[]|null>([])
     const {items}=useAppSelector((state)=>state.userDetails)
     const fetchRecentSales=async()=>{
         if(items){
@@ -31,16 +33,15 @@ const RecentSalesDisplay = () => {
             <CardContent className='flex gap-4 mt-2 items-center overflow-x-hidden ' >   
             <img src={items?.userImage} className='rounded-full w-8 h-8 ml-2 '/>    
                 <div>
-                <span> {item.customerName}</span>
+                <span>+${item.amount}</span>
+                
                <CardDescription>
-                <span>{item.customerEmail}</span>
+               <span> {moment(item.createdAt).fromNow()}</span>
                </CardDescription>
                 </div>
  
             </CardContent>
-            <CardContent className='mt-6'>
-                <span>+${item.productAmount}</span>
-            </CardContent>
+           
         </li>
        ))}
        </Scrollbars>

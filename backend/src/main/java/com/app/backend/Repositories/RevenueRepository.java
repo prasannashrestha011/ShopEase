@@ -16,6 +16,14 @@ import java.util.List;
 public interface RevenueRepository extends JpaRepository<RevenueEntity, String> {
         List<RevenueEntity> findBySellerId(String sellerId);
 
+        @Query("SELECT r from RevenueEntity r " +
+                        "WHERE EXTRACT(MONTH FROM r.createdAt)=EXTRACT(MONTH FROM CURRENT_DATE)" +
+                        "AND EXTRACT(YEAR FROM r.createdAt)=EXTRACT(YEAR FROM CURRENT_DATE)" +
+                        "AND FLOOR((EXTRACT(DAY FROM r.createdAt)-1 )/7)+1=FLOOR((EXTRACT(DAY FROM CURRENT_DATE)-1 )/7)"
+                        +
+                        "AND r.sellerId=?1")
+        List<RevenueEntity> getPrevWeekRevenueRecords(String sellerId);
+
         @Query("SELECT r FROM RevenueEntity r " +
                         "WHERE EXTRACT(MONTH FROM r.createdAt) = EXTRACT(MONTH FROM CURRENT_DATE) " +
                         "AND EXTRACT(YEAR FROM r.createdAt) = EXTRACT(YEAR FROM CURRENT_DATE) " +

@@ -10,6 +10,8 @@ public interface RevenueService {
 
     List<RevenueEntity> getAllRevenueRecords(String sellerId);
 
+    List<RevenueEntity> getPrevWeekRecords(String sellerId);
+
     List<RevenueEntity> getCurrentWeekRecords(String sellerId);
 
     Map<Integer, List<RevenueEntity>> getRecordsDay(String sellerId);

@@ -42,6 +42,11 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     @Override
+    public List<RevenueEntity> getPrevWeekRecords(String sellerId) {
+        return revenueRepo.getPrevWeekRevenueRecords(sellerId);
+    }
+
+    @Override
     public List<RevenueEntity> getCurrentWeekRecords(String sellerId) {
         return revenueRepo.getRevenueRecordOfCurrentWeek(sellerId);
     }

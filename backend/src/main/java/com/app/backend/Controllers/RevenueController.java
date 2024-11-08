@@ -39,16 +39,33 @@ public class RevenueController {
         }
     }
 
+    @GetMapping("/prev/week/records")
+    public ResponseEntity<Object> getPrevWeekRecords(@RequestParam(value = "sellerId") String sellerId) {
+        try {
+            if (sellerId.trim().isEmpty())
+                throw new Exception("invalid user id");
+            var list = revenueServiceImpl.getPrevWeekRecords(sellerId);
+            if (list.isEmpty())
+                throw new Exception("List is empty");
+            return ResponseEntity.ok().body(list);
+        } catch (Exception e) {
+            logger.error("error {}", e);
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
     @GetMapping("/current/week/records")
-    public ResponseEntity<List<RevenueEntity>> getCurrentWeekRecords(
+    public ResponseEntity<Object> getCurrentWeekRecords(
             @RequestParam(value = "sellerId") String sellerId) {
         try {
             if (sellerId.trim().isEmpty())
                 throw new Exception("invalid request input");
             var records = revenueServiceImpl.getCurrentWeekRecords(sellerId);
+            if (records.isEmpty())
+                throw new Exception("Revenue List is empty!!");
             return ResponseEntity.ok().body(records);
         } catch (Exception e) {
-            return ResponseEntity.ok().body(null);
+            return ResponseEntity.ok().body(Map.of("error", e.getMessage()));
         }
     }
 
