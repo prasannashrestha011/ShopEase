@@ -26,4 +26,9 @@ class RevenueStruct{
         this.createdAt=createdAt;
      }
 }
-export {CustomerStruct,RevenueStruct}
+class DailyRevenueStruct{
+  
+        [key:number]:RevenueStruct[]
+    
+}
+export {CustomerStruct,RevenueStruct,DailyRevenueStruct}

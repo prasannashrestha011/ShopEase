@@ -21,7 +21,7 @@ const RecentSalesDisplay = () => {
        <ul >
         <CardHeader className='  mt-2 ml-6 cursor-pointer '>
             <span className='font-bold'>Your Recent Sales</span>
-            <CardDescription className=' text-sm font-extralight'>You made {recentSales?.length} sales</CardDescription>
+            <CardDescription className=' text-sm font-extralight'>You made {recentSales?.length} sales in current week</CardDescription>
         </CardHeader>
         <div className='h-72 w-96  overflow-x-hidden'>
             <Scrollbars style={{height:'100%',width:'100%'}} >

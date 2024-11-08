@@ -2,6 +2,7 @@
 import { ChartStruct } from "../product/chart/ChartStruct";
 import { ProductInfo } from "../product/class/productClass";
 import { TransactionStruct } from "../product/class/transactionClass";
+import { DailyRevenueStruct } from "../seller/dashboard/class";
 import { UserStruct } from "../user/userClass/UserStruct";
 
 interface UserDataState{
@@ -26,4 +27,10 @@ interface OrderRequestsState{
     error:string|null|undefined
 }
 
-export type {UserDataState,ProductDataState,ChartDataState,OrderRequestsState}
+interface AnalyticsState{
+    items:DailyRevenueStruct|null;
+    loading:boolean;
+    error:string|null|undefined
+}
+
+export type {UserDataState,ProductDataState,ChartDataState,OrderRequestsState,AnalyticsState}

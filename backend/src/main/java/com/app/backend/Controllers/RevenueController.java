@@ -1,6 +1,7 @@
 package com.app.backend.Controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,13 +52,13 @@ public class RevenueController {
         }
     }
 
-    @GetMapping("/records/day")
-    public ResponseEntity<List<RevenueEntity>> getRecords(@RequestParam(value = "sellerId") String sellerId,
-            @RequestParam(value = "dayOffset") int dayOffset) {
+    @GetMapping("/current/week/days")
+    public ResponseEntity<Map<Integer, List<RevenueEntity>>> getRecords(
+            @RequestParam(value = "sellerId") String sellerId) {
         try {
             if (sellerId.trim().isEmpty())
                 throw new Error("invalid input");
-            var recordList = revenueServiceImpl.getRecordsDay(sellerId, dayOffset);
+            var recordList = revenueServiceImpl.getRecordsDay(sellerId);
             return ResponseEntity.ok().body(recordList);
 
         } catch (Exception e) {

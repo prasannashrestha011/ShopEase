@@ -1,6 +1,7 @@
 package com.app.backend.Service.RevenueService;
 
 import java.util.List;
+import java.util.Map;
 
 import com.app.backend.Entities.RevenueEntity;
 
@@ -11,7 +12,7 @@ public interface RevenueService {
 
     List<RevenueEntity> getCurrentWeekRecords(String sellerId);
 
-    List<RevenueEntity> getRecordsDay(String sellerId, int dayOffset);
+    Map<Integer, List<RevenueEntity>> getRecordsDay(String sellerId);
 
     String UpdateRevenueRecord(RevenueEntity revenueEntity);
 

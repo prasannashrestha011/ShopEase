@@ -3,13 +3,15 @@ import UserDetailsReducer from './UserDataSplice'
 import ProductListReducer from './ProductDataSplice'
 import ChartListReducer from './ChartDataSplice'
 import OrderRequestsReducer from './OrderRequestSplice'
+import AnalyticsReducer from './AnalyticsSplice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 const Store=configureStore({
     reducer:{
         'chart':ChartListReducer,
         'userDetails':UserDetailsReducer,
         'productList':ProductListReducer,
-        'orderRequests':OrderRequestsReducer
+        'orderRequests':OrderRequestsReducer,
+        'analytics':AnalyticsReducer
     }
 })
 export type RootState=ReturnType<typeof Store.getState>

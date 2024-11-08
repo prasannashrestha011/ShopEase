@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { CustomerStruct, RevenueStruct } from "../class";
+import { CustomerStruct, DailyRevenueStruct, RevenueStruct } from "../class";
 
 export async function UpdateOrderStatus(transactionId:string,status:string):Promise<String|null>{
     try{
@@ -66,4 +66,14 @@ export async function GetRevenueRecords(sellerId:String):Promise<RevenueStruct[]
     console.error(err)
     return null;
   }
+}
+export async function GetCurrentWeekRevenueRecords(sellerId:string):Promise<DailyRevenueStruct|null>{
+    try{
+      const response=await axios.get(`http://localhost:8080/revenue/current/week/days?sellerId=${sellerId}`,{withCredentials:true})
+      console.log(response.data)
+      return response.data as DailyRevenueStruct
+    }catch(err){
+      console.error(err)
+      return null
+    }
 }

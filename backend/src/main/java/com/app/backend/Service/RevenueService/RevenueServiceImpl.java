@@ -1,7 +1,9 @@
 package com.app.backend.Service.RevenueService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,8 +47,14 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     @Override
-    public List<RevenueEntity> getRecordsDay(String sellerId, int dayOffset) {
-        return revenueRepo.getRevenueRecordOfDay(sellerId, dayOffset);
+    public Map<Integer, List<RevenueEntity>> getRecordsDay(String sellerId) {
+        Map<Integer, List<RevenueEntity>> recordlist = new HashMap<>();
+        for (int i = 0; i < 7; i++) {
+            var record = revenueRepo.getRevenueRecordOfDay(sellerId, i);
+            recordlist.put(i, record);
+
+        }
+        return recordlist;
     }
 
 }
