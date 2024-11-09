@@ -6,6 +6,8 @@ import { useAppSelector } from '@/app/redux/Store';
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
+import { GetPrevAndCurrentWeekRecords } from '../fetchers';
+
 interface ChartData{
     day:string
     "Total Revenue":number
@@ -14,6 +16,7 @@ const RevenueBarChartDisplay = () => {
    
     const [chartData,setChartData]=useState<ChartData[]>([])
     const {items}=useAppSelector((state)=>state.analytics)
+    const {items:user}=useAppSelector((state)=>state.userDetails)
     const fetchRevenueData=async()=>{
             
       if(items){
@@ -31,13 +34,17 @@ const RevenueBarChartDisplay = () => {
             const totalAmt=dailyRevenue.reduce((sum,record)=>sum+record.amount,0)
             return {day,"Total Revenue":totalAmt}
         })
-        console.log(chart);
+
         return chart
     }
+    const fetchPrevAndCurrentRevenue=async()=>{
+        const response=await GetPrevAndCurrentWeekRecords(user?.id??"");
+        response?console.log("your first record-> ",response[0].records):""
+    }
     useEffect(()=>{
-        
+        fetchPrevAndCurrentRevenue();
         fetchRevenueData()
-    },[items])
+    },[items,user])
    
     
     return (

@@ -11,7 +11,7 @@ export const FetchOrderRequest=createAsyncThunk<TransactionStruct[]|null,string>
    try{
     if(sellerId!=null){
         const response=await axios.get(`http://localhost:8080/transaction/seller/entries?seller_id=${sellerId}`,{withCredentials:true});
-       console.log("product entities-> ",response.data)
+
         return response.data
     }
    }catch(err){

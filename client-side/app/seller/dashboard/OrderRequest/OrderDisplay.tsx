@@ -27,9 +27,7 @@ const OrderDisplay = () => {
         '',
         ''
     ]
-   useEffect(()=>{
-    console.log("received items",orderRequests)
-   })
+  
   return (
     <div className='flex  w-full min-w-0 merriwheather'>
 

@@ -31,4 +31,12 @@ class DailyRevenueStruct{
         [key:number]:RevenueStruct[]
     
 }
+interface CurrAndPrevRevenueStruct {
+    [key:number]:{
+        records:{
+          [key:number]:RevenueStruct[]
+        }
+    }
+}
 export {CustomerStruct,RevenueStruct,DailyRevenueStruct}
+export type {CurrAndPrevRevenueStruct}

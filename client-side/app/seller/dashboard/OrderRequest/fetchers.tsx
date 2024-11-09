@@ -10,7 +10,7 @@ export async function UpdateOrderStatus(transactionId:string,status:string):Prom
             withCredentials:true,
           
         })
-        console.log(response.data)
+ 
         return response.data;
       }
       throw new Error("invalid form data")
@@ -49,7 +49,7 @@ export async function GetCustomerDetails(customerId:string):Promise<CustomerStru
 }
 export async function AddRevenueRecord(revenueDetails:RevenueStruct):Promise<String|null>{
   try{
-    console.log("revenue details-> ",revenueDetails)
+   
       const response=await axios.post(`http://localhost:8080/revenue/create`,revenueDetails,{withCredentials:true})
       console.log(response.data)
       return response.data;
@@ -70,7 +70,7 @@ export async function GetRevenueRecords(sellerId:String):Promise<RevenueStruct[]
 export async function GetCurrentWeekRevenueRecords(sellerId:string):Promise<DailyRevenueStruct|null>{
     try{
       const response=await axios.get(`http://localhost:8080/revenue/current/week/days?sellerId=${sellerId}`,{withCredentials:true})
-      console.log(response.data)
+
       return response.data as DailyRevenueStruct
     }catch(err){
       console.error(err)
