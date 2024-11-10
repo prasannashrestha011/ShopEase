@@ -49,6 +49,9 @@ public class ProductEntity {
     @Column(nullable = false, name = "updated_at")
     private Date updatedAt;
 
+    @Column(nullable = false, name = "category")
+    private String productCategory;
+
     @PrePersist
     protected void OnCreated() {
         productId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);

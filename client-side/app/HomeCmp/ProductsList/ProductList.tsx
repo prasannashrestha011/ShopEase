@@ -45,7 +45,7 @@ const ProductList = () => {
               </CardHeader>
               <CardContent>
                 <p>
-                  <img src={`${item.productImages[0]}`} className='w-60   rounded-sm' alt='product image'/>
+                  <img src={`${item.productImages[0]}`} className='w-56 h-40 object-cover  rounded-sm' alt='product image'/>
                 </p>
               </CardContent>
               <CardFooter className='flex justify-between'>

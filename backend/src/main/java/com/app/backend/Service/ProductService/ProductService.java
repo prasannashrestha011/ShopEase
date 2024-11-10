@@ -9,7 +9,7 @@ import com.app.backend.Entities.ProductEntity;
 public interface ProductService {
     ProductEntity getProductById(String product_id);
 
-    ProductEntity getProductByName(String product_name);
+    List<ProductEntity> getProductByName(String product_name);
 
     String createProduct(ProductEntity productEntity, List<MultipartFile> file, String sellerId);
 

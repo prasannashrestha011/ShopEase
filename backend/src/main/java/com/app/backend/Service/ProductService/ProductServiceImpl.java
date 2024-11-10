@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.Entities.ProductEntity;
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity getProductByName(String product_name) {
+    public List<ProductEntity> getProductByName(String product_name) {
         ProductEntity product = productRepo.findProductByProductName(product_name);
         if (product != null)
             return product;

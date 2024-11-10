@@ -11,7 +11,7 @@ const UploadDisplay = () => {
   const [productList,setProductList]=useState<ProductStruct[]>([])
   const {items,loading,error}=useAppSelector((state)=>state.userDetails);
   const addProductList=()=>{
-    const newProduct=new ProductStruct("",0,"","",[])
+    const newProduct=new ProductStruct("",0,"",[],"")
     setProductList(prevList=>[...prevList,newProduct])
   }
   const handleValueChange=(e:ChangeEvent<HTMLInputElement>,idx:number,field:keyof ProductStruct)=>{
@@ -54,6 +54,11 @@ const UploadDisplay = () => {
             <label className='ml-2'>Product Description</label>
             <Input className='w-80' type='text' placeholder='Product Description $'
               onChange={(e)=>handleValueChange(e,idx,'productDes')}/>
+          </section>
+          <section>
+          <label className='ml-2'>Category</label>
+          <Input className='w-80' type='text' placeholder='Product Description $'
+              onChange={(e)=>handleValueChange(e,idx,'productCategory')}/>
           </section>
           <section className='flex flex-col'>
             <header>Images of products (atleast 4)</header>

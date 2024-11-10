@@ -2,14 +2,16 @@ class ProductStruct{
     productName:string;
     productPrice:number;
     productDes:string;
-    retailer:string;
+
     productImages:File[];
-    constructor(product_name:string,product_price:number,productDes:string,retailer:string,product_image:File[]){
+    productCategory:string
+    constructor(product_name:string,product_price:number,productDes:string,product_image:File[],productCategory:string){
         this.productName=product_name;
         this.productPrice=product_price;
         this.productDes=productDes;
-        this.retailer=retailer;
+      
         this.productImages=product_image;
+        this.productCategory=productCategory
     }
 }
 class ProductInfo{
@@ -21,7 +23,8 @@ class ProductInfo{
     productImages:string[];
     createdAt:Date | null;
     updatedAt:Date |null;
-    constructor(product_id:string,product_name:string,product_price:number,productDes:string,sellerId:string,product_images:string[],created_at:Date,updated_at:Date){
+    productCategory:string
+    constructor(product_id:string,product_name:string,product_price:number,productDes:string,sellerId:string,product_images:string[],created_at:Date,updated_at:Date,productCategory:string){
         this.productId=product_id;
         this.productName=product_name;
         this.productPrice=product_price;
@@ -30,7 +33,7 @@ class ProductInfo{
         this.productImages=product_images;
         this.createdAt=created_at;
         this.updatedAt=updated_at
-      
+        this.productCategory=productCategory
     }
 }
 export  {ProductStruct,ProductInfo}

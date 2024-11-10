@@ -43,6 +43,12 @@ public class ProductsController {
         return ResponseEntity.internalServerError().body(null);
     }
 
+    @GetMapping("/name")
+    public ResponseEntity<List<ProductEntity>> getProductByName(
+            @RequestParam(value = "productName") String productName) {
+
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createNewProduct(
             @RequestPart("productEntities") List<ProductEntity> productEntities,
@@ -52,8 +58,8 @@ public class ProductsController {
         String response = "";
         for (ProductEntity productEntity : productEntities) {
 
-            logger.info("Received product entity: Name = {}",
-                    productEntity.getProductName());
+            logger.info("Received product entity: Name = {} {}",
+                    productEntity.getProductName(), productEntity.getProductCategory());
             var key = String.format("productImages[%d]", count);
             var files = productImages.get(key);
 
