@@ -4,7 +4,7 @@ import axios from "axios";
 import { ProductDataState } from "../types/DataState";
 const initialState:ProductDataState={
     items:[],
-    loading:false,
+    loading:true,
     error:null
 }
 export const FetchProductList=createAsyncThunk<ProductInfo[]|null,void>('/fetch/products',

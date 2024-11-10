@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
-import { DailyRevenueStruct } from '../class';
+import { ChartData, DailyRevenueStruct } from '../../class';
 
 import { useAppSelector } from '@/app/redux/Store';
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { CircleSpinner } from 'react-spinners-kit';
+import { Skeleton } from '@/components/ui/skeleton';
 
-import { GetPrevAndCurrentWeekRecords } from '../fetchers';
 
-interface ChartData{
-    day:string
-    "Total Revenue":number
-}
+
+
 const RevenueBarChartDisplay = () => {
    
     const [chartData,setChartData]=useState<ChartData[]>([])
-    const {items}=useAppSelector((state)=>state.analytics)
+    const {items , loading}=useAppSelector((state)=>state.analytics)
     const {items:user}=useAppSelector((state)=>state.userDetails)
     const fetchRevenueData=async()=>{
             
@@ -37,28 +36,39 @@ const RevenueBarChartDisplay = () => {
 
         return chart
     }
-    const fetchPrevAndCurrentRevenue=async()=>{
-        const response=await GetPrevAndCurrentWeekRecords(user?.id??"");
-        response?console.log("your first record-> ",response[0].records):""
-    }
+    
     useEffect(()=>{
-        fetchPrevAndCurrentRevenue();
+       
         fetchRevenueData()
     },[items,user])
+
+    if(loading && items===null){
+      return(
+        <div  className="flex flex-col space-y-3 h-96 w-8/12">
+      
+      <Skeleton className="h-full w-full rounded-xl bg-gray-600" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px] bg-gray-600" />
+    
+      </div>
    
+        </div>
+      )
+      
+    }
     
     return (
-        <div className="md:w-8/12 w-full h-full md:h-96 border border-gray-200 p-4">
+        <div className="md:w-8/12 w-full h-96 md:h-96 border border-gray-200 p-4">
             <header className='mx-auto w-fit font-bold'>Current Week sales</header>
         {chartData&&(
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width={720} height="100%">
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="day" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="Total Revenue" fill="#8884d8" barSize={40} />
+              <Bar dataKey="Total Revenue" fill="#3223FA" barSize={40} />
             </BarChart>
           </ResponsiveContainer>
         )}

@@ -27,6 +27,7 @@ const HomeDisplay = () => {
       <section className='md:w-4/12 w-5/6 mb-4'>
         <Input placeholder='Search your product' className=' yatraone '/>
       </section>
+      
         <main>
          
       <ProductList/>

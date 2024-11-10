@@ -79,7 +79,7 @@ public class RevenueServiceImpl implements RevenueService {
         // for current week
         Map<Integer, List<RevenueEntity>> currentRecords = new HashMap<>();
         for (int i = 0; i < 7; i++) {
-            var record = revenueRepo.getPrevWeekDailyRecords(sellerId, i);
+            var record = revenueRepo.getCurrentWeekDailyRecords(sellerId, i);
             currentRecords.put(i, record);
         }
         currentRecordMap.setRecords(currentRecords);
@@ -87,6 +87,11 @@ public class RevenueServiceImpl implements RevenueService {
         aggregateRecordMap.put(0, prevRecordMap);
         aggregateRecordMap.put(1, currentRecordMap);
         return aggregateRecordMap;
+    }
+
+    @Override
+    public Long getTotalRevenueAmount(String sellerId) {
+        return revenueRepo.GetTotalRevenueAmount(sellerId);
     }
 
 }

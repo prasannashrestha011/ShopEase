@@ -54,4 +54,7 @@ public interface RevenueRepository extends JpaRepository<RevenueEntity, String> 
         @Transactional
         @Query("Update RevenueEntity t SET t.amount=t.amount + ?3 WHERE FUNCTION('DATE',t.createdAt)=FUNCTION('DATE',?2) AND t.sellerId=?1")
         int UpdateRevenueRecord(String sellerId, Date createdAt, Long amount);
+
+        @Query("SELECT SUM(amount) FROM RevenueEntity r WHERE r.sellerId=?1")
+        Long GetTotalRevenueAmount(String sellerId);
 }

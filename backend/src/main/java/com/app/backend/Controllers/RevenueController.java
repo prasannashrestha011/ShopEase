@@ -15,12 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.backend.App_class.RevenueRecordByDay;
 import com.app.backend.Entities.RevenueEntity;
 import com.app.backend.Responses.ApiResponse;
 import com.app.backend.Service.RevenueService.RevenueServiceImpl;
-
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 @RestController
 @RequestMapping("/revenue")
@@ -100,6 +97,18 @@ public class RevenueController {
         }
     }
 
+    @GetMapping("/total/amount")
+    public ResponseEntity<Object> getTotalAmount(@RequestParam(value = "sellerId") String sellerId) {
+        try {
+            var totalRevenue = revenueServiceImpl.getTotalRevenueAmount(sellerId);
+            if (totalRevenue == null)
+                throw new Exception("Your revenue is zero!!");
+            return ResponseEntity.ok().body(Map.of("totalAmount", totalRevenue));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createNewRecord(@RequestBody RevenueEntity revenueEntity) {
         try {
@@ -118,5 +127,6 @@ public class RevenueController {
             ApiResponse responseErr = new ApiResponse(e.getMessage());
             return ResponseEntity.internalServerError().body(responseErr);
         }
+
     }
 }

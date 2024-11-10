@@ -38,5 +38,14 @@ interface CurrAndPrevRevenueStruct {
         }
     }
 }
+interface ChartData{
+    day:string
+    "Total Revenue":number
+}
+interface PrevAndCurrentStruct{
+    day:string,
+    prev:number,
+    current:number
+}
 export {CustomerStruct,RevenueStruct,DailyRevenueStruct}
-export type {CurrAndPrevRevenueStruct}
+export type {CurrAndPrevRevenueStruct,ChartData,PrevAndCurrentStruct}

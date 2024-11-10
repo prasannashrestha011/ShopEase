@@ -21,4 +21,6 @@ public interface RevenueService {
 
     String UpdateRevenueRecord(RevenueEntity revenueEntity);
 
+    Long getTotalRevenueAmount(String sellerId);
+
 }

@@ -5,7 +5,7 @@ import { retry } from '@reduxjs/toolkit/query';
 import { UserDataState } from '../types/DataState';
 const initialState:UserDataState={
     items:null,
-    loading:false,
+    loading:true,
     error:null 
 }
 export const FetchUserDetails=createAsyncThunk<UserStruct|null,void>('/fetch/data',

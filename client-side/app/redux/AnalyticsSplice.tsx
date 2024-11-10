@@ -4,7 +4,7 @@ import { AnalyticsState } from "../types/DataState";
 
 const initialState:AnalyticsState={
     items:null,
-    loading:false,
+    loading:true,
     error:null
 }
 export const FetchAnalyticData=createAsyncThunk('/fetch/analytics',async(sellerId:string)=>{

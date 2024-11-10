@@ -4,6 +4,7 @@ import { useAppSelector } from '@/app/redux/Store'
 import { Table,TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import CustomerDisplay from './CustomerDisplay'
 
+import { CircleSpinner } from 'react-spinners-kit';
 interface customerActionProp{
     customerId:string,
     transactionId:string,
@@ -12,8 +13,8 @@ interface customerActionProp{
 }
 const OrderDisplay = () => {
   
-    const {items : orderRequests}=useAppSelector((state)=>state.orderRequests)
-    const [error,setError]=useState<string>("")
+    const {items : orderRequests,loading}=useAppSelector((state)=>state.orderRequests)
+  
     const [isCheckDetails,setIsCheckDetails]=useState<boolean>(false)
     const [customerDetails,setCustomderDetails]=useState<customerActionProp>()
    
@@ -27,6 +28,11 @@ const OrderDisplay = () => {
         '',
         ''
     ]
+    if(loading){
+        return(
+            <CircleSpinner size={50} color="#00BFFF" />
+        )
+    }
   
   return (
     <div className='flex  w-full min-w-0 merriwheather'>

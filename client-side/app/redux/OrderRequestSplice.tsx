@@ -4,7 +4,7 @@ import axios from "axios";
 import { OrderRequestsState } from "../types/DataState";
 const initialState:OrderRequestsState={
     items:[],
-    loading:false,
+    loading:true,
     error:null
 }
 export const FetchOrderRequest=createAsyncThunk<TransactionStruct[]|null,string>('/fetch/orderrequest',async(sellerId:string)=>{
