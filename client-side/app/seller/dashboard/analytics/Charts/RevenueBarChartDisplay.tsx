@@ -58,10 +58,10 @@ const RevenueBarChartDisplay = () => {
     }
     
     return (
-        <div className="md:w-8/12 w-full h-96 md:h-96 border border-gray-200 p-4">
-            <header className='mx-auto w-fit font-bold'>Current Week sales</header>
+        <div className="md:w-8/12 w-full h-96 md:h-96 border border-gray-200  shadow-lg">
+            <header className='w-full bg-blue-600 text-slate-50 p-2 flex justify-center '>Current Week sales</header>
         {chartData&&(
-            <ResponsiveContainer width={720} height="100%">
+            <ResponsiveContainer width={720} height="100%" className="p-2">
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="day" />

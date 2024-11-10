@@ -50,8 +50,10 @@ const PreAndCurrentComparison = () => {
       )
      }
   return (
-    <div className='border'>
-      <header className='font-bold  ml-10 mb-2 mt-2'> Sales: Previous Week vs Current Week</header>
+    <div className=' shadow-md'>
+     
+      <div className=' shadow-lg w-fit mb-2 border '>
+      <header className='mx-auto w-full p-2 bg-blue-600 text-slate-50 justify-center flex '> Sales: Previous Week vs Current Week</header>
       <LineChart width={660} height={300} data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
       <CartesianGrid strokeDasharray={"3 3"}/>
       <XAxis dataKey={"day"}/>
@@ -61,6 +63,7 @@ const PreAndCurrentComparison = () => {
       <Line type={"monotone"} dataKey={"prev"} stroke="#FA2339"/>
       <Line type={"monotone"} dataKey={"current"} stroke="#3223FA"/>
       </LineChart>
+      </div>
     </div>
   )
 }

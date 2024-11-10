@@ -40,24 +40,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String createProduct(ProductEntity productEntity,
-            MultiValueMap<String, MultipartFile> files, String sellerId) {
-        logger.info("File size {}", files.size());
+            List<MultipartFile> files, String sellerId) {
+
         List<String> productImages = new ArrayList<String>();
-        for (Map.Entry<String, List<MultipartFile>> file : files.entrySet()) {
-            if (productEntity != null) {
 
-                var imageList = file.getValue(); // Assign file.getValue() to imageList, which is List<MultipartFile>
-                for (MultipartFile multipartFile : imageList) {
-                    if (!"blob".equals(multipartFile.getOriginalFilename())) {
-                        logger.info("uploaded file name {}", multipartFile.getOriginalFilename());
-                        Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(multipartFile);
-                        productImages.add(fileInfo.get("secure_url").toString());
-                    }
+        if (productEntity != null) {
 
+            for (MultipartFile multipartFile : files) {
+                if (!"blob".equals(multipartFile.getOriginalFilename())) {
+                    logger.info("uploaded file name {}", multipartFile.getOriginalFilename());
+                    Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(multipartFile);
+                    productImages.add(fileInfo.get("secure_url").toString());
                 }
 
             }
+
         }
+
         productEntity.setProductImages(productImages);
         productEntity.setSellerId(sellerId);
         productRepo.save(productEntity);

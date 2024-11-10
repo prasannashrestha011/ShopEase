@@ -50,7 +50,7 @@ const OrderDisplay = () => {
         <TableBody>
         
                 {orderRequests&&orderRequests.map((order,idx)=>(
-                     <TableRow key={idx} className='bg-gradient-to-b border-none  from-[#FCF3F3] to-[#fff6f6] hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' >
+                     <TableRow key={idx} className='bg-gradient-to-b border-none  bg-slate-100 hover:from-[#EBE8E8] hover:to-[#CCC9C9] text-black ' >
                     <TableCell className='truncate' >{order.transactionId}</TableCell>
                     <TableCell className='truncate'>{order.productName}</TableCell>
                     <TableCell className='truncate'>{order.productQuantity}</TableCell>

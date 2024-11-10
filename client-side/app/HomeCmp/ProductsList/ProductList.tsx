@@ -1,13 +1,14 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store';
 import { addChart } from '@/app/redux/ChartDataSplice';
+import { Skeleton } from '@/components/ui/skeleton';
 const ProductList = () => {
     const router=useRouter()
-    const {items}=useAppSelector((state)=>state.productList)
+    const {items,loading}=useAppSelector((state)=>state.productList)
     const dispatcher=useAppDispatch();
     const addItemToChart=(productId:string,productName:string)=>{
       dispatcher(addChart({productId,productName}))
@@ -16,7 +17,21 @@ const ProductList = () => {
       console.log(product_id);
       router.push(`/product/order/${product_id}`)
     }
-
+    if(loading){
+      return(
+        <div className='grid grid-cols-3 md:gap-4 '>
+      {Array(6).fill("empty").map((_,idx)=>(
+        
+        <div className='flex flex-col gap-2'>
+          <Skeleton key={idx} className='bg-gray-500 w-72 h-48'/>
+       
+          <Skeleton className='h-8 w-60 bg-gray-500'/>  
+        
+        </div>
+      ))}
+        </div>
+      )
+    }
   return (
  
        <ul className='grid md:grid-cols-4 md:gap-4 gap-2 yatraone'>

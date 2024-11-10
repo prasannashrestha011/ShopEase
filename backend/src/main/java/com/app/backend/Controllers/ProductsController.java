@@ -48,41 +48,25 @@ public class ProductsController {
             @RequestPart("productEntities") List<ProductEntity> productEntities,
             @RequestParam MultiValueMap<String, MultipartFile> productImages,
             @RequestParam(value = "seller_id") String sellerId) {
-
+        int count = 0;
+        String response = "";
         for (ProductEntity productEntity : productEntities) {
-            logger.info("Received product entity: Name = {}, Price = {}, Retailer = {}",
-                    productEntity.getProductName(),
-                    productEntity.getProductPrice(),
-                    productEntity.getSellerId());
-        }
-        for (Map.Entry<String, List<MultipartFile>> file : productImages.entrySet()) {
-            var fileList = file.getValue();
-            for (var fileInfo : fileList) {
-                if (!"blob".equals(fileInfo.getOriginalFilename())) {
-                    logger.info("file->name {}", fileInfo.getOriginalFilename());
-                    logger.info("file content type->{}", fileInfo.getContentType());
-                    logger.info("file size ->{}", fileInfo.getSize());
-                }
+
+            logger.info("Received product entity: Name = {}",
+                    productEntity.getProductName());
+            var key = String.format("productImages[%d]", count);
+            var files = productImages.get(key);
+
+            for (var file : files) {
+                logger.info("product Image file name {}", file.getOriginalFilename());
             }
+            response = productService.createProduct(productEntity, files, sellerId);
+            count++;
+
         }
+        ApiResponse apiResponse = new ApiResponse(response);
+        return ResponseEntity.ok().body(apiResponse);
 
-        if (productEntities != null && productImages != null) {
-
-            String response = null;
-            for (int i = 0; i < productEntities.size(); i++) {
-                {
-                    ProductEntity product = productEntities.get(i);
-
-                    response = productService.createProduct(product, productImages, sellerId);
-
-                }
-
-            }
-            ApiResponse apiResponse = new ApiResponse(response);
-            return ResponseEntity.ok().body(apiResponse);
-        }
-        ApiResponse apiResponse = new ApiResponse("invalid product info!!");
-        return ResponseEntity.badRequest().body(apiResponse);
     }
 
     @GetMapping("/list")
