@@ -4,6 +4,8 @@ import ProductListReducer from './ProductDataSplice'
 import ChartListReducer from './ChartDataSplice'
 import OrderRequestsReducer from './OrderRequestSplice'
 import AnalyticsReducer from './AnalyticsSplice'
+import OrderDetailsReducer from './OrderDetailSplice'
+
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 const Store=configureStore({
     reducer:{
@@ -11,7 +13,8 @@ const Store=configureStore({
         'userDetails':UserDetailsReducer,
         'productList':ProductListReducer,
         'orderRequests':OrderRequestsReducer,
-        'analytics':AnalyticsReducer
+        'analytics':AnalyticsReducer,
+        'orderDetails':OrderDetailsReducer,
     }
 })
 export type RootState=ReturnType<typeof Store.getState>

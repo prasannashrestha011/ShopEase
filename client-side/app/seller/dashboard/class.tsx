@@ -1,15 +1,21 @@
 class CustomerStruct{
-    id:string
+    customerId:string
+    userImage:string
     username:string
     email:string
     contactNumber:number
     address:string
-    constructor(id:string,username:string,email:string,contactNumber:number,address:string){
-        this.id=id;
+    postalCode:number
+    province:string
+    constructor(customerId:string,userImage:string,username:string,email:string,contactNumber:number,address:string,postalCode:number,province:string){
+        this.customerId=customerId;
+        this.userImage=userImage
         this.username=username;
         this.email=email;
         this.contactNumber=contactNumber;
         this.address=address
+        this.postalCode=postalCode
+        this.province=province
     }
 }
 class RevenueStruct{
@@ -47,5 +53,12 @@ interface PrevAndCurrentStruct{
     prev:number,
     current:number
 }
+interface OrderDetailsStruct{
+    customerId:string,
+    transactionId:string,
+    status:string,
+    amount:number
+}
+
 export {CustomerStruct,RevenueStruct,DailyRevenueStruct}
-export type {CurrAndPrevRevenueStruct,ChartData,PrevAndCurrentStruct}
+export type {CurrAndPrevRevenueStruct,ChartData,PrevAndCurrentStruct,OrderDetailsStruct}

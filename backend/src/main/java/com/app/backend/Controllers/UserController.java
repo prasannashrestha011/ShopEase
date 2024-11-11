@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.backend.App_class.CustomerDetails;
 import com.app.backend.Entities.UserDto;
 import com.app.backend.Entities.UserEntity;
 import com.app.backend.Service.UserService.UserServiceImpl;
@@ -51,4 +53,16 @@ public class UserController {
         return ResponseEntity.badRequest().body(null);
     }
 
+    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("/customer/details")
+    public ResponseEntity<Object> getCustomerDetails(@RequestParam(value = "customerId") String customerId) {
+        try {
+            var response = userServiceImpl.getCustomerDetailsById(customerId);
+            if (response == null)
+                throw new Exception("customer not found");
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }

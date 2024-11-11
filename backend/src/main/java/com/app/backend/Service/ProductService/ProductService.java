@@ -1,6 +1,7 @@
 package com.app.backend.Service.ProductService;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ public interface ProductService {
 
     List<ProductEntity> getProductByName(String product_name);
 
-    String createProduct(ProductEntity productEntity, List<MultipartFile> file, String sellerId);
+    CompletableFuture<String> createProduct(ProductEntity productEntity, List<MultipartFile> file, String sellerId);
 
     List<ProductEntity> getAllProducts();
 

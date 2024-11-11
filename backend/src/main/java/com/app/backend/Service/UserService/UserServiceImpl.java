@@ -1,12 +1,14 @@
 package com.app.backend.Service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.app.backend.App_class.CustomerDetails;
 import com.app.backend.Entities.UserEntity;
 import com.app.backend.Repositories.UserServiceRepository;
 
@@ -53,6 +55,24 @@ public class UserServiceImpl implements UserService {
     public UserEntity findUserById(String userId) throws UsernameNotFoundException {
         return userServiceRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + userId));
+    }
+
+    @Override
+    public CustomerDetails getCustomerDetailsById(String customerId) {
+        Optional<UserEntity> userDetails = userServiceRepository.findById(customerId);
+        if (userDetails.isPresent()) {
+            UserEntity user = userDetails.get();
+            CustomerDetails customerDetails = new CustomerDetails(user.getId(),
+                    user.getUserImage(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getContactNumber(),
+                    user.getAddress(),
+                    user.getPostalCode(),
+                    user.getProvince());
+            return customerDetails;
+        }
+        return null;
     }
 
 }

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -32,37 +35,69 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> getProductByName(String product_name) {
-        ProductEntity product = productRepo.findProductByProductName(product_name);
-        if (product != null)
-            return product;
-        return null;
+        List<ProductEntity> product = productRepo.findProductByProductName(product_name);
+        if (product.isEmpty()) {
+            var alternateProduct = productRepo.findProductByProductCategory(product_name);
+            return !alternateProduct.isEmpty() ? alternateProduct : null;
+        }
+        return product;
     }
 
+    // ## product Thread ##//
     @Override
-    public String createProduct(ProductEntity productEntity,
-            List<MultipartFile> files, String sellerId) {
+    public CompletableFuture<String> createProduct(ProductEntity productEntity, List<MultipartFile> files,
+            String sellerId) {
+        try {
+            List<String> productImages = new ArrayList<>();
 
-        List<String> productImages = new ArrayList<String>();
+            if (productEntity != null) {
+                for (MultipartFile multipartFile : files) {
+                    logger.info("before -> {} {}", multipartFile.getSize());
+                    if (!"blob".equals(multipartFile.getOriginalFilename())) {
+                        logger.info("File received: {} with size: {}", multipartFile.getOriginalFilename(),
+                                multipartFile.getSize());
 
-        if (productEntity != null) {
+                        if (multipartFile.isEmpty()) {
+                            logger.warn("MultipartFile is empty");
+                            continue;
+                        }
 
-            for (MultipartFile multipartFile : files) {
-                if (!"blob".equals(multipartFile.getOriginalFilename())) {
-                    logger.info("uploaded file name {}", multipartFile.getOriginalFilename());
-                    Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(multipartFile);
-                    productImages.add(fileInfo.get("secure_url").toString());
+                        // Convert MultipartFile to byte array
+                        byte[] fileBytes = multipartFile.getBytes();
+
+                        // handle File upload
+                        CompletableFuture<String> uploadResult = createProductAsync(fileBytes, sellerId);
+
+                        // stores file url
+                        productImages.add(uploadResult.get());
+                    }
                 }
-
             }
 
+            productEntity.setProductImages(productImages);
+            productEntity.setSellerId(sellerId);
+            productRepo.save(productEntity);
+            return CompletableFuture.completedFuture(productEntity.getProductName() + " has been added ");
+        } catch (Exception e) {
+            logger.error("Error creating product", e);
+            return CompletableFuture.completedFuture("Error occurred while creating product.");
         }
-
-        productEntity.setProductImages(productImages);
-        productEntity.setSellerId(sellerId);
-        productRepo.save(productEntity);
-        return productEntity.getProductName() + " has been added ";
-
     }
+
+    @Async
+    public CompletableFuture<String> createProductAsync(byte[] fileBytes, String sellerId) {
+        try {
+
+            Map<String, Object> fileInfo = cloudinaryImageService.uploadImage(fileBytes);
+            String fileUrl = fileInfo.get("secure_url").toString();
+
+            return CompletableFuture.completedFuture(fileUrl);
+        } catch (Exception e) {
+            logger.error("Error uploading file in async thread", e);
+            return CompletableFuture.completedFuture("Error occurred while uploading file.");
+        }
+    }
+    // ## product Thread ##//
 
     @Override
     public List<ProductEntity> getAllProducts() {

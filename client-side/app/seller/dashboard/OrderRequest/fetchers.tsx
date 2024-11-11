@@ -39,7 +39,7 @@ export async function UpdateEntryReadStatus(transactionId:string):Promise<String
 }
 export async function GetCustomerDetails(customerId:string):Promise<CustomerStruct|null>{
   try{
-    const response=await axios.get(`http://localhost:8080/user/details?id=${customerId}`,{withCredentials:true})
+    const response=await axios.get(`http://localhost:8080/user/customer/details?customerId=${customerId}`,{withCredentials:true})
     return response.data;
   }catch(err){
     console.error(err)

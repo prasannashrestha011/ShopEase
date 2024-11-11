@@ -41,7 +41,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public List<TransactionEntity> getEntiresBysellerId(String sellerId) {
         if (sellerId != null) {
-            var transactionList = transactionRepo.findBySellerId(sellerId);
+            var transactionList = transactionRepo.findBySellerIdOrderByCreatedAtDesc(sellerId);
             return transactionList;
         }
         return null;
@@ -72,4 +72,5 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
         return null;
     }
+
 }

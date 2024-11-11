@@ -1,76 +1,72 @@
 import React, { useEffect, useState } from 'react'
 import { AddRevenueRecord, GetCustomerDetails, UpdateEntryReadStatus, UpdateOrderStatus } from './fetchers'
 import { CustomerStruct, RevenueStruct } from '../class'
-import { FaCheck, FaTimes } from 'react-icons/fa'
-import { Button } from '@/components/ui/button'
+
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
 import { FetchOrderRequest } from '@/app/redux/OrderRequestSplice'
+
+import { Drawer,Box } from '@mui/material'
+
 interface Props{
-    customerId:string,
-    transactionId:string,
-    status:string,
-    amount:number
+  isCheckDetails:boolean,
+  setIsCheckDetails:(isCheckDetails:boolean)=>void
 }
-const CustomerDisplay:React.FC<Props> = ({customerId,transactionId,status,amount}) => {
-    const [customerDetails,setCustomerDetails]=useState<CustomerStruct|null>(null)
-    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
-    const [orderStatus,setOrderStatus]=useState<string>(status??"pending")
-    const fetchCustomerDetails=async()=>{
-        const response=await GetCustomerDetails(customerId);
-        setCustomerDetails(response)
+const CustomerDisplay:React.FC<Props> = ({isCheckDetails,setIsCheckDetails}) => {
+  const dispatcher=useAppDispatch()
+
+  const {items:orderDetails}=useAppSelector((state)=>state.orderDetails)
+  const {items:userDetails}=useAppSelector((state)=>state.userDetails)
+
+  const [customerDetails,setCustomerDetails]=useState<CustomerStruct|null>(null)
+  const fetchCustomerDetails=async()=>{
+    if(orderDetails?.customerId){
+      const customerData=await GetCustomerDetails(orderDetails.customerId);
+      customerData!=null?setCustomerDetails(customerData):""
+
     }
-    const handleOrderStatus=async(transactionId:string,status:string)=>{
-      await UpdateOrderStatus(transactionId,status);
-      if(status=="approved"){
-        handleRevenueSubmit()
+  }
+  const handleOrderStatus=async(status:string)=>{
+    if(orderDetails?.transactionId){
+
+      await UpdateOrderStatus(orderDetails?.transactionId,status)
+
+      if(status=="approved" && userDetails && orderDetails){
+        const RevenueDetails=new RevenueStruct("",userDetails.id,orderDetails?.transactionId,orderDetails?.amount,null);
+        await AddRevenueRecord(RevenueDetails)
       }
-      setOrderStatus(status)
+      await UpdateEntryReadStatus(orderDetails.transactionId)
+      dispatcher(FetchOrderRequest(orderDetails?.transactionId))
+      
     }
-    const handleRevenueSubmit=async()=>{
-     if(userDetails){
-      const RevenueDetails= new RevenueStruct("",userDetails?.id,transactionId,amount,null)
-      await AddRevenueRecord(RevenueDetails)
-     }
-       
-    }
-    useEffect(()=>{
-        UpdateEntryReadStatus(transactionId)
-        fetchCustomerDetails()
-    },[status])
+   
+  }
+ useEffect(()=>{
+  fetchCustomerDetails()
+ },[])
   return (
     <div className='ml-2 h-full'>
-      {customerDetails &&(
-        <div className=' h-full flex flex-col justify-between'>
-        <header className='mt-2 ml-2'>{customerDetails.username}</header>
-        <main className='flex flex-col gap-2 justify-between '>
-            <main>
-              <header className='mb-2'>Details:</header>
-            <section> Email-   {customerDetails.email}</section>
-            <section> Phone number-   {customerDetails.contactNumber}</section>
-            <section> Full Address-   {customerDetails.address}</section>
-            </main>
-          
-        </main>
-        <footer>
-        <section className='ml-4 mb-4 '> 
-          {orderStatus=="pending" &&(
-            <>
-            <Button className='bg-gradient-to-t from-[#4C600B] to-[#FF6363] hover:from[#FF7777] hover:to-[#546617]' size={'sm'} onClick={()=>handleOrderStatus(transactionId??"","approved")} ><FaCheck/></Button>
-            <Button className='bg-gradient-to-b from-[#FCA5A5] to-[#F40303] rounded-sm ' size={'sm'} onClick={()=>handleOrderStatus(transactionId??"","rejected")}><FaTimes/></Button>
-          </>
-          )}
-            {orderStatus=="approved"&&(
-              <button className='bg-green-500 p-2 cursor-pointer text-slate-200 active:scale-90 border-r-2 border-b-2 border-green-800 '>Approved</button>
-            )}
-            {
-              orderStatus=="rejected"&&(
-                <button className='bg-red-500 p-2 cursor-pointer text-slate-200 active:scale-90 border-r-2 border-b-2 border-red-800 '>Rejected</button>
-              )
-            }
-           </section>
-        </footer>
-        </div>
-      )}
+                        <Drawer
+                        anchor='bottom'
+                        open={isCheckDetails}
+                        onClose={()=>setIsCheckDetails(false)}
+                        ModalProps={{
+                            BackdropProps: {
+                              sx: {
+                                backgroundColor: 'transparent', // Set your desired backdrop color and opacity
+                              },
+                            },
+                          }}
+                        >
+             <Box p={2} height={"480px"} width={400} textAlign={"center"}>
+                <div className='flex flex-col gap-2'>
+                <span>{orderDetails?.transactionId}</span>
+                <span>{customerDetails?.province}</span>
+                {orderDetails?.status=="pending"&&<button onClick={()=>handleOrderStatus("approved")}>Approve</button>}
+                {orderDetails?.status=="approved"&&<button>Order has been approved</button>}
+                {orderDetails?.status=="rejected"&&<button>Order has been rejected</button>}
+                </div>
+              </Box>               
+      </Drawer>
     </div>
   )
 }

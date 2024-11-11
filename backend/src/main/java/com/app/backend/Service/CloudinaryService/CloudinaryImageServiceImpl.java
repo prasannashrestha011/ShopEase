@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 
@@ -17,11 +16,11 @@ public class CloudinaryImageServiceImpl implements CloudinaryImageService {
     Map<String, Object> options = new HashMap<String, Object>();
 
     @Override
-    public Map<String, Object> uploadImage(MultipartFile image) {
+    public Map<String, Object> uploadImage(byte[] image) {
         try {
 
             options.put("folder", "product_images");
-            Map<String, Object> response = cloudinary.uploader().upload(image.getBytes(), options);
+            Map<String, Object> response = cloudinary.uploader().upload(image, options);
             return response;
         } catch (IOException e) {
             throw new RuntimeException(e);

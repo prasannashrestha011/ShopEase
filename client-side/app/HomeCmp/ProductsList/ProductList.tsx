@@ -19,8 +19,8 @@ const ProductList = () => {
     }
     if(loading){
       return(
-        <div className='grid grid-cols-3 md:gap-4 '>
-      {Array(6).fill("empty").map((_,idx)=>(
+        <div className='grid grid-cols-4 md:gap-4 '>
+      {Array(8).fill("empty").map((_,idx)=>(
         
         <div className='flex flex-col gap-2'>
           <Skeleton key={idx} className='bg-gray-500 w-72 h-48'/>

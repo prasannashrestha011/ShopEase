@@ -1,7 +1,11 @@
 package com.app.backend.Controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.Entities.ProductEntity;
-import com.app.backend.Responses.ApiResponse;
+
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
 import com.app.backend.Service.ProductService.ProductServiceImpl;
 
@@ -44,18 +48,24 @@ public class ProductsController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<ProductEntity>> getProductByName(
-            @RequestParam(value = "productName") String productName) {
-
+    public ResponseEntity<Object> getProductByName(@RequestParam(value = "productName") String productName) {
+        try {
+            var productList = productService.getProductByName(productName);
+            if (productList.isEmpty())
+                throw new Exception("Product not found!!");
+            return ResponseEntity.ok().body(productList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createNewProduct(
+    public ResponseEntity<Object> createNewProduct(
             @RequestPart("productEntities") List<ProductEntity> productEntities,
             @RequestParam MultiValueMap<String, MultipartFile> productImages,
             @RequestParam(value = "seller_id") String sellerId) {
         int count = 0;
-        String response = "";
+        CompletableFuture<String> response = null;
         for (ProductEntity productEntity : productEntities) {
 
             logger.info("Received product entity: Name = {} {}",
@@ -70,8 +80,8 @@ public class ProductsController {
             count++;
 
         }
-        ApiResponse apiResponse = new ApiResponse(response);
-        return ResponseEntity.ok().body(apiResponse);
+
+        return ResponseEntity.ok().body(Map.of("message", response));
 
     }
 
@@ -85,9 +95,10 @@ public class ProductsController {
     }
 
     @PostMapping("/upload/image")
-    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile image) {
+    public ResponseEntity<Map<String, Object>> uploadImage(@RequestParam("image") MultipartFile image)
+            throws IOException {
         if (image != null) {
-            Map<String, Object> response = cloudinaryImageService.uploadImage(image);
+            Map<String, Object> response = cloudinaryImageService.uploadImage(image.getBytes());
             return ResponseEntity.ok().body(response);
         }
         return ResponseEntity.internalServerError().body(null);
