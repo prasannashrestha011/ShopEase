@@ -49,10 +49,10 @@ public class ProductServiceImpl implements ProductService {
             String sellerId) {
         try {
             List<String> productImages = new ArrayList<>();
-
+            List<CompletableFuture<String>> uploadFutureResults = new ArrayList<>();
             if (productEntity != null) {
                 for (MultipartFile multipartFile : files) {
-                    logger.info("before -> {} {}", multipartFile.getSize());
+
                     if (!"blob".equals(multipartFile.getOriginalFilename())) {
                         logger.info("File received: {} with size: {}", multipartFile.getOriginalFilename(),
                                 multipartFile.getSize());
@@ -68,16 +68,24 @@ public class ProductServiceImpl implements ProductService {
                         // handle File upload
                         CompletableFuture<String> uploadResult = createProductAsync(fileBytes, sellerId);
 
-                        // stores file url
-                        productImages.add(uploadResult.get());
+                        uploadFutureResults.add(uploadResult);
                     }
                 }
             }
 
-            productEntity.setProductImages(productImages);
-            productEntity.setSellerId(sellerId);
-            productRepo.save(productEntity);
-            return CompletableFuture.completedFuture(productEntity.getProductName() + " has been added ");
+            return CompletableFuture.allOf(uploadFutureResults.toArray(new CompletableFuture[0])).thenApply(v -> {
+                for (CompletableFuture<String> futureResult : uploadFutureResults) {
+                    try {
+                        productImages.add(futureResult.join());
+                    } catch (Exception e) {
+                        logger.error("Error while adding url {}", e.getMessage());
+                    }
+                }
+                productEntity.setProductImages(productImages);
+                productEntity.setSellerId(sellerId);
+                productRepo.save(productEntity);
+                return productEntity.getProductName() + " has been added ";
+            });
         } catch (Exception e) {
             logger.error("Error creating product", e);
             return CompletableFuture.completedFuture("Error occurred while creating product.");
