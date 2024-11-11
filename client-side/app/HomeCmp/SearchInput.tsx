@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { FaSearch } from 'react-icons/fa'
 
 interface Prop{ 
     product:string
@@ -17,14 +18,15 @@ const SearchInput = () => {
     const handleSubmitAction=(e:FormEvent)=>{
         e.preventDefault();
         console.log(search)
-        if(search.product=="null") alert("fill your field")
+        if(search.product=="") return
+            
         router.push(`/product/search?product=${search.product}`)
     }
   return (
   
-      <form className='flex gap-2 justify-center items-center' onSubmit={handleSubmitAction} >
-       <Input placeholder='Search your product' className='yatraone w-4/12' name='product' onChange={handleValueChange}/>
-       <button type='submit'>Search</button>
+      <form className='flex  justify-center items-center' onSubmit={handleSubmitAction} >
+       <Input placeholder='Search your product' className='yatraone rounded-none rounded-l-md ' name='product' onChange={handleValueChange}/>
+       <button type='submit' className='border rounded-r-md   p-3'><FaSearch/></button>
        </form>
   
   )

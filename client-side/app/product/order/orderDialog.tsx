@@ -23,12 +23,13 @@ import confetti from 'canvas-confetti';
   }
   
 const OrderDialog = ({productName,price,sellerId}:Props) => {
-    const [quantityValue,setQuantityValue]=useState<number>(0);
+    const [quantityValue,setQuantityValue]=useState<number>(1);
     const [totalAmt,setTotalAmt]=useState<number>(0);
     const [deliveryType,setDeliveryType]=useState<string>("cashOnDelivery")
     const [isOrderSucess,setIsOrderSuccess]=useState<boolean>(false)
     const {items}=useAppSelector((state)=>state.userDetails)
     const handleOrderConfirmation=async(sellerId:string)=>{
+      
       if(items){
         const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,items.email,
           productName,quantityValue,totalAmt,null,null,false,"pending",deliveryType
@@ -73,7 +74,7 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
      
         <p className='flex flex-col gap-2'>
             <header>Quantity</header>
-        <Slider min={0} max={100} value={[quantityValue]} onValueChange={(e)=>{
+        <Slider min={1} max={100} value={[quantityValue]} onValueChange={(e)=>{
           if(e.length>0){
            setQuantityValue(e[0])
           }
