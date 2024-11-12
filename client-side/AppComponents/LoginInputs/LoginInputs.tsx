@@ -12,6 +12,10 @@ import axios from "axios";
   username:string
   password:string
  }
+ 
+
+
+
 const LoginInputs = () => {
     const [formData,setFormData]=useState<FormData>({username:"",password:""})
     const [responseMessage,setResponseMessage]=useState<ResponseProp | null>(null)

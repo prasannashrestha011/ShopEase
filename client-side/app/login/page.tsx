@@ -3,7 +3,6 @@
 import LoginInputs from '@/AppComponents/LoginInputs/LoginInputs'
 import React from 'react'
 
-
 const Login = () => {
   return (
     <div className='flex flex-col justify-start item-center  h-screen gap-10 '>
