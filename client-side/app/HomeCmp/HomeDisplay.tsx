@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Input } from '../../components/ui/input'
 import ProductList from './ProductsList/ProductList'
 
@@ -7,10 +7,16 @@ import { useRouter } from 'next/navigation'
 import Chart from '../product/chart/Chart'
 import HomeOptions from './HomeOptions'
 import SearchInput from './SearchInput'
+import { GetNotificationPermission } from '../firebase/getPermission'
+import { useAppSelector } from '../redux/Store'
 
 const HomeDisplay = () => {
-
-  
+    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
+    useEffect(()=>{
+      if(userDetails){
+        GetNotificationPermission(userDetails.username);
+      }
+    },[userDetails])
   
   return (
     <div className='flex flex-col justify-center items-center gap-3'>
