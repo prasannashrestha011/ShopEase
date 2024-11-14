@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.backend.App_class.CustomerDetails;
 import com.app.backend.Entities.UserDto;
 import com.app.backend.Entities.UserEntity;
 import com.app.backend.Service.UserService.UserServiceImpl;

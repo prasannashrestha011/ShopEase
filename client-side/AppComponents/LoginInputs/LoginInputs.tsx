@@ -12,11 +12,9 @@ import axios from "axios";
   username:string
   password:string
  }
- 
-
-
 
 const LoginInputs = () => {
+     
     const [formData,setFormData]=useState<FormData>({username:"",password:""})
     const [responseMessage,setResponseMessage]=useState<ResponseProp | null>(null)
     const [errorMessage,setErrorMessage]=useState<string>("")
@@ -52,13 +50,13 @@ const LoginInputs = () => {
   return (
    
       <form className="flex flex-col gap-4 justify-center items-center  h-full" onSubmit={handleAuth}>
-      <Input type="text" name="username" placeholder="Username" className="w-80 " value={formData.username} onChange={handleFormValue}/>
+      
+			<Input type="text" name="username"  placeholder="Username" className="w-80 " value={formData.username} onChange={handleFormValue}/>
       <Input type="Password" name="password" placeholder="Password" className="w-80 mb-10 " value={formData.password} onChange={handleFormValue}/>
       <Button className="w-72 " type="submit" >Login</Button>
       {responseMessage&& <span className="text-green-500">{responseMessage.message}</span>}
       {errorMessage&& <span className="text-red-500">{errorMessage}</span>}
-      </form>
-  
+	        </form>  	
   )
 }
 

@@ -1,17 +1,22 @@
 class NotificationTokenStruct{
-    id:string
+    userId:string
     token:string
     username:string
-    constructor(id:string,token:string,username:string){
-        this.id=id;
+    constructor(userId:string,token:string,username:string){
+        this.userId=userId;
         this.token=token;
         this.username=username
     }
 }
-interface NotificationBody{
-    token:string,
-    title:string,
+class NotificationBody{
+    token:string
+    title:string
     body:string
+    constructor(token:string,title:string,body:string){
+        this.token=token
+        this.title=title
+        this.body=body
+    }
 }
-export {NotificationTokenStruct}
-export type {NotificationBody}
+export {NotificationTokenStruct,NotificationBody}
+

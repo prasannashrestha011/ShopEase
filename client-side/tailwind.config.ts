@@ -1,3 +1,4 @@
+import colors from 'tailwindcss/colors'
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -10,6 +11,7 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+			...colors,
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

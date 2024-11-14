@@ -14,6 +14,9 @@ public interface NotificationRepository extends JpaRepository<NotificationEntity
 
     String findTokenByUsername(String username);
 
+    @Query("SELECT  n.token From NotificationEntity n WHERE n.userId=:id")
+    String findTokenByUserId(@Param("id") String id);
+
     @Modifying
     @Query("UPDATE NotificationEntity n SET n.token=:token WHERE n.username=:username")
     void updateUserToken(@Param("username") String username, @Param("token") String token);

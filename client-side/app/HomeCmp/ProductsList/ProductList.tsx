@@ -34,7 +34,7 @@ const ProductList = () => {
     }
   return (
  
-       <ul className='grid md:grid-cols-4 md:gap-4 gap-2 yatraone'>
+       <ul className='grid md:grid-cols-4 md:gap-4 gap-2 yatraone '>
           {items&& items.map((item,idx)=>(
     
           <li key={idx}>

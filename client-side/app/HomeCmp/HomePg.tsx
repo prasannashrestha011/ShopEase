@@ -1,5 +1,5 @@
 
-import React, { use, useEffect } from 'react'
+import React from 'react'
 import HomeDisplay from './HomeDisplay'
 
 
@@ -11,7 +11,7 @@ const HomePg = () => {
 
 
   return (
-    <div >
+    <div className='' >
       <HomeDisplay/>
  
        

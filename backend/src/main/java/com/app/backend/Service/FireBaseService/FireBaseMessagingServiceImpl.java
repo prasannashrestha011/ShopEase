@@ -58,4 +58,9 @@ public class FireBaseMessagingServiceImpl implements FireBaseMessagingService {
         }
     }
 
+    @Override
+    public String getToken(String userId) {
+        return notificationRepo.findTokenByUserId(userId);
+    }
+
 }

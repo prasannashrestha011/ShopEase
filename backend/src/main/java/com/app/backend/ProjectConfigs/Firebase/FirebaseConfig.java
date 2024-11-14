@@ -1,6 +1,5 @@
 package com.app.backend.ProjectConfigs.Firebase;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,13 +14,20 @@ import com.google.firebase.FirebaseOptions;
 public class FirebaseConfig {
     @Bean
     public FirebaseApp initializeFirebaseApp() throws IOException {
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("Firebase/serviceAccount.json");
+        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("FireBase/serviceAccount.json");
 
-        FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount))
+        if (serviceAccount == null) {
+            throw new IOException("Firebase service account file not found. Please check the file path.");
+        }
+
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
+
         if (FirebaseApp.getApps().isEmpty()) {
             FirebaseApp.initializeApp(options);
         }
         return FirebaseApp.getInstance();
     }
+
 }

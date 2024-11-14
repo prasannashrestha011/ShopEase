@@ -3,7 +3,7 @@ import HomePg from "./HomeCmp/HomePg";
 
 export default function Home() {
   return (
-    <div>
+    <div className="h-screen ">
 
     <HomePg/>
     </div>

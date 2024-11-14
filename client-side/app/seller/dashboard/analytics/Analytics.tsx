@@ -8,9 +8,10 @@ const Analytics = () => {
   return (
     <div className='flex flex-col  h-full  gap-4 ml-2'>
       <OverViewDisplay/>
+        
+
       <div className='flex gap-2 flex-col md:flex-row'>
-      
-      
+    
         <RevenueBarChartDisplay/>
         <RecentSalesDisplay/>    
    

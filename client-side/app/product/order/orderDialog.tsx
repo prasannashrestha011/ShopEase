@@ -13,6 +13,8 @@ import { useAppSelector } from '@/app/redux/Store'
 import { OrderAction } from './orderAction'
 import { TransactionStruct } from '../class/transactionClass'
 import confetti from 'canvas-confetti';
+import { GetFcmToken, SendNotification } from '@/app/firebase/fetchers'
+import { NotificationBody } from '@/app/firebase/types'
 
 
   interface Props{
@@ -21,15 +23,17 @@ import confetti from 'canvas-confetti';
     sellerId:string,
 
   }
-  
+ 
 const OrderDialog = ({productName,price,sellerId}:Props) => {
     const [quantityValue,setQuantityValue]=useState<number>(1);
     const [totalAmt,setTotalAmt]=useState<number>(0);
     const [deliveryType,setDeliveryType]=useState<string>("cashOnDelivery")
     const [isOrderSucess,setIsOrderSuccess]=useState<boolean>(false)
     const {items}=useAppSelector((state)=>state.userDetails)
+          
+    const [sellerFcmToken,setSellerFcmToken]=useState<string>("")
     const handleOrderConfirmation=async(sellerId:string)=>{
-      
+
       if(items){
         const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,items.email,
           productName,quantityValue,totalAmt,null,null,false,"pending",deliveryType
@@ -43,10 +47,20 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
           startVelocity: 60,  
         });
         console.log(response)
+        const sellerNotification=new NotificationBody(sellerFcmToken,"New Order Request",`New order request of ${productName}, check out your dashboard`)
+        console.log(sellerNotification)
+        await SendNotification(sellerNotification);
+      }
+    }
+    const fetchSellerFcmToken=async()=>{
+      if(sellerId){
+        const token=await GetFcmToken(sellerId);
+        setSellerFcmToken(token)
       }
     }
     useEffect(()=>{
       setTotalAmt(price*quantityValue)
+      fetchSellerFcmToken()
     },[quantityValue,price])
 
   return (

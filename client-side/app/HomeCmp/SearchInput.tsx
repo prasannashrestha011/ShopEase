@@ -25,8 +25,8 @@ const SearchInput = () => {
   return (
   
       <form className='flex  justify-center items-center' onSubmit={handleSubmitAction} >
-       <Input placeholder='Search your product' className='yatraone rounded-none rounded-l-md ' name='product' onChange={handleValueChange}/>
-       <button type='submit' className='border rounded-r-md   p-3'><FaSearch/></button>
+       <Input placeholder='Search your product' className='yatraone rounded-none outline-none focus:outline-none rounded-l-md ' name='product' onChange={handleValueChange}/>
+       <button type='submit' className='bg-slate-100 rounded-r-md   p-3'><FaSearch/></button>
        </form>
   
   )
