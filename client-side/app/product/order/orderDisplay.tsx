@@ -30,20 +30,20 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
   return (
     <div>
         <Card className='flex flex-col justify-center items-center yatraone   border-none'>
-            <CardHeader>
-                <CardTitle>{product_details?.productName}</CardTitle>
+            <CardHeader className='bg-blue-700 w-full'>
+                <CardTitle className='mx-auto text-slate-100'>{product_details?.productName}</CardTitle>
             </CardHeader>
-            <CardContent className='flex flex-col md:flex-row w-full justify-center items-center h-screen '>
+            <CardContent className='flex flex-col md:flex-row w-full  bg-slate-200 justify-center items-start h-full  '>
 
                     {product_details?.productImages&&
-                    <div className='md:flex-1 md:pl-8 md:w-auto w-10/12'>
+                    <div className='md:flex-1 md:pl-8 md:w-auto w-10/12 h-full  '>
                         <ProductCarousel  images={product_details?.productImages}/>
                     </div>
                     }
 
                   
                   
-                  <div className=' flex-1 flex flex-col justify-between h-full border p-2 w-full rounded-md'>
+                  <div className=' bg-white mt-2 flex-1 flex flex-col justify-between h-full border p-2 w-full rounded-md'>
                  
                     <div className='flex flex-col justify-center items-start  gap-4  w-5/12 '>
                     
@@ -73,9 +73,7 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
                   </div>
                    
             </CardContent>
-            <CardFooter >
-          
-            </CardFooter>
+            
         </Card>
       
     
