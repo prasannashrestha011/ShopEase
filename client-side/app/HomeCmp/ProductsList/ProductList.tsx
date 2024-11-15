@@ -22,7 +22,7 @@ const ProductList = () => {
         <div className='grid grid-cols-4 md:gap-4 '>
       {Array(8).fill("empty").map((_,idx)=>(
         
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2' key={idx}>
           <Skeleton key={idx} className='bg-gray-500 w-72 h-48'/>
        
           <Skeleton className='h-8 w-60 bg-gray-500'/>  

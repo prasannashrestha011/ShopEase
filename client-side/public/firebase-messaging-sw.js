@@ -1,17 +1,16 @@
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
 
-firebase.initializeApp({
-  
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.AUTO_DOMAIN,
-    projectId: process.env.PROJECT_ID,
-    storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    appId: process.env.APP_ID,
-    measurementId: process.env.MEASUREMENT_ID
 
-});
+firebase.initializeApp({
+  apiKey: "AIzaSyDE49ZnbIz81Df1Crir9kdIVYe2CGMNhHc",
+  authDomain: "shop-ease-384b7.firebaseapp.com",
+  projectId: "shop-ease-384b7",
+  storageBucket: "shop-ease-384b7.firebasestorage.app",
+  messagingSenderId: "20534875652",
+  appId: "1:820534875652:web:ef46523011d671000fc751",
+  measurementId: "G-6DJBJTK872"
+})
 
 const messaging=firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
