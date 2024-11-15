@@ -37,7 +37,7 @@ const RecentSalesDisplay = () => {
         </CardHeader>
         <div className='h-72 w-96  overflow-x-hidden'>
         
-       {recentSales&&recentSales.map((item,idx)=>(
+       {recentSales&&recentSales.length>0&&recentSales.map((item,idx)=>(
         <li key={idx} className='flex items-center'>
          
             <CardContent className='flex gap-4 mt-2 items-center overflow-x-hidden ' >   

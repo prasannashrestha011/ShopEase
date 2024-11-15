@@ -26,6 +26,7 @@ import com.app.backend.Responses.ApiResponse;
 import com.app.backend.Service.UserService.UserServiceImpl;
 
 @RestController
+
 @RequestMapping("/account")
 public class AuthControllers {
 
