@@ -1,4 +1,4 @@
-package com.app.backend.Service.ProductService;
+package com.app.backend.Service.Products.ProductService;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -17,4 +17,5 @@ public interface ProductService {
     List<ProductEntity> getAllProducts();
 
     String deleteAllProductList();
+
 }

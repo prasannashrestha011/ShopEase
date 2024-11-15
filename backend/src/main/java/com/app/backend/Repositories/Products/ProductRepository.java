@@ -1,4 +1,4 @@
-package com.app.backend.Repositories;
+package com.app.backend.Repositories.Products;
 
 import java.util.List;
 

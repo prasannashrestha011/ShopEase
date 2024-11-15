@@ -11,10 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -22,9 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.Entities.ProductEntity;
-
+import com.app.backend.Entities.ProductQueries.ProductQueryEntity;
+import com.app.backend.Entities.ProductQueries.ProductRatingEntity;
+import com.app.backend.Entities.ProductQueries.QueryReplyEntity;
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
-import com.app.backend.Service.ProductService.ProductServiceImpl;
+import com.app.backend.Service.Products.ProductQueriesService.ProductQuery.ProductQueryServiceImpl;
+import com.app.backend.Service.Products.ProductRatingServices.ProductRatingServiceImpl;
+import com.app.backend.Service.Products.ProductService.ProductServiceImpl;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -33,6 +39,12 @@ public class ProductsController {
 
     @Autowired
     ProductServiceImpl productService;
+
+    @Autowired
+    ProductQueryServiceImpl productQueryService;
+
+    @Autowired
+    ProductRatingServiceImpl productRatingRepo;
 
     @Autowired
     CloudinaryImageServiceImpl cloudinaryImageService;
@@ -108,5 +120,66 @@ public class ProductsController {
     public ResponseEntity<String> deleteProductList() {
         var response = productService.deleteAllProductList();
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/get/queries")
+    public ResponseEntity<Object> getProductQuery(
+            @RequestParam(name = "productId", required = false) String productId,
+            @RequestParam(name = "sellerId", required = false) String sellerId) {
+        try {
+
+            var queryList = StringUtils.hasText(sellerId) ? productQueryService.getQueriesBySellerId(sellerId)
+                    : productQueryService.getProductQueriesById(productId);
+
+            if (queryList.isEmpty())
+                throw new Exception("no queries founds");
+            return ResponseEntity.ok().body(queryList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/insert/query")
+    public ResponseEntity<Object> InsertProductQuery(@RequestBody ProductQueryEntity productQueryEntity) {
+        try {
+
+            if (productQueryEntity == null)
+                throw new Exception("Invalid query input");
+            logger.info("product Desc-> {}", productQueryEntity.getQuestionDesc());
+            var response = productQueryService.InsertProductQuery(productQueryEntity);
+            return ResponseEntity.ok().body(Map.of("sucess", response));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/insert/query/reply")
+    public ResponseEntity<Object> InsertQueryReply(@RequestBody QueryReplyEntity queryReplyEntity) {
+        try {
+            var response = productQueryService.InsertQueryReply(queryReplyEntity);
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get/ratings")
+    public ResponseEntity<Object> GetProductRatings(@RequestParam(name = "productId") String productId) {
+        try {
+            var ratingList = productRatingRepo.GetProductRatings(productId);
+            return ResponseEntity.ok().body(ratingList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(Map.of("error", "rating not found!!"));
+        }
+    }
+
+    @PostMapping("/insert/rating")
+    public ResponseEntity<Object> InsertProductRating(@RequestBody ProductRatingEntity productRatingEntity) {
+        try {
+            var message = productRatingRepo.InsertProductRating(productRatingEntity);
+            return ResponseEntity.ok().body(Map.of("sucess", message));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", "failed to insert the rating"));
+        }
     }
 }

@@ -7,6 +7,10 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 
 import { ProductCarousel } from '@/app/HomeCmp/ProductsList/ProductCarousel'
 import OrderDialog from './orderDialog'
+import QueryInput from './ProductQueries/Inputs/QueryInput'
+import RatingDisplay from './ProductRating/RatingDisplay'
+
+
 interface OrderDisplayProp{
     product_id:string
 }
@@ -39,43 +43,50 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
                     <div className='md:flex-1 md:pl-8 md:w-auto w-10/12 h-full  '>
                         <ProductCarousel  images={product_details?.productImages}/>
                     </div>
+               
                     }
 
                   
                   
-                  <div className=' bg-white mt-2 flex-1 flex flex-col justify-between h-full border p-2 w-full rounded-md'>
+                 <div className='flex flex-col flex-1 '>
+                    <div className=' bg-white mt-2 flex-1 flex flex-col justify-between h-full border p-2 w-full rounded-md'>
                  
-                    <div className='flex flex-col justify-center items-start  gap-4  w-5/12 '>
-                    
-                        <section>
-                            
-                        <header className='font-bold '>Description</header>
-                        <p className=' text-wrap'>{product_details?.productDes}</p>
-                        </section>
+                 <div className='flex flex-col justify-center items-start  gap-4  w-5/12 '>
+                 
+                     <section>
+                         
+                     <header className='font-bold '>Description</header>
+                     <p className=' text-wrap'>{product_details?.productDes}</p>
+                     </section>
+                     
+                   
+                         <section>
+                         <p className='font-bold '>Retailer:</p>
+                         <span>{product_details?.sellerId}</span>
+                         </section>
                         
                       
-                            <section>
-                            <p className='font-bold '>Retailer:</p>
-                            <span>{product_details?.sellerId}</span>
-                            </section>
-                           
-                         
-                           <section>
-                           <p className='font-bold '>Price</p>
-                           ${product_details?.productPrice}
-                           </section>
+                        <section>
+                        <p className='font-bold '>Price</p>
+                        ${product_details?.productPrice}
+                        </section>
 
-                       
+                    
+                 </div>
+                 <div className='md:mb-9'>
+                 {product_details&& <OrderDialog productName={product_details?.productName} price={product_details?.productPrice} sellerId={product_details.sellerId}/>}
+                 </div>
                     </div>
-                    <div className='md:mb-9'>
-                    {product_details&& <OrderDialog productName={product_details?.productName} price={product_details?.productPrice} sellerId={product_details.sellerId}/>}
+
+                    <div className='flex items-center justify-center'>
+                        <RatingDisplay/>     
                     </div>
-                  </div>
-                   
+                 </div>
+                  
             </CardContent>
-            
+        
         </Card>
-      
+         <QueryInput sellerId={product_details?.sellerId??""} productId={product_details?.productId??""}  />
     
     </div>
   )

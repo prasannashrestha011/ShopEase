@@ -1,7 +1,9 @@
-package com.app.backend.Controllers.ProductQueries;
+package com.app.backend.Entities.ProductQueries;
 
 import java.util.Date;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +12,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "queries_replies")
 public class QueryReplyEntity {
@@ -23,8 +29,9 @@ public class QueryReplyEntity {
     @Column(nullable = false)
     private String ansDesc;
 
-    @ManyToOne // Many replies can belong to one product query
-    @JoinColumn(name = "query_id", nullable = false) // Foreign key column
+    @ManyToOne
+    @JoinColumn(name = "query_id", nullable = true)
+    @JsonBackReference
     private ProductQueryEntity productQuery;
 
     @Column(name = "created_at", nullable = false)
