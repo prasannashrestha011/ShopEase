@@ -1,4 +1,4 @@
-package com.app.backend.Controllers.ProductQueries;
+package com.app.backend.Entities.ProductQueries;
 
 import java.util.ArrayList;
 import java.util.Date;
