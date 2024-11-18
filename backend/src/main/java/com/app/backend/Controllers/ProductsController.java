@@ -44,7 +44,7 @@ public class ProductsController {
     ProductQueryServiceImpl productQueryService;
 
     @Autowired
-    ProductRatingServiceImpl productRatingRepo;
+    ProductRatingServiceImpl productRatingService;
 
     @Autowired
     CloudinaryImageServiceImpl cloudinaryImageService;
@@ -166,7 +166,7 @@ public class ProductsController {
     @GetMapping("/get/ratings")
     public ResponseEntity<Object> GetProductRatings(@RequestParam(name = "productId") String productId) {
         try {
-            var ratingList = productRatingRepo.GetProductRatings(productId);
+            var ratingList = productRatingService.GetProductRatings(productId);
             return ResponseEntity.ok().body(ratingList);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(Map.of("error", "rating not found!!"));
@@ -176,9 +176,11 @@ public class ProductsController {
     @PostMapping("/insert/rating")
     public ResponseEntity<Object> InsertProductRating(@RequestBody ProductRatingEntity productRatingEntity) {
         try {
-            var message = productRatingRepo.InsertProductRating(productRatingEntity);
-            return ResponseEntity.ok().body(Map.of("sucess", message));
+
+            var message = productRatingService.InsertProductRating(productRatingEntity);
+            return ResponseEntity.ok().body(Map.of("success", message));
         } catch (Exception e) {
+            logger.info("error:{}", e.getMessage());
             return ResponseEntity.internalServerError().body(Map.of("error", "failed to insert the rating"));
         }
     }

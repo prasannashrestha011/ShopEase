@@ -5,7 +5,7 @@ import ChartListReducer from './ChartDataSplice'
 import OrderRequestsReducer from './OrderRequestSplice'
 import AnalyticsReducer from './AnalyticsSplice'
 import OrderDetailsReducer from './OrderDetailSplice'
-
+import SelectedProductReducer from './ProductRatings/SelectedProductSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 const Store=configureStore({
     reducer:{
@@ -15,6 +15,7 @@ const Store=configureStore({
         'orderRequests':OrderRequestsReducer,
         'analytics':AnalyticsReducer,
         'orderDetails':OrderDetailsReducer,
+        'selectedProduct':SelectedProductReducer,
     }
 })
 export type RootState=ReturnType<typeof Store.getState>

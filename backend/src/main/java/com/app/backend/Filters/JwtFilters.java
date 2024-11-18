@@ -64,8 +64,12 @@ public class JwtFilters extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        // Exclude the routes starting with /account/**
         String path = request.getRequestURI();
-        return path.startsWith("/account/");
+        boolean shouldNotFilter = path.startsWith("/account/") || path.startsWith("/ws");
+        if (shouldNotFilter) {
+            System.out.println("Excluding path: " + path);
+        }
+        return shouldNotFilter;
     }
+
 }

@@ -3,7 +3,7 @@ import { FaArrowAltCircleUp } from 'react-icons/fa'
 import { Button, Input } from '@mui/material'
 import { ProductQueryStruct, QueryReplyStruct } from '../../types'
 import { useAppSelector } from '@/app/redux/Store'
-import { InsertQueryReply } from '../fetchers'
+import { InsertQueryReply } from '../../fetchers'
 
 interface Prop{
     queryId:string

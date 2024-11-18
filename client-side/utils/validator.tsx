@@ -14,4 +14,9 @@ function emailValidator(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+export function ValidateInputField(input:string){
+ if(input.trim()==="")
+    return false
+ return true
+}
 export default schema;

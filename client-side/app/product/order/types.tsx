@@ -40,4 +40,37 @@ class QueryReplyStruct{
     }
 
 }
-export {ProductQueryStruct,QueryReplyStruct}
+class ProductRatingStruct{
+    ratedId?:string 
+    productId:string
+    ratedBy:string 
+    ratedValue:number 
+    review:string 
+    createdAt?:Date
+    constructor(
+        productId:string, 
+        ratedBy:string ,
+        ratedValue:number,
+        review:string,
+        createdAt?:Date,
+        ratedId?:string ,
+      
+    ) {
+        this.ratedId=ratedId
+        this.productId=productId
+        this.ratedValue=ratedValue
+        this.ratedBy=ratedBy
+        this.review=review
+        this.createdAt=createdAt
+    }
+
+}
+interface SelectedProductStruct{
+    productName?:string,
+    productId?:string,
+    sellerId?:string,
+    username?:string,
+    
+}
+export {ProductQueryStruct,QueryReplyStruct,ProductRatingStruct}
+export type {SelectedProductStruct}

@@ -3,7 +3,7 @@ import { ProductQueryStruct } from '../../types'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/app/redux/Store'
-import { InsertProductQuery } from '../fetchers'
+import { InsertProductQuery } from '../../fetchers'
 import DisplayQueries from '../DisplayQueries'
 
 interface Props{

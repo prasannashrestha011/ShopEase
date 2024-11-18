@@ -9,6 +9,9 @@ import { ProductCarousel } from '@/app/HomeCmp/ProductsList/ProductCarousel'
 import OrderDialog from './orderDialog'
 import QueryInput from './ProductQueries/Inputs/QueryInput'
 import RatingDisplay from './ProductRating/RatingDisplay'
+import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
+import { SetRatingProp } from '@/app/redux/ProductRatings/SelectedProductSlice'
+import { SelectedProductStruct } from './types'
 
 
 interface OrderDisplayProp{
@@ -16,20 +19,39 @@ interface OrderDisplayProp{
 }
 const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
     const [product_details,setProductDetails]=useState<ProductInfo|null>(null)
+    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
     
+
+    const dispatch=useAppDispatch()
+    const SetProductDetails=()=>{
+            const selectedProductProps:SelectedProductStruct={
+                productId:product_details?.productId,
+                productName:product_details?.productName,
+                sellerId:product_details?.sellerId,
+                username:userDetails?.username
+            }
+            dispatch(SetRatingProp(selectedProductProps))
+      
+    }
     const fetchProduct=async()=>{
         try{
             const product=await GetProductById(product_id);
           
             if(product==null) throw new Error("unable to get the product")
                 setProductDetails(product);
+        
         }catch(err){
             console.error(err)
         }
     }
 
     useEffect(()=>{
+        SetProductDetails()
+    },[product_details])
+    
+    useEffect(()=>{
         fetchProduct()
+       
     },[product_id])
   return (
     <div>
@@ -79,7 +101,7 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
                     </div>
 
                     <div className='flex items-center justify-center'>
-                        <RatingDisplay/>     
+                     <RatingDisplay  />     
                     </div>
                  </div>
                   

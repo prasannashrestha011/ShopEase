@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ProductQueryStruct } from '../types'
-import { GetProductQueries } from './fetchers'
+import { GetProductQueries } from '../fetchers'
 import moment from 'moment'
 
 

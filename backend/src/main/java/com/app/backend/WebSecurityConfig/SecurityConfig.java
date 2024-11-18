@@ -35,7 +35,8 @@ public class SecurityConfig {
         httpSecurity.cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
-                        authorizeHttpRequests -> authorizeHttpRequests.requestMatchers("/account/**", "/files/**")
+                        authorizeHttpRequests -> authorizeHttpRequests
+                                .requestMatchers("/account/**", "/ws/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
