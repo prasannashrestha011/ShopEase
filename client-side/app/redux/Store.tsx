@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import UserDetailsReducer from './UserDataSplice'
 import ProductListReducer from './ProductDataSplice'
+import SelectedSellerProductReducer from './Seller/SelectedProductSplice'
 import ChartListReducer from './ChartDataSplice'
 import AnalyticsReducer from './AnalyticsSplice'
 import OrderDetailsReducer from './OrderDetailSplice'
@@ -14,6 +15,7 @@ const Store=configureStore({
         'chart':ChartListReducer,
         'userDetails':UserDetailsReducer,
         'productList':ProductListReducer,
+        'selectedSellerProduct':SelectedSellerProductReducer,
         'orderRequests':OrderRequestsReducer,
         'analytics':AnalyticsReducer,
         'orderDetails':OrderDetailsReducer,
