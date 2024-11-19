@@ -16,6 +16,8 @@ public interface ProductService {
 
     List<ProductEntity> getAllProducts();
 
+    List<ProductEntity> getProductsBySellerId(String sellerId);
+
     String deleteAllProductList();
 
 }

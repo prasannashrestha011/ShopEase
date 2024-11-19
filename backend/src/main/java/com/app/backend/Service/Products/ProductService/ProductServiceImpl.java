@@ -124,4 +124,9 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public List<ProductEntity> getProductsBySellerId(String sellerId) {
+        return productRepo.findProductBySellerId(sellerId);
+    }
+
 }

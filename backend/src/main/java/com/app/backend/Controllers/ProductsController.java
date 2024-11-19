@@ -59,6 +59,19 @@ public class ProductsController {
         return ResponseEntity.internalServerError().body(null);
     }
 
+    @GetMapping("/seller")
+    public ResponseEntity<Object> getProductBySellerId(@RequestParam(value = "sellerId") String sellerId) {
+        try {
+            var productList = productService.getProductsBySellerId(sellerId);
+            if (productList.isEmpty())
+                throw new Exception("product list is empty");
+            return ResponseEntity.ok().body(productList);
+        } catch (Exception e) {
+            logger.error("error: {}", e.getMessage());
+            return ResponseEntity.internalServerError().body(Map.of("error", e.getMessage()));
+        }
+    }
+
     @GetMapping("/name")
     public ResponseEntity<Object> getProductByName(@RequestParam(value = "productName") String productName) {
         try {
