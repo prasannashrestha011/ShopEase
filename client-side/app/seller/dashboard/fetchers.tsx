@@ -1,7 +1,7 @@
 import { TransactionStruct } from "@/app/product/class/transactionClass";
 import axios from "axios";
 import { CurrAndPrevRevenueStruct, RevenueStruct,CustomerStruct,DailyRevenueStruct } from "./class";
-import { ProductStruct } from "@/app/product/class/productClass";
+import { ProductInfo } from "@/app/product/class/productClass";
 
 export async function GetOrderRequests(sellerId:string):Promise<TransactionStruct[]|null>{
 
@@ -122,7 +122,7 @@ export async function GetCurrentWeekRevenueRecords(sellerId:string):Promise<Dail
     }
 }
 
-export async function GetProductListOfSeller(sellerId:string):Promise<ProductStruct[]>{
+export async function GetProductListOfSeller(sellerId:string):Promise<ProductInfo[]>{
     try{
         const response=await axios.get(`http://localhost:8080/product/seller?sellerId=${sellerId}`,{withCredentials:true})
         return response.data

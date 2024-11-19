@@ -16,6 +16,11 @@ interface ProductDataState{
     loading:boolean;
     error:string|null|undefined
 }
+interface SelectedProductDataState{
+    items:ProductInfo|null;
+    loading:boolean;
+    error:string|null|undefined
+}
 interface ChartDataState{
     items:ChartStruct[]|null;
     loading:boolean;
@@ -39,4 +44,5 @@ interface OrderDetailsState{
 }
 
 
-export type {UserDataState,ProductDataState,ChartDataState,OrderRequestsState,AnalyticsState,OrderDetailsState}
+export type {UserDataState,ProductDataState,SelectedProductDataState,ChartDataState,OrderRequestsState,
+    AnalyticsState,OrderDetailsState}

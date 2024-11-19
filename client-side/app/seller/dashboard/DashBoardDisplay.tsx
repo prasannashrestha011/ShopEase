@@ -9,6 +9,7 @@ import Analytics from "./analytics/Analytics"
 import { FetchAnalyticData } from "@/app/redux/AnalyticsSplice"
 import { FaChartLine, FaShoppingCart } from "react-icons/fa"
 import { GetUnReadRequest } from "@/utils/GetUnReadRequest"
+import SellerProductListDisplay from "./SellerProductList/SellerProductListDisplay"
 
 const DashBoardDisplay = () => {
     const dispatcher=useAppDispatch();
@@ -25,7 +26,7 @@ const DashBoardDisplay = () => {
    
   return (
     <div className="merriwheather md:overflow-hidden">
-        <Tabs defaultValue="orderRequest" className="flex ">
+        <Tabs defaultValue="analytics" className="flex ">
             <TabsList className="flex flex-col items-start justify-start h-screen p-6 border-r-2 border-t-2 border-gray-200 rounded-none ">
                 <TabsTrigger value="analytics" className="w-full flex gap-2 justify-start"> <FaChartLine className="text-blue-700" size={20}/> analytics </TabsTrigger>
                 <TabsTrigger value="orderRequest" className="w-full flex gap-2">
@@ -39,12 +40,18 @@ const DashBoardDisplay = () => {
                      </div>
                   
                     </TabsTrigger>
+                    <TabsTrigger value="products" className="w-full">
+                     <span>Your products</span>
+                    </TabsTrigger>
             </TabsList>
             <TabsContent value="analytics" className="w-full ">                
                 <Analytics/>
                 </TabsContent>
             <TabsContent value="orderRequest" className="overflow-hidden w-full  ">
                 <OrderDisplay/>
+            </TabsContent>
+            <TabsContent value="products" className="overflow-hidden w-full  ">
+                <SellerProductListDisplay/>
             </TabsContent>
         </Tabs>
     </div>
