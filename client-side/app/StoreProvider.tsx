@@ -1,9 +1,9 @@
 "use client"
 
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import { Provider } from 'react-redux'
-import Store, { useAppDispatch } from './redux/Store'
-import { FetchUserDetails } from './redux/UserDataSplice'
+import Store from './redux/Store'
+
 import DispatcherProvider from './redux/DispatcherProvider'
 
 const StoreProvider = ({children}:{children:ReactNode}) => {

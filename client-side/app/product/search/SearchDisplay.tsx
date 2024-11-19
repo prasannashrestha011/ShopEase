@@ -8,13 +8,18 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import SearchInput from '@/app/HomeCmp/SearchInput';
 const SearchDisplay = () => {
     const searchParams = useSearchParams();
-    var productName = searchParams.get('product');
+    const productName = searchParams.get('product');
     const [productList,setProductList]=useState<ProductInfo[]>([])
     const [error,setError]=useState<string>("")
     const fetchSearchedProducts=async()=>{
         if(productName){
             const response=await GetSearchedProduct(productName)
-            Array.isArray(response)?setProductList(response):setError(response)
+            if (Array.isArray(response)) {
+              setProductList(response);
+            } else {
+              setError(response);
+            }
+            
         }
        
     }

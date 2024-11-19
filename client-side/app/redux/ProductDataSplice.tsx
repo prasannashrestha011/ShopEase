@@ -26,11 +26,11 @@ const ProductDataSlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder.
-        addCase(FetchProductList.pending,(state,action)=>{
+        addCase(FetchProductList.pending,(state)=>{
             state.loading=true
         })
         .addCase(FetchProductList.fulfilled,(state,action)=>{
-            state.loading=false,
+            state.loading=false
             state.items=action.payload 
         })
         .addCase(FetchProductList.rejected,(state,action)=>{

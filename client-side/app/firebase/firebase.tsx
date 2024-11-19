@@ -1,6 +1,6 @@
 
 import {initializeApp} from 'firebase/app'
-import {getMessaging} from 'firebase/messaging'
+import {getMessaging, Messaging} from 'firebase/messaging'
 
 import dotenv from 'dotenv';
   dotenv.config();
@@ -15,7 +15,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
-let messaging;
+let messaging:Messaging;
 if (typeof window !== 'undefined') {  // Check if it's running on the client-side
   const app = initializeApp(firebaseConfig);
   messaging = getMessaging(app);

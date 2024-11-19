@@ -21,10 +21,10 @@ const RatingInput = () => {
           setProductReview(e.target.value)
         
     }
-    const handleRatingInput = (event: React.ChangeEvent<{}>, newValue: number | null) => {
-        console.log("new rating->",newValue)
-        setRatedValue(newValue || 0);
-      };
+    const handleRatingInput = (event: React.ChangeEvent<unknown>, newValue: number | null) => {
+      console.log("new rating->", newValue);
+      setRatedValue(newValue || 0);
+    };
     const handleReviewSubmission=async(e:FormEvent)=>{
     
       e.preventDefault()

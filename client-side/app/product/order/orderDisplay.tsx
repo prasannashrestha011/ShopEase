@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ProductInfo } from '../class/productClass'
 import { GetProductById } from './getProductById'
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { ProductCarousel } from '@/app/HomeCmp/ProductsList/ProductCarousel'
 import OrderDialog from './orderDialog'

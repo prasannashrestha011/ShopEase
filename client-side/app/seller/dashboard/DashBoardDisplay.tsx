@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import React, { useEffect, useState } from 'react'
 import OrderDisplay from "./OrderRequest/OrderDisplay"
 import { useAppDispatch, useAppSelector } from "@/app/redux/Store"
-import { FetchOrderRequest } from "@/app/redux/OrderRequestSplice"
+import { FetchOrderRequest } from "@/app/redux/OrderRequests/OrderRequestSplice"
 import Analytics from "./analytics/Analytics"
 import { FetchAnalyticData } from "@/app/redux/AnalyticsSplice"
 import { FaChartLine, FaShoppingCart } from "react-icons/fa"
@@ -25,7 +25,7 @@ const DashBoardDisplay = () => {
    
   return (
     <div className="merriwheather md:overflow-hidden">
-        <Tabs defaultValue="analytics" className="flex ">
+        <Tabs defaultValue="orderRequest" className="flex ">
             <TabsList className="flex flex-col items-start justify-start h-screen p-6 border-r-2 border-t-2 border-gray-200 rounded-none ">
                 <TabsTrigger value="analytics" className="w-full flex gap-2 justify-start"> <FaChartLine className="text-blue-700" size={20}/> analytics </TabsTrigger>
                 <TabsTrigger value="orderRequest" className="w-full flex gap-2">
@@ -43,7 +43,7 @@ const DashBoardDisplay = () => {
             <TabsContent value="analytics" className="w-full ">                
                 <Analytics/>
                 </TabsContent>
-            <TabsContent value="orderRequest" className="overflow-hidden w-full ">
+            <TabsContent value="orderRequest" className="overflow-hidden w-full  ">
                 <OrderDisplay/>
             </TabsContent>
         </Tabs>

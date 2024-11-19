@@ -5,11 +5,10 @@ import moment from 'moment'
 
 
 import { Card, CardContent,CardHeader ,CardDescription, CardFooter } from '@/components/ui/card'
-import { Button, Input } from '@mui/material'
+import { Button } from '@mui/material'
 import QueryReplyInput from './Inputs/QueryReplyInput'
 
-import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
-import { TreeItem } from '@mui/x-tree-view/TreeItem';
+
 import DisplayReplyQueries from './DisplayReplyQueries'
 
 interface Prop{

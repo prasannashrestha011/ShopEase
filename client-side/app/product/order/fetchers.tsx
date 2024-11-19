@@ -1,4 +1,4 @@
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { ProductQueryStruct, ProductRatingStruct, QueryReplyStruct } from "./types";
 
 export async function InsertProductQuery(userQuery:ProductQueryStruct):Promise<string>{
@@ -57,7 +57,7 @@ export async function GetProductRatings(productId:string):Promise<ProductRatingS
 }
 export async function InsertProductRating(ratingEntity:ProductRatingStruct):Promise<string>{
     try{
-        var response=await axios.post(`http://localhost:8080/product/insert/rating`,ratingEntity,{withCredentials:true})
+        const response=await axios.post(`http://localhost:8080/product/insert/rating`,ratingEntity,{withCredentials:true})
         if(response.status===500) throw new Error(response.data)
 
         return response.data.success as string

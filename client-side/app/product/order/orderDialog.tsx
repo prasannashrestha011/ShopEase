@@ -9,12 +9,14 @@ import {
   } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
-import { useAppSelector } from '@/app/redux/Store'
+import {  useAppSelector } from '@/app/redux/Store'
 import { OrderAction } from './orderAction'
 import { TransactionStruct } from '../class/transactionClass'
 import confetti from 'canvas-confetti';
 import { GetFcmToken, SendNotification } from '@/app/firebase/fetchers'
 import { NotificationBody } from '@/app/firebase/types'
+import WebSocketService from '@/app/WebSocketService/WebSocketService'
+import { Generate16CharId } from '@/app/AppUtils/IdGenerator'
 
 
   interface Props{
@@ -32,14 +34,17 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
     const {items}=useAppSelector((state)=>state.userDetails)
           
     const [sellerFcmToken,setSellerFcmToken]=useState<string>("")
+
     const handleOrderConfirmation=async(sellerId:string)=>{
 
       if(items){
-        const transactionDetails=new TransactionStruct(null,sellerId,items.id,items?.username,items?.contactNumber,items.email,
+        const transactionId=Generate16CharId()
+        const transactionDetails=new TransactionStruct(transactionId,sellerId,items.id,items?.username,items?.contactNumber,items.email,
           productName,quantityValue,totalAmt,null,null,false,"pending",deliveryType
         )
         const response=await OrderAction(transactionDetails);
         setIsOrderSuccess(true)
+        WebSocketService.addProductRequest(transactionDetails)
         confetti({
           particleCount: 150, 
           spread: 170,        
@@ -58,9 +63,11 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
         setSellerFcmToken(token)
       }
     }
+  
     useEffect(()=>{
       setTotalAmt(price*quantityValue)
       fetchSellerFcmToken()
+    
     },[quantityValue,price])
 
   return (
@@ -69,9 +76,13 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
        
   <DialogTrigger >
     {isOrderSucess?(
-      <Button className='bg-gray-500'>Pending...</Button>
+      <div>
+        <Button className='bg-gray-500'>Pending...</Button>
+      </div>
     ):(
-      <Button className='bg-orange-500 hover:bg-orange-600'>Order now</Button>
+     <div>
+       <Button className='bg-orange-500 hover:bg-orange-600'>Order now</Button>
+      </div>
     )}
   </DialogTrigger>
   <DialogContent>
@@ -84,35 +95,32 @@ const OrderDialog = ({productName,price,sellerId}:Props) => {
       <DialogHeader>
       <DialogTitle>Order confirmation</DialogTitle>
       <DialogDescription className='flex flex-col gap-2'>
-        <p>{productName}</p>
-     
-        <p className='flex flex-col gap-2'>
-            <header>Quantity</header>
-        <Slider min={1} max={100} value={[quantityValue]} onValueChange={(e)=>{
-          if(e.length>0){
-           setQuantityValue(e[0])
-          }
+  <div>{productName}</div>
+  
+  <div className='flex flex-col gap-2'>
+    <div>Quantity</div>
+    <Slider min={1} max={100} value={[quantityValue]} onValueChange={(e) => {
+      if (e.length > 0) {
+        setQuantityValue(e[0])
+      }
+    }} />
+  </div>
 
-        }} />
-        </p>
-       <p>
-       
-       </p>
-        <p>{quantityValue}</p>
-        <p>
-          <select value={deliveryType} onChange={(e:ChangeEvent<HTMLSelectElement>)=>{setDeliveryType(e.target.value)}} >
-            <option value={"cashOnDelivery"}>Cash on Delivery</option>
-            <option value={"Esewa"}>Esewa</option>
-            <option value={"Khalti"}>Khalti</option>
-          </select>
-        </p>
-        <br/>
-        <p className='mb-8'>Total: ${totalAmt}</p>
-        <p>
-        
-          <Button className='bg-orange-500' onClick={()=>handleOrderConfirmation(sellerId)}>Confirm Order</Button>
-          </p>
-      </DialogDescription>
+  <div>{quantityValue}</div>
+  <div>
+    <select value={deliveryType} onChange={(e: ChangeEvent<HTMLSelectElement>) => { setDeliveryType(e.target.value) }}>
+      <option value={"cashOnDelivery"}>Cash on Delivery</option>
+      <option value={"Esewa"}>Esewa</option>
+      <option value={"Khalti"}>Khalti</option>
+    </select>
+  </div>
+  <br />
+  <div className='mb-8'>Total: ${totalAmt}</div>
+  <div>
+    <Button className='bg-orange-500' onClick={() => handleOrderConfirmation(sellerId)}>Confirm Order</Button>
+  </div>
+</DialogDescription>
+
     </DialogHeader>
     )}
   </DialogContent>

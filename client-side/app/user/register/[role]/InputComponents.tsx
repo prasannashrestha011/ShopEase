@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 
 import schema from '@/utils/validator'
 import { UserStruct } from '../../userClass/UserStruct'
@@ -126,8 +126,8 @@ const InputComponents:React.FC<Prop> = ({role}) => {
       <SelectValue placeholder="select province"/>
     </SelectTrigger>
     <SelectContent>
-      {provinces.map((province)=>(
-        <SelectItem value={province}>{province}</SelectItem>
+      {provinces.map((province,idx)=>(
+        <SelectItem value={province} key={idx}>{province}</SelectItem>
       ))}
     </SelectContent>
 </Select>

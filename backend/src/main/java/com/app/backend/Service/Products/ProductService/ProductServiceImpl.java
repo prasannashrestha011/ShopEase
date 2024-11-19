@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.Entities.ProductEntity;
-import com.app.backend.Entities.ProductQueries.ProductRatingEntity;
 import com.app.backend.Repositories.Products.ProductRepository;
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
 

@@ -11,7 +11,9 @@ const RecentSalesDisplay = () => {
     const fetchRecentSales=async()=>{
    
             const salesRecord=user?await GetRecentSales(user.id):null
-            salesRecord!=null?setRecentSales(salesRecord):[]
+           if(salesRecord!==null){
+            setRecentSales(salesRecord)
+           }
         
     }
     useEffect(()=>{

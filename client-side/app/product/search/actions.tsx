@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductInfo, ProductStruct } from "../class/productClass";
+import { ProductInfo } from "../class/productClass";
 
 export async function GetSearchedProduct(productName:string):Promise<ProductInfo []|string>{
     try{
@@ -12,7 +12,7 @@ export async function GetSearchedProduct(productName:string):Promise<ProductInfo
             console.log(err.response?.data)
             return "Product not found"
         }else{
-            const serverErr=err as Error
+          
             return "Internal server error"
         }
   

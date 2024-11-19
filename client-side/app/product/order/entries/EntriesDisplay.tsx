@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -19,12 +18,12 @@ const EntriesDisplay = () => {
     const {items}=useAppSelector((state)=>state.userDetails);
     const [entries,setEntries]=useState<TransactionStruct[] | null>(null)
     const FetchEntires=async()=>{
-        items? console.log(items.id):console.log(null)
+       
         if(items){
        
             const response=await GetEntries(items.id);
             console.log(response);
-            response!=null?   setEntries(response):setEntries([])
+            setEntries(response || []);
             return
         }
         console.log("error")

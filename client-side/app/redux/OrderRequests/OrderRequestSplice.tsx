@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import { TransactionStruct } from "../product/class/transactionClass";
+import { TransactionStruct } from "../../product/class/transactionClass";
 import axios from "axios";
-import { OrderRequestsState } from "../types/DataState";
+import { OrderRequestsState } from "../../types/DataState";
 const initialState:OrderRequestsState={
     items:[],
     loading:true,
@@ -11,7 +11,7 @@ export const FetchOrderRequest=createAsyncThunk<TransactionStruct[]|null,string>
    try{
     if(sellerId!=null){
         const response=await axios.get(`http://localhost:8080/transaction/seller/entries?seller_id=${sellerId}`,{withCredentials:true});
-
+        console.log(response.data)
         return response.data
     }
    }catch(err){
@@ -25,15 +25,15 @@ const OrderRequestsSlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(FetchOrderRequest.pending,(state,action)=>{
+        .addCase(FetchOrderRequest.pending,(state)=>{
             state.loading=true
         })
         .addCase(FetchOrderRequest.fulfilled,(state,action)=>{
-            state.loading=false,
+            state.loading=false
             state.items=action.payload
         })
         .addCase(FetchOrderRequest.rejected,(state,action)=>{
-            state.loading=false,
+            state.loading=false
             state.error=action.error.message
             
         })

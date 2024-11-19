@@ -24,6 +24,7 @@ const QueryReplyInput:React.FC<Prop> = ({queryId}) => {
                 ansDesc,new ProductQueryStruct(queryId),
             )
             const response=await InsertQueryReply(queryReplyEntity);
+            console.log(response)
             setAnsDesc("")
 
         }

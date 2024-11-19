@@ -65,7 +65,7 @@ public class JwtFilters extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        boolean shouldNotFilter = path.startsWith("/account/") || path.startsWith("/ws");
+        boolean shouldNotFilter = path.startsWith("/account/");
         if (shouldNotFilter) {
             System.out.println("Excluding path: " + path);
         }

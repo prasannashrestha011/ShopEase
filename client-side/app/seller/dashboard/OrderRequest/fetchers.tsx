@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { CustomerStruct, DailyRevenueStruct, RevenueStruct } from "../class";
 
-export async function UpdateOrderStatus(transactionId:string,status:string):Promise<String|null>{
+export async function UpdateOrderStatus(transactionId:string,status:string):Promise<string|null>{
     try{
        
       if(transactionId&&status){
@@ -19,7 +19,7 @@ export async function UpdateOrderStatus(transactionId:string,status:string):Prom
         return null;
     }
 }
-export async function UpdateEntryReadStatus(transactionId:string):Promise<String|null>{
+export async function UpdateEntryReadStatus(transactionId:string):Promise<string|null>{
   try{
      
     if(transactionId){
@@ -40,6 +40,7 @@ export async function UpdateEntryReadStatus(transactionId:string):Promise<String
 export async function GetCustomerDetails(customerId:string):Promise<CustomerStruct|null>{
   try{
     const response=await axios.get(`http://localhost:8080/user/customer/details?customerId=${customerId}`,{withCredentials:true})
+   
     return response.data;
   }catch(err){
     console.error(err)
@@ -47,7 +48,7 @@ export async function GetCustomerDetails(customerId:string):Promise<CustomerStru
   }
 
 }
-export async function AddRevenueRecord(revenueDetails:RevenueStruct):Promise<String|null>{
+export async function AddRevenueRecord(revenueDetails:RevenueStruct):Promise<string|null>{
   try{
    
       const response=await axios.post(`http://localhost:8080/revenue/create`,revenueDetails,{withCredentials:true})
@@ -58,7 +59,7 @@ export async function AddRevenueRecord(revenueDetails:RevenueStruct):Promise<Str
     return null;
   }
 }
-export async function GetRevenueRecords(sellerId:String):Promise<RevenueStruct[]|null>{
+export async function GetRevenueRecords(sellerId:string):Promise<RevenueStruct[]|null>{
   try{
       const response=await axios.get(`http://localhost:8080/revenue/records?sellerId=${sellerId}`,{withCredentials:true})
       return response.data as RevenueStruct[]

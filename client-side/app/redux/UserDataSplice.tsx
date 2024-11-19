@@ -1,7 +1,6 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import { UserStruct } from '../user/userClass/UserStruct'
 import axios from 'axios';
-import { retry } from '@reduxjs/toolkit/query';
 import { UserDataState } from '../types/DataState';
 const initialState:UserDataState={
     items:null,
@@ -29,7 +28,7 @@ const UserDetailsSlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(FetchUserDetails.pending,(state,action)=>{
+        .addCase(FetchUserDetails.pending,(state)=>{
             state.loading=true
         })
         .addCase(FetchUserDetails.fulfilled,(state,action)=>{

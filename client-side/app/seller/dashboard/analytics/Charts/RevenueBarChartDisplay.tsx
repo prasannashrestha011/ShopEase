@@ -5,7 +5,7 @@ import { ChartData, DailyRevenueStruct } from '../../class';
 import { useAppSelector } from '@/app/redux/Store';
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { CircleSpinner } from 'react-spinners-kit';
+
 import { Skeleton } from '@/components/ui/skeleton';
 
 

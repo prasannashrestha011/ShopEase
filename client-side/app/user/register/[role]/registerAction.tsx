@@ -2,7 +2,7 @@ import axios from "axios";
 import { UserStruct } from "../../userClass/UserStruct";
 
 export async function RegisterUser(role:string,userDetails:UserStruct):Promise<string>{
-    var userRole=""
+    let userRole=""
     if(role=="seller") userRole=role;
    try{
         const response=await axios.post(`http://localhost:8080/account/register?role=${userRole}`,userDetails)

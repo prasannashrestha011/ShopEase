@@ -9,7 +9,7 @@ import { useAppSelector } from '@/app/redux/Store'
 
 const UploadDisplay = () => {
   const [productList,setProductList]=useState<ProductStruct[]>([])
-  const {items,loading,error}=useAppSelector((state)=>state.userDetails);
+  const {items}=useAppSelector((state)=>state.userDetails);
   const addProductList=()=>{
     const newProduct=new ProductStruct("",0,"",[],"")
     setProductList(prevList=>[...prevList,newProduct])

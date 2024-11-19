@@ -6,7 +6,7 @@ import {  useAppSelector } from '@/app/redux/Store'
 
 
 const ProfileDisplay:React.FC = () => {
-    const {items,loading,error}=useAppSelector((state)=>state.userDetails)
+    const {items}=useAppSelector((state)=>state.userDetails)
     
   return (
     <div className='flex flex-col h-svh merriwheather'>

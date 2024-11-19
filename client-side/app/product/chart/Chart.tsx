@@ -23,8 +23,8 @@ const Chart = () => {
       Your chart
       </header>
     <ul className='flex flex-col gap-2'>
-    {items&&items?.map((chart)=>(
-      <span className='border-b-2 border-gray-300 p-1 ' onClick={()=>router.push(`/product/order/${chart.productId}`)}>{chart.productName}</span>
+    {items&&items?.map((chart,idx)=>(
+      <span className='border-b-2 border-gray-300 p-1 ' key={idx} onClick={()=>router.push(`/product/order/${chart.productId}`)}>{chart.productName}</span>
     ))}
     </ul>
   </PopoverContent>

@@ -7,7 +7,7 @@ import React from 'react'
 import { useAppSelector } from "../redux/Store"
 import { useRouter } from "next/navigation"
 
-import { FaUser,FaFirstOrder, FaTruck } from "react-icons/fa"
+import { FaUser, FaTruck } from "react-icons/fa"
 const HomeOptions = () => {
     const {items}=useAppSelector((state)=>state.userDetails)
     const router=useRouter()

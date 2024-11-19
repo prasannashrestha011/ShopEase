@@ -14,7 +14,9 @@ const ChartDataSlice=createSlice({
     initialState,
     reducers:{
        addChart:(state,action:PayloadAction<ChartStruct>)=>{
-       state.items? state.items.push(action.payload):[]
+        if (state.items) {
+            state.items.push(action.payload);
+          }
        },
        removeChart:(state,action:PayloadAction<string>)=>{
            if(state.items){

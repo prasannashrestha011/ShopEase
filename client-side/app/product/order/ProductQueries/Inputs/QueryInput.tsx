@@ -32,6 +32,7 @@ const QueryInput:React.FC<Props> = ({productId,sellerId}) => {
           productQuery?.questionDesc,
         );
          const message=await InsertProductQuery(userQuery)
+         console.log(message)
          setProductQuery(null)
          setIsSubmit(true)
       }

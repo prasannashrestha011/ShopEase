@@ -28,6 +28,7 @@ export async function GetPrevAndCurrentWeekRecords(sellerId:string):Promise<Curr
         
         return response.data as CurrAndPrevRevenueStruct
     }catch(err){
+        console.error(err)
         return null;
     }
 }
@@ -37,6 +38,7 @@ export async function GetTotalRevenue(sellerId:string):Promise<number>{
         console.log(response.data)
         return response.data.totalAmount;
     }catch(err){
+        console.error(err)
         return 0;
     }
 }
