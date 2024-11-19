@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import { GetCurrentWeekRevenueRecords } from "../seller/dashboard/OrderRequest/fetchers";
+import { GetCurrentWeekRevenueRecords } from "../seller/dashboard/fetchers";
 import { AnalyticsState } from "../types/DataState";
 
 const initialState:AnalyticsState={

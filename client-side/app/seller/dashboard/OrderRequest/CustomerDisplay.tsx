@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AddRevenueRecord, GetCustomerDetails, UpdateEntryReadStatus, UpdateOrderStatus } from './fetchers'
+import { AddRevenueRecord, GetCustomerDetails, UpdateEntryReadStatus, UpdateOrderStatus } from '../fetchers'
 import { CustomerStruct, RevenueStruct } from '../class'
 
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
@@ -60,11 +60,13 @@ const CustomerDisplay:React.FC = () => {
   
  useEffect(()=>{
   fetchCustomerDetails();
-    if (orderDetails?.status) {
-      console.log(orderDetails.status);
-      dispatch(UpdateOrderStatusState(orderDetails.status));
-    }
+  if (orderDetails?.status) {
+    console.log(orderDetails.status);
+    dispatch(UpdateOrderStatusState(orderDetails.status));
+    
+  }
  },[orderDetails])
+
   return (
     <div className='ml-2 h-full merriwheather'>
   
@@ -91,14 +93,18 @@ const CustomerDisplay:React.FC = () => {
       <div className='w-96 border flex flex-col p-2'>
         <span className='text-xl font-bold'>Product Details</span>
         <div className='flex flex-col  text-xl justify-between h-full'>
-        <span><span>Status-</span>{orderRequestStatus?<span>{orderRequestStatus}</span>:<span>pending</span>}</span>
+        <span><span>Status-</span>{orderRequestStatus &&<span>{orderRequestStatus}</span>}</span>
         <span><span>Total Amount-</span>{orderDetails?.amount}</span>
         </div>
       </div>
     </DrawerDescription>
     <DrawerFooter className='flex flex-col items-center justify-center '>
+     {orderRequestStatus==="approved" &&<span>Order has been approved</span>}
+     {orderRequestStatus==="rejected" && <span>Order has been rejected</span>}
+     {orderRequestStatus==="pending"&&<div>
       <Button onClick={()=>handleOrderStatus("approved")} className='w-60 bg-green-600'>Approve</Button>
       <Button onClick={()=>handleOrderStatus("rejected")} className='w-60 bg-red-600'>Reject</Button>
+      </div>}
       <DrawerClose>
         <Button variant="outline">Cancel</Button>
       </DrawerClose>
