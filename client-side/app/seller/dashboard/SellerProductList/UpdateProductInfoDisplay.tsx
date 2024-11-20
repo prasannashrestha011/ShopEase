@@ -33,7 +33,8 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
       productDetails.productPrice,
       productDetails.productDes)
       const response=await UpdateProductDetails(newDetails)
-      setServerResponse(response)
+      if(typeof(response)=="string") setServerResponse(response)
+      
 }
   useEffect(()=>{
     if(selectedProduct){

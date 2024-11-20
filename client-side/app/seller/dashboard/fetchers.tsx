@@ -130,10 +130,11 @@ export async function GetProductListOfSeller(sellerId:string):Promise<ProductInf
        return []
     }
 }
-export async function UpdateProductDetails(newProductDetails:UpdateProductDetailsStruct):Promise<string>{
+export async function UpdateProductDetails(newProductDetails:UpdateProductDetailsStruct):Promise<UpdateProductDetailsStruct|string>{
   try{
     const response=await axios.put(`http://localhost:8080/product/update`,newProductDetails,{withCredentials:true})
     if(response.status===400) throw new Error(response.data.error)
+      console.log(response.data)
     return response.data.success
   }catch(err){
     if(axios.isAxiosError(err)){

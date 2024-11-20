@@ -145,7 +145,8 @@ public class ProductsController {
             int response = productService.UpdateProductDetails(newProductDetails);
             if (response == 0)
                 throw new Exception("failed to update the product details");
-            return ResponseEntity.ok().body(Map.of("success", "product details updated sucessfully"));
+            var updatedProduct = productService.getProductById(newProductDetails.getProductId());
+            return ResponseEntity.ok().body(Map.of("success", updatedProduct));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
