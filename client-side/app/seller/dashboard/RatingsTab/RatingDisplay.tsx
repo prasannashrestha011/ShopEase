@@ -30,7 +30,7 @@ const RatingDisplay = () => {
    
 
   return (
-    <div>
+
      
      
      <div className="w-fit max-h-96 mt-4 h-96  ">
@@ -38,8 +38,8 @@ const RatingDisplay = () => {
       {listLoading?(
         <div>Loading list...</div>
       ):(
-        <Table className='border-2 w-6/12  h-20  '>
-        <ScrollArea className="h-72 w-fit rounded-md border">
+        <Table className='border w-6/12  h-20 '>
+        <ScrollArea className="h-72 w-fit m-0 p-0 rounded-md border">
         <TableHeader className='bg-gradient-to-b from-[#FCF3F3] to-[#CCC9C9] hover:from-[#FCF3F3] hover:to-[#CCC9C9] text-black ' >
             <TableRow>
                 {headers.map((head,idx)=>(
@@ -75,7 +75,7 @@ const RatingDisplay = () => {
       </Table>
       )}
       </div>
-    </div>
+
   )
 }
 

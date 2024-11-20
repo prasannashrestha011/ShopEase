@@ -30,8 +30,10 @@ const SellerProductListDisplay = () => {
     }
     
   return (
-    <div className='flex'>
-        <Table className='w-7/1 border-t'>
+    <div className='flex  items-center justify-center space-x-4 '>
+       <div className='w-7/12 flex flex-col justify-center items-center'>
+       <span >Your Products</span>
+       <Table className='border'>
           <ScrollArea className='h-96'>
           <TableHeader className='bg-gradient-to-b from-[#FCF3F3] to-[#CCC9C9] hover:from-[#FCF3F3] hover:to-[#CCC9C9] text-black '>
                 <TableRow>
@@ -58,7 +60,10 @@ const SellerProductListDisplay = () => {
             </TableBody>
           </ScrollArea>
         </Table>
-        <RatingDisplay/>
+       </div>
+      
+        <RatingDisplay />
+       
     </div>
   )
 }

@@ -46,11 +46,9 @@ const DashBoardDisplay = () => {
                   
                     </TabsTrigger>
                     <TabsTrigger value="products" className="w-full">
-                     <span>Your products</span>
+                    <span>Manage Products</span>
                     </TabsTrigger>
-                    <TabsTrigger value="ratings" className="w-full">
-                     <span>Manage Products</span>
-                    </TabsTrigger>
+                  
             </TabsList>
             <TabsContent value="analytics" className="w-full ">                
                 <Analytics/>
@@ -61,9 +59,7 @@ const DashBoardDisplay = () => {
             <TabsContent value="products" className="overflow-hidden w-full  ">
                 <SellerProductListDisplay/>
             </TabsContent>
-            <TabsContent value="ratings" className="overflow-hidden w-full  ">
-                <RatingDisplay/>
-            </TabsContent>
+           
         </Tabs>
     </div>
  
