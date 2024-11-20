@@ -1,8 +1,12 @@
+import { ProductInfo } from "@/app/product/class/productClass";
 import { GetProductListOfSeller } from "@/app/seller/dashboard/fetchers";
 import { ProductDataState } from "@/app/types/DataState";
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-
+interface PayloadProps{
+    updatedProductDetails:ProductInfo,
+    idx:number
+}
 const initialState:ProductDataState={
     items:null,
     loading:true,
@@ -20,9 +24,18 @@ export const FetchSellerProductList=createAsyncThunk('/fetch/seller/productList'
     }
 })
 const SellerProducts=createSlice({
-    name:'analytics',
+    name:'sellerProduct',
     initialState,
-    reducers:{},
+    reducers:{
+        UpdateProductListState:(state,action:PayloadAction<PayloadProps>)=>{
+           if(state.items){
+            console.log("state updated")
+            const {updatedProductDetails,idx}=action.payload
+            state.items[idx]=updatedProductDetails
+           }
+        }
+
+    },
     extraReducers:(builder)=>{
         builder.addCase(FetchSellerProductList.pending,(state)=>{
             state.loading=true
@@ -40,4 +53,5 @@ const SellerProducts=createSlice({
       
     }
 })
+export const {UpdateProductListState}=SellerProducts.actions
 export default SellerProducts.reducer

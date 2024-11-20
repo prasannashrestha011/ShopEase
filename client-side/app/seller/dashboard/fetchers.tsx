@@ -130,7 +130,7 @@ export async function GetProductListOfSeller(sellerId:string):Promise<ProductInf
        return []
     }
 }
-export async function UpdateProductDetails(newProductDetails:UpdateProductDetailsStruct):Promise<UpdateProductDetailsStruct|string>{
+export async function UpdateProductDetails(newProductDetails:UpdateProductDetailsStruct):Promise<ProductInfo|null>{
   try{
     const response=await axios.put(`http://localhost:8080/product/update`,newProductDetails,{withCredentials:true})
     if(response.status===400) throw new Error(response.data.error)
@@ -138,8 +138,8 @@ export async function UpdateProductDetails(newProductDetails:UpdateProductDetail
     return response.data.success
   }catch(err){
     if(axios.isAxiosError(err)){
-      return err.message as string
+      return null
     }
-    return "Unknow error.Please try again later"
+    return null
   }
 }

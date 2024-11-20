@@ -7,6 +7,8 @@ import UpdateProductInfoDisplay from './UpdateProductInfoDisplay'
 
 const SelectedProductContain = () => {
     const {items:selectedProduct}=useAppSelector((state)=>state.selectedSellerProduct)
+  
+ 
     if(!selectedProduct){
         return(
             <DrawerContent>

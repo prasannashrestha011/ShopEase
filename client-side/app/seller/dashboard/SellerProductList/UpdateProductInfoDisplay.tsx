@@ -1,17 +1,21 @@
 
-import { useAppSelector } from '@/app/redux/Store'
+import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
 import { Button } from '@/components/ui/button'
 import { DrawerContent, DrawerTitle } from '@/components/ui/drawer'
 import { Input } from '@/components/ui/input'
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { UpdateProductDetails } from '../fetchers'
 import { UpdateProductDetailsStruct } from '../class'
+import { UpdateProductListState } from '@/app/redux/Seller/SellerProductsSlice'
 
 const UpdateProductInfoDisplay = () => {
 
   const {items:selectedProduct}=useAppSelector((state)=>state.selectedSellerProduct)
   const [isUpdateDisabled,setIsUpdateDisabled]=useState<boolean>(true)
   const [serverResponse,setServerResponse]=useState<string>("")
+
+  const dispatcher=useAppDispatch()
+
   const [productDetails, setProductDetails] = useState<UpdateProductDetailsStruct>({
     productId:"",
     productName:"",
@@ -32,9 +36,16 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
       productDetails.productName,
       productDetails.productPrice,
       productDetails.productDes)
-      const response=await UpdateProductDetails(newDetails)
-      if(typeof(response)=="string") setServerResponse(response)
       
+      const response=await UpdateProductDetails(newDetails)
+    
+    
+        if(selectedProduct.data && response){
+          dispatcher(UpdateProductListState({
+            updatedProductDetails:{...response},
+            idx:selectedProduct.idx
+          }))
+        }
 }
   useEffect(()=>{
     if(selectedProduct.data){

@@ -1,7 +1,7 @@
 import { ProductInfo } from '@/app/product/class/productClass'
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
-import React, { useEffect, useState } from 'react'
-import { GetProductListOfSeller } from '../fetchers'
+import React, { useState } from 'react'
+
 
 import { Table,TableHead, TableHeader,TableRow } from '@/components/ui/table'
 import { TableBody, TableCell } from '@mui/material'
