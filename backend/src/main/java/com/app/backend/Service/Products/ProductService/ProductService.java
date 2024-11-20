@@ -18,6 +18,12 @@ public interface ProductService {
 
     List<ProductEntity> getProductsBySellerId(String sellerId);
 
+    String UpdateProductName(String productId, String productName);
+
+    String UpdateProductPrice(String productId, Long productPrice);
+
+    String UpdateProductDes(String productId, String productDes);
+
     String deleteAllProductList();
 
 }

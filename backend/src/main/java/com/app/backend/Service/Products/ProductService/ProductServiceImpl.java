@@ -18,6 +18,8 @@ import com.app.backend.Entities.ProductEntity;
 import com.app.backend.Repositories.Products.ProductRepository;
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -127,6 +129,30 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductEntity> getProductsBySellerId(String sellerId) {
         return productRepo.findProductBySellerId(sellerId);
+    }
+
+    @Override
+    @Transactional
+    public String UpdateProductName(String productId, String productName) {
+        int rowsUpdated = productRepo.updateProductName(productId, productName);
+        return rowsUpdated > 0 ? "product name updated sucessfully"
+                : "product not found or update failed";
+    }
+
+    @Override
+    @Transactional
+    public String UpdateProductPrice(String productId, Long productPrice) {
+        int rowsUpdated = productRepo.updateProductPrice(productId, productPrice);
+        return rowsUpdated > 0 ? "product price updated sucessfully"
+                : "product not found or update failed";
+    }
+
+    @Override
+    @Transactional
+    public String UpdateProductDes(String productId, String productDes) {
+        int rowsUpdated = productRepo.updateProductDesc(productId, productDes);
+        return rowsUpdated > 0 ? "product description updated sucessfully"
+                : "product not found or update failed";
     }
 
 }
