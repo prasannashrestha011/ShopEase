@@ -9,6 +9,7 @@ import { SetSelectedProduct } from '@/app/redux/Seller/SelectedProductSplice'
 import { Drawer, DrawerTrigger } from '@/components/ui/drawer'
 import SelectedProductContain from './SelectedProductContain'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import RatingDisplay from '../RatingsTab/RatingDisplay'
 
 
 const SellerProductListDisplay = () => {
@@ -57,6 +58,7 @@ const SellerProductListDisplay = () => {
             </TableBody>
           </ScrollArea>
         </Table>
+        <RatingDisplay/>
     </div>
   )
 }

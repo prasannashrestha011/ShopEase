@@ -40,7 +40,7 @@ const RatingDisplay = () => {
       ):(
         <Table className='border-2 w-6/12  h-20  '>
         <ScrollArea className="h-72 w-fit rounded-md border">
-        <TableHeader className=' w-full z-20 bg-white' >
+        <TableHeader className='bg-gradient-to-b from-[#FCF3F3] to-[#CCC9C9] hover:from-[#FCF3F3] hover:to-[#CCC9C9] text-black ' >
             <TableRow>
                 {headers.map((head,idx)=>(
                     <TableHead key={idx}>{head}</TableHead>
