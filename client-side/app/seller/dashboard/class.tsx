@@ -37,11 +37,13 @@ class DailyRevenueStruct{
         [key:number]:RevenueStruct[]
     
 }
-class UpdateProductStruct{
+class UpdateProductDetailsStruct{
+    productId:string
     productName:string
     productPrice:number 
     productDes:string 
-    constructor(productName:string,productPrice:number,productDes:string){
+    constructor(productId:string,productName:string,productPrice:number,productDes:string){
+        this.productId=productId
         this.productName=productName
         this.productPrice=productPrice,
         this.productDes=productDes  
@@ -71,5 +73,5 @@ interface OrderDetailsStruct{
 }
 
 
-export {CustomerStruct,RevenueStruct,DailyRevenueStruct,UpdateProductStruct}
+export {CustomerStruct,RevenueStruct,DailyRevenueStruct,UpdateProductDetailsStruct}
 export type {CurrAndPrevRevenueStruct,ChartData,PrevAndCurrentStruct,OrderDetailsStruct}

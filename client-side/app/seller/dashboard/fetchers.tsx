@@ -1,6 +1,6 @@
 import { TransactionStruct } from "@/app/product/class/transactionClass";
 import axios from "axios";
-import { CurrAndPrevRevenueStruct, RevenueStruct,CustomerStruct,DailyRevenueStruct } from "./class";
+import { CurrAndPrevRevenueStruct, RevenueStruct,CustomerStruct,DailyRevenueStruct, UpdateProductDetailsStruct } from "./class";
 import { ProductInfo } from "@/app/product/class/productClass";
 
 export async function GetOrderRequests(sellerId:string):Promise<TransactionStruct[]|null>{
@@ -129,4 +129,16 @@ export async function GetProductListOfSeller(sellerId:string):Promise<ProductInf
     }catch(err){
        return []
     }
+}
+export async function UpdateProductDetails(newProductDetails:UpdateProductDetailsStruct):Promise<string>{
+  try{
+    const response=await axios.put(`http://localhost:8080/product/update`,newProductDetails,{withCredentials:true})
+    if(response.status===400) throw new Error(response.data.error)
+    return response.data.success
+  }catch(err){
+    if(axios.isAxiosError(err)){
+      return err.message as string
+    }
+    return "Unknow error.Please try again later"
+  }
 }
