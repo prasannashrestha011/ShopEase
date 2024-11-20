@@ -29,4 +29,9 @@ public class ProductRatingServiceImpl implements ProductRatingService {
         return productRatingRepo.findByProductIdOrderByCreatedAtDesc(productId, pageable);
     }
 
+    @Override
+    public List<ProductRatingEntity> GetRatingsBySellerId(String sellerId) {
+        return productRatingRepo.findBySellerId(sellerId);
+    }
+
 }

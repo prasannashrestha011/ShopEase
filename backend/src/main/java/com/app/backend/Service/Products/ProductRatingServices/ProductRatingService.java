@@ -8,4 +8,6 @@ public interface ProductRatingService {
     String InsertProductRating(ProductRatingEntity productRatingEntity);
 
     List<ProductRatingEntity> GetProductRatings(String productId);
+
+    List<ProductRatingEntity> GetRatingsBySellerId(String sellerId);
 }

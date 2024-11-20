@@ -34,9 +34,10 @@ const RatingInput = () => {
         return
       }
      
-      if(!productProps.productId || !productProps.username)return
+      if(!productProps.productId || !productProps.username || !productProps.sellerId)return
       
-      const productRatingEntity=new ProductRatingStruct(productProps.productId,productProps.username,ratedValue,productReview)
+      const productRatingEntity=new ProductRatingStruct(productProps.productId,
+        productProps.username,ratedValue,productReview,productProps.sellerId)
       const response=await InsertProductRating(productRatingEntity)
       console.log(response)
       setActionResponse(response)

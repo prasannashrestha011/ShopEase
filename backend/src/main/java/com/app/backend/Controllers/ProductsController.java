@@ -205,6 +205,17 @@ public class ProductsController {
         }
     }
 
+    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("/get/seller/ratings")
+    public ResponseEntity<Object> GetProductRatingsOfSeller(@RequestParam(name = "sellerId") String sellerId) {
+        try {
+            var ratingList = productRatingService.GetRatingsBySellerId(sellerId);
+            return ResponseEntity.ok().body(ratingList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(Map.of("error", "rating not found "));
+        }
+    }
+
     @PostMapping("/insert/rating")
     public ResponseEntity<Object> InsertProductRating(@RequestBody ProductRatingEntity productRatingEntity) {
         try {

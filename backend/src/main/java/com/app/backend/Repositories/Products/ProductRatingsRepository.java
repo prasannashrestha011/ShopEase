@@ -12,4 +12,6 @@ import com.app.backend.Entities.ProductQueries.ProductRatingEntity;
 @Repository
 public interface ProductRatingsRepository extends JpaRepository<ProductRatingEntity, String> {
     List<ProductRatingEntity> findByProductIdOrderByCreatedAtDesc(String productId, Pageable pageable);
+
+    List<ProductRatingEntity> findBySellerId(String sellerId);
 }

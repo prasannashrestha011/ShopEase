@@ -36,6 +36,9 @@ public class ProductRatingEntity {
     @Column(nullable = false)
     private Date createdAt;
 
+    @Column(nullable = false)
+    private String sellerId;
+
     @PrePersist
     private void OnCreated() {
         ratedId = UUID.randomUUID().toString().substring(0, 16);

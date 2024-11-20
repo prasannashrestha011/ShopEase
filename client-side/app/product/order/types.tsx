@@ -47,14 +47,16 @@ class ProductRatingStruct{
     ratedValue:number 
     review:string 
     createdAt?:Date
+    sellerId:string
     constructor(
         productId:string, 
         ratedBy:string ,
         ratedValue:number,
         review:string,
+        sellerId:string,
         createdAt?:Date,
         ratedId?:string ,
-      
+     
     ) {
         this.ratedId=ratedId
         this.productId=productId
@@ -62,6 +64,7 @@ class ProductRatingStruct{
         this.ratedBy=ratedBy
         this.review=review
         this.createdAt=createdAt
+        this.sellerId=sellerId
     }
 
 }
