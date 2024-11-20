@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -137,6 +138,35 @@ public class ProductsController {
         return ResponseEntity.ok().body(response);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateProductDetail(
+            @RequestParam(value = "productId") String productId,
+            @RequestParam(value = "productName", required = false) String productName,
+            @RequestParam(value = "productPrice", required = false) Long productPrice,
+            @RequestParam(value = "productDes", required = false) String productDes) {
+
+        if (productName != null && !productName.isEmpty() && productPrice == null
+                && (productDes == null || productDes.isEmpty())) {
+            var response = productService.UpdateProductName(productId, productName);
+            return ResponseEntity.ok().body(Map.of("success", response));
+        }
+
+        if (productPrice != null && (productName == null || productName.isEmpty())
+                && (productDes == null || productDes.isEmpty())) {
+            var response = productService.UpdateProductPrice(productId, productPrice);
+            return ResponseEntity.ok().body(Map.of("success", response));
+        }
+
+        if (productDes != null && !productDes.isEmpty() && (productName == null || productName.isEmpty())
+                && productPrice == null) {
+            var response = productService.UpdateProductDes(productId, productDes);
+            return ResponseEntity.ok().body(Map.of("success", response));
+        }
+
+        return ResponseEntity.badRequest().body(Map.of("error", "Invalid request"));
+    }
+
+    // for product queries
     @GetMapping("/get/queries")
     public ResponseEntity<Object> getProductQuery(
             @RequestParam(name = "productId", required = false) String productId,
