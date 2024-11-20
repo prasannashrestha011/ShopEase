@@ -11,6 +11,8 @@ import { FaChartLine, FaShoppingCart } from "react-icons/fa"
 import { GetUnReadRequest } from "@/utils/GetUnReadRequest"
 import SellerProductListDisplay from "./SellerProductListTab/SellerProductListDisplay"
 import { FetchSellerProductList } from "@/app/redux/Seller/SellerProductsSlice"
+import RatingDisplay from "./RatingsTab/RatingDisplay"
+import { FetchSellerProductRating } from "@/app/redux/ProductRatings/SellerRatingListSplice"
 
 const DashBoardDisplay = () => {
     const dispatcher=useAppDispatch();
@@ -23,6 +25,7 @@ const DashBoardDisplay = () => {
             dispatcher(FetchOrderRequest(items?.id))
             dispatcher(FetchAnalyticData(items.id))
             dispatcher(FetchSellerProductList(items.id))
+            dispatcher(FetchSellerProductRating(items.id))
         }
     },[items])
    
@@ -45,6 +48,9 @@ const DashBoardDisplay = () => {
                     <TabsTrigger value="products" className="w-full">
                      <span>Your products</span>
                     </TabsTrigger>
+                    <TabsTrigger value="ratings" className="w-full">
+                     <span>Manage Products</span>
+                    </TabsTrigger>
             </TabsList>
             <TabsContent value="analytics" className="w-full ">                
                 <Analytics/>
@@ -54,6 +60,9 @@ const DashBoardDisplay = () => {
             </TabsContent>
             <TabsContent value="products" className="overflow-hidden w-full  ">
                 <SellerProductListDisplay/>
+            </TabsContent>
+            <TabsContent value="ratings" className="overflow-hidden w-full  ">
+                <RatingDisplay/>
             </TabsContent>
         </Tabs>
     </div>

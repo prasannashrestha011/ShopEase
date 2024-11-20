@@ -2,6 +2,7 @@ import { TransactionStruct } from "@/app/product/class/transactionClass";
 import axios from "axios";
 import { CurrAndPrevRevenueStruct, RevenueStruct,CustomerStruct,DailyRevenueStruct, UpdateProductDetailsStruct } from "./class";
 import { ProductInfo } from "@/app/product/class/productClass";
+import { ProductRatingStruct } from "@/app/product/order/types";
 
 export async function GetOrderRequests(sellerId:string):Promise<TransactionStruct[]|null>{
 
@@ -136,6 +137,19 @@ export async function UpdateProductDetails(newProductDetails:UpdateProductDetail
     if(response.status===400) throw new Error(response.data.error)
       console.log(response.data)
     return response.data.success
+  }catch(err){
+    if(axios.isAxiosError(err)){
+      return null
+    }
+    return null
+  }
+}
+export async function GetProductRatingsOfSeller(sellerId:string):Promise<ProductRatingStruct[]|null>{
+  try{
+    const response=await axios.get(`http://localhost:8080/product/get/seller/ratings?sellerId=${sellerId}`,{withCredentials:true})
+    if(response.status===400) throw new Error(response.data.error)
+      console.log(response.data)
+    return response.data as ProductRatingStruct[]
   }catch(err){
     if(axios.isAxiosError(err)){
       return null
