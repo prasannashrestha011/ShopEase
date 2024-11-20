@@ -2,14 +2,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import React, { useEffect, useState } from 'react'
-import OrderDisplay from "./OrderRequest/OrderDisplay"
+import OrderDisplay from "./OrderRequestTab/OrderDisplay"
 import { useAppDispatch, useAppSelector } from "@/app/redux/Store"
 import { FetchOrderRequest } from "@/app/redux/OrderRequests/OrderRequestSplice"
 import Analytics from "./analytics/Analytics"
 import { FetchAnalyticData } from "@/app/redux/AnalyticsSplice"
 import { FaChartLine, FaShoppingCart } from "react-icons/fa"
 import { GetUnReadRequest } from "@/utils/GetUnReadRequest"
-import SellerProductListDisplay from "./SellerProductList/SellerProductListDisplay"
+import SellerProductListDisplay from "./SellerProductListTab/SellerProductListDisplay"
 import { FetchSellerProductList } from "@/app/redux/Seller/SellerProductsSlice"
 
 const DashBoardDisplay = () => {
