@@ -10,6 +10,7 @@ import { FetchAnalyticData } from "@/app/redux/AnalyticsSplice"
 import { FaChartLine, FaShoppingCart } from "react-icons/fa"
 import { GetUnReadRequest } from "@/utils/GetUnReadRequest"
 import SellerProductListDisplay from "./SellerProductList/SellerProductListDisplay"
+import { FetchSellerProductList } from "@/app/redux/Seller/SellerProductsSlice"
 
 const DashBoardDisplay = () => {
     const dispatcher=useAppDispatch();
@@ -21,6 +22,7 @@ const DashBoardDisplay = () => {
             setUnReadOrdersCount(GetUnReadRequest(orderRequest??[]))
             dispatcher(FetchOrderRequest(items?.id))
             dispatcher(FetchAnalyticData(items.id))
+            dispatcher(FetchSellerProductList(items.id))
         }
     },[items])
    

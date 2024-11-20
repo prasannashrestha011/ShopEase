@@ -17,7 +17,9 @@ interface ProductDataState{
     error:string|null|undefined
 }
 interface SelectedProductDataState{
-    items:ProductInfo|null;
+    items:{
+        data:ProductInfo|null,
+        idx:number};
     loading:boolean;
     error:string|null|undefined
 }

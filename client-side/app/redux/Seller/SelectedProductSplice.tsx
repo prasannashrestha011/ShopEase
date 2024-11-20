@@ -3,17 +3,28 @@ import {  SelectedProductDataState } from "@/app/types/DataState";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState:SelectedProductDataState={
-    items:null,
+    items:{
+        data:null,
+        idx:0
+    },
     loading:false,
     error:null
 }
+interface SelectedProductPayload {
+    data: ProductInfo;
+    idx: number; // or the appropriate type
+  }
 const SelectedProductSplice=createSlice({
     initialState,
     name:'selectedProduct',
     reducers:{
-        SetSelectedProduct:(state,action:PayloadAction<ProductInfo>)=>{
+        SetSelectedProduct:(state,action:PayloadAction<SelectedProductPayload>)=>{
         
-            state.items=action.payload
+        
+              
+                state.items.data=action.payload.data
+                state.items.idx=action.payload.idx
+               
            
         }
     }

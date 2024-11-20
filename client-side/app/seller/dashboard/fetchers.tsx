@@ -114,7 +114,7 @@ export async function GetRevenueRecords(sellerId:string):Promise<RevenueStruct[]
 export async function GetCurrentWeekRevenueRecords(sellerId:string):Promise<DailyRevenueStruct|null>{
     try{
       const response=await axios.get(`http://localhost:8080/revenue/current/week/days?sellerId=${sellerId}`,{withCredentials:true})
-
+      console.log("daily revenue struct->",response)
       return response.data as DailyRevenueStruct
     }catch(err){
       console.error(err)

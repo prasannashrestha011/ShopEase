@@ -30,6 +30,7 @@ const RevenueBarChartDisplay = () => {
        
         const chart=daysOfWeek.map((day,index)=>{
             const dailyRevenue=data[index] || []
+            console.log(dailyRevenue)
             const totalAmt=dailyRevenue.reduce((sum,record)=>sum+record.amount,0)
             return {day,"Total Revenue":totalAmt}
         })

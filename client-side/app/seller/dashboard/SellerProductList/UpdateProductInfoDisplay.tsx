@@ -1,4 +1,4 @@
-import { ProductInfo } from '@/app/product/class/productClass'
+
 import { useAppSelector } from '@/app/redux/Store'
 import { Button } from '@/components/ui/button'
 import { DrawerContent, DrawerTitle } from '@/components/ui/drawer'
@@ -37,10 +37,10 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
       
 }
   useEffect(()=>{
-    if(selectedProduct){
-      setProductDetails(selectedProduct)
+    if(selectedProduct.data){
+      setProductDetails(selectedProduct.data)
     }
-  },[])
+  },[selectedProduct])
 
   if(!selectedProduct){
     return(

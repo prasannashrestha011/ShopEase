@@ -1,4 +1,4 @@
-import { ProductInfo, ProductStruct } from '@/app/product/class/productClass'
+import { ProductInfo } from '@/app/product/class/productClass'
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
 import React, { useEffect, useState } from 'react'
 import { GetProductListOfSeller } from '../fetchers'
@@ -17,22 +17,16 @@ const SellerProductListDisplay = () => {
         'product Price',
         ''
     ]
-    const [productList,setProductList]=useState<ProductInfo[]>([])
-    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
+    const {items:productList}=useAppSelector((state)=>state.sellerProductList)
+    
     const dispatcher=useAppDispatch()
     const [selectedIdx,setSelectedIdx]=useState<number|null>(null)
-    const fetchProductList=async()=>{
-        if(!userDetails) return 
-        const list=await GetProductListOfSeller(userDetails.id)
-        setProductList(list)
-    }
+ 
     const handleSelectedProduct=(selectedProductDetails:ProductInfo,idx:number)=>{
-        dispatcher(SetSelectedProduct(selectedProductDetails))
+        dispatcher(SetSelectedProduct({data:selectedProductDetails,idx}))
         setSelectedIdx(idx)
     }
-    useEffect(()=>{
-        fetchProductList()
-    },[userDetails])
+    
   return (
     <div>
         <Table>
@@ -44,7 +38,7 @@ const SellerProductListDisplay = () => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-            {productList.map((product,idx)=>(
+            {productList&&productList.length>0&&productList.map((product,idx)=>(
                      <TableRow key={idx}>
                         <TableCell>{product.productId}</TableCell>
                         <TableCell>{product.productName}</TableCell>
