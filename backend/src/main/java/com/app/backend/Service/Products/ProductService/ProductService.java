@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.backend.App_class.UpdateProductDetails;
 import com.app.backend.Entities.ProductEntity;
 
 public interface ProductService {
@@ -18,11 +19,7 @@ public interface ProductService {
 
     List<ProductEntity> getProductsBySellerId(String sellerId);
 
-    String UpdateProductName(String productId, String productName);
-
-    String UpdateProductPrice(String productId, Long productPrice);
-
-    String UpdateProductDes(String productId, String productDes);
+    int UpdateProductDetails(UpdateProductDetails updateProductDetails);
 
     String deleteAllProductList();
 

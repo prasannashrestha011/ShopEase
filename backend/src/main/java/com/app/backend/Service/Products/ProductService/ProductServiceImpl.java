@@ -133,26 +133,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public String UpdateProductName(String productId, String productName) {
-        int rowsUpdated = productRepo.updateProductName(productId, productName);
-        return rowsUpdated > 0 ? "product name updated sucessfully"
-                : "product not found or update failed";
-    }
-
-    @Override
-    @Transactional
-    public String UpdateProductPrice(String productId, Long productPrice) {
-        int rowsUpdated = productRepo.updateProductPrice(productId, productPrice);
-        return rowsUpdated > 0 ? "product price updated sucessfully"
-                : "product not found or update failed";
-    }
-
-    @Override
-    @Transactional
-    public String UpdateProductDes(String productId, String productDes) {
-        int rowsUpdated = productRepo.updateProductDesc(productId, productDes);
-        return rowsUpdated > 0 ? "product description updated sucessfully"
-                : "product not found or update failed";
+    public int UpdateProductDetails(com.app.backend.App_class.UpdateProductDetails newProductDetails) {
+        int rowsUpdated = productRepo.updateProductDetails(newProductDetails.getProductId(),
+                newProductDetails.getProductName(),
+                newProductDetails.getProductPrice(),
+                newProductDetails.getProductDes());
+        return rowsUpdated;
     }
 
 }

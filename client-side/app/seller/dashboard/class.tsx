@@ -37,6 +37,16 @@ class DailyRevenueStruct{
         [key:number]:RevenueStruct[]
     
 }
+class UpdateProductStruct{
+    productName:string
+    productPrice:number 
+    productDes:string 
+    constructor(productName:string,productPrice:number,productDes:string){
+        this.productName=productName
+        this.productPrice=productPrice,
+        this.productDes=productDes  
+    }
+}
 interface CurrAndPrevRevenueStruct {
     [key:number]:{
         records:{
@@ -60,5 +70,6 @@ interface OrderDetailsStruct{
     amount:number
 }
 
-export {CustomerStruct,RevenueStruct,DailyRevenueStruct}
+
+export {CustomerStruct,RevenueStruct,DailyRevenueStruct,UpdateProductStruct}
 export type {CurrAndPrevRevenueStruct,ChartData,PrevAndCurrentStruct,OrderDetailsStruct}

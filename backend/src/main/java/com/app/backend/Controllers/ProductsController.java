@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.backend.App_class.UpdateProductDetails;
 import com.app.backend.Entities.ProductEntity;
 import com.app.backend.Entities.ProductQueries.ProductQueryEntity;
 import com.app.backend.Entities.ProductQueries.ProductRatingEntity;
@@ -139,31 +140,16 @@ public class ProductsController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> updateProductDetail(
-            @RequestParam(value = "productId") String productId,
-            @RequestParam(value = "productName", required = false) String productName,
-            @RequestParam(value = "productPrice", required = false) Long productPrice,
-            @RequestParam(value = "productDes", required = false) String productDes) {
-
-        if (productName != null && !productName.isEmpty() && productPrice == null
-                && (productDes == null || productDes.isEmpty())) {
-            var response = productService.UpdateProductName(productId, productName);
-            return ResponseEntity.ok().body(Map.of("success", response));
+    public ResponseEntity<Object> updateProductDetail(@RequestBody UpdateProductDetails newProductDetails) {
+        try {
+            int response = productService.UpdateProductDetails(newProductDetails);
+            if (response == 0)
+                throw new Exception("failed to update the product details");
+            return ResponseEntity.ok().body(Map.of("success", "product details updated sucessfully"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
 
-        if (productPrice != null && (productName == null || productName.isEmpty())
-                && (productDes == null || productDes.isEmpty())) {
-            var response = productService.UpdateProductPrice(productId, productPrice);
-            return ResponseEntity.ok().body(Map.of("success", response));
-        }
-
-        if (productDes != null && !productDes.isEmpty() && (productName == null || productName.isEmpty())
-                && productPrice == null) {
-            var response = productService.UpdateProductDes(productId, productDes);
-            return ResponseEntity.ok().body(Map.of("success", response));
-        }
-
-        return ResponseEntity.badRequest().body(Map.of("error", "Invalid request"));
     }
 
     // for product queries

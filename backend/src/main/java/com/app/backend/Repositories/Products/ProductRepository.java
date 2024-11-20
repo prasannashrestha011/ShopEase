@@ -20,14 +20,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity, String> 
     List<ProductEntity> findProductBySellerId(String sellerId);
 
     @Modifying
-    @Query("UPDATE ProductEntity p SET p.productName=:productName WHERE p.productId=:productId")
-    int updateProductName(@Param("productId") String productId, @Param("productName") String productName);
+    @Query("UPDATE ProductEntity p SET p.productName=:productName , p.productPrice=:productPrice , productDes=:productDes WHERE p.productId=:productId")
+    int updateProductDetails(@Param("productId") String productId,
+            @Param("productName") String productName,
+            @Param("productPrice") Long productPrice,
+            @Param("productDes") String productDes);
 
-    @Modifying
-    @Query("UPDATE ProductEntity p SET p.productPrice=:productPrice WHERE p.productId=:productId")
-    int updateProductPrice(@Param("productId") String productId, @Param("productPrice") Long productPrice);
-
-    @Modifying
-    @Query("UPDATE ProductEntity p SET p.productDes=:productDes WHERE p.productId=:productId")
-    int updateProductDesc(@Param("productId") String productId, @Param("productDes") String productDes);
 }
