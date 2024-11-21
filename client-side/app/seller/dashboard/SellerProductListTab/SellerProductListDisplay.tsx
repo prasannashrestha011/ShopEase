@@ -30,7 +30,7 @@ const SellerProductListDisplay = () => {
     }
     
   return (
-    <div className='flex  items-center justify-center space-x-4 '>
+    <div className='flex  items-start justify-center gap-8'>
        <div className='w-7/12 flex flex-col justify-center items-center'>
        <span >Your Products</span>
        <Table className='border'>

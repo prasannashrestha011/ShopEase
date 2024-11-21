@@ -33,13 +33,13 @@ const RatingDisplay = () => {
 
      
      
-     <div className="w-fit max-h-96 mt-4 h-96  ">
+     <div className="w-fit max-h-96  h-96  ">
       <header className='w-fit mx-auto '>Your product ratings</header>
       {listLoading?(
         <div>Loading list...</div>
       ):(
-        <Table className='border w-6/12  h-20 '>
-        <ScrollArea className="h-72 w-fit m-0 p-0 rounded-md border">
+        <Table className=' w-6/12  h-20 '>
+        <ScrollArea className="h-96 w-fit m-0 p-0 rounded-md border">
         <TableHeader className='bg-gradient-to-b from-[#FCF3F3] to-[#CCC9C9] hover:from-[#FCF3F3] hover:to-[#CCC9C9] text-black ' >
             <TableRow>
                 {headers.map((head,idx)=>(
