@@ -1,3 +1,5 @@
+import { ProductInfo } from "../class/productClass"
+
 class ProductQueryStruct{
     queryId:string
     productId?:string
@@ -68,6 +70,20 @@ class ProductRatingStruct{
     }
 
 }
+class RatingAnalyticsStruct{
+    totalReviews:number
+    averageReviewValue:number 
+    highestRatedReview:ProductInfo 
+    constructor(
+        totalReviews:number,
+        averageReviewValue:number,
+        highestRatedReview:ProductInfo 
+    ){
+        this.totalReviews=totalReviews
+        this.averageReviewValue=averageReviewValue
+        this.highestRatedReview=highestRatedReview
+    }
+}
 interface SelectedProductStruct{
     productName?:string,
     productId?:string,
@@ -75,5 +91,6 @@ interface SelectedProductStruct{
     username?:string,
     
 }
-export {ProductQueryStruct,QueryReplyStruct,ProductRatingStruct}
+
+export {ProductQueryStruct,QueryReplyStruct,ProductRatingStruct,RatingAnalyticsStruct}
 export type {SelectedProductStruct}

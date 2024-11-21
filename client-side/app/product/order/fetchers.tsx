@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductQueryStruct, ProductRatingStruct, QueryReplyStruct } from "./types";
+import { ProductQueryStruct, ProductRatingStruct, QueryReplyStruct, RatingAnalyticsStruct } from "./types";
 
 export async function InsertProductQuery(userQuery:ProductQueryStruct):Promise<string>{
     try{
@@ -67,5 +67,18 @@ export async function InsertProductRating(ratingEntity:ProductRatingStruct):Prom
             return err.message as string
         }
         return "unknow error"
+    }
+}
+export async function GetRatingAnalytics(sellerId:string):Promise<RatingAnalyticsStruct|null>{
+    try{
+        const response=await axios.get(`http://localhost:8080/product/rating/analytics?sellerId=${sellerId}`,{withCredentials:true})
+        if(response.status==404) throw new Error("analytics not found")
+            return response.data
+    }catch(err){
+        if(axios.isAxiosError(err)){
+            console.log(err.message)
+            return null
+        }
+        return null
     }
 }
