@@ -31,9 +31,9 @@ const SellerProductListDisplay = () => {
     
   return (
   
-       <div className='w-7/12 flex flex-col justify-center items-center'>
+       <div className='w-7/12 flex flex-col justify-center items-center   ml-3'>
        <span >Your Products</span>
-       <Table className='border'>
+       <Table className='border rounded-md '>
           <ScrollArea className='h-96'>
           <TableHeader className='bg-gradient-to-b from-[#FCF3F3] to-[#CCC9C9] hover:from-[#FCF3F3] hover:to-[#CCC9C9] text-black '>
                 <TableRow>
@@ -50,7 +50,7 @@ const SellerProductListDisplay = () => {
                         <TableCell>{product.productPrice}</TableCell>
                         <TableCell className='text-right'>
                             <Drawer>
-                                <DrawerTrigger onClick={()=>handleSelectedProduct(product,idx)}>See details</DrawerTrigger>
+                                <DrawerTrigger onClick={()=>handleSelectedProduct(product,idx)} ><span className='underline font-bold'>See details</span></DrawerTrigger>
                                {selectedIdx===idx&& <SelectedProductContain/>}
                             </Drawer>
                             </TableCell>

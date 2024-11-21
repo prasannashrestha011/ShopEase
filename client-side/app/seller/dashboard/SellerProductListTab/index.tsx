@@ -5,8 +5,8 @@ import UploadDisplay from '@/app/product/upload/UploadDisplay'
 
 const SellerListIndex = () => {
   return (
-    <div className='flex flex-col gap-8 w-full h-screen'>
-      <div className='flex gap-2 h-screen border items-start justify-start'>
+    <div className='flex flex-col gap-8 w-full  '>
+      <div className='flex gap-2 h-screen border-b-2  items-start justify-start mt-4'>
       <SellerProductListDisplay/>
       <RatingDisplay />
       </div>

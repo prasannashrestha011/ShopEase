@@ -52,7 +52,7 @@ const DashBoardDisplay = () => {
                     </TabsTrigger>
                   
             </TabsList>
-            <div className=" overflow-scroll w-full h-screen  ">
+            <div className=" overflow-scroll w-full h-screen border   ">
             <TabsContent value="analytics" >                
                 <Analytics/>
                 </TabsContent>
