@@ -37,8 +37,13 @@ public class ProductRatingServiceImpl implements ProductRatingService {
 
     @Override
     public RatingAnalytics GetRatingAnalytics(String sellerId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'GetRatingAnalytics'");
+        Double averageRatingValue = productRatingRepo.findAverageRatingValue(sellerId);
+        Long totalReviews = productRatingRepo.findTotalReviews(sellerId);
+        ProductRatingEntity highestRatedReview = productRatingRepo.findHighestRatedReview(sellerId);
+        if (averageRatingValue == null || totalReviews == null || highestRatedReview == null)
+            return null;
+        RatingAnalytics ratingAnalytics = new RatingAnalytics(totalReviews, averageRatingValue, highestRatedReview);
+        return ratingAnalytics;
     }
 
 }

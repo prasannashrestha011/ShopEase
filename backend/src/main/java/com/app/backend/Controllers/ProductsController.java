@@ -227,4 +227,17 @@ public class ProductsController {
             return ResponseEntity.internalServerError().body(Map.of("error", "failed to insert the rating"));
         }
     }
+
+    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("/rating/analytics")
+    public ResponseEntity<Object> GetRatingAnalytics(@RequestParam(name = "sellerId") String sellerId) {
+        try {
+            var analyticsDetails = productRatingService.GetRatingAnalytics(sellerId);
+            if (analyticsDetails == null)
+                throw new Exception("Details not found");
+            return ResponseEntity.ok().body(analyticsDetails);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
