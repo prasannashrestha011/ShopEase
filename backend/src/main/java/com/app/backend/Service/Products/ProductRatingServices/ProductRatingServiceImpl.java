@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.app.backend.App_class.RatingAnalytics;
 import com.app.backend.Entities.ProductQueries.ProductRatingEntity;
 import com.app.backend.Repositories.Products.ProductRatingsRepository;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +33,12 @@ public class ProductRatingServiceImpl implements ProductRatingService {
     @Override
     public List<ProductRatingEntity> GetRatingsBySellerId(String sellerId) {
         return productRatingRepo.findBySellerId(sellerId);
+    }
+
+    @Override
+    public RatingAnalytics GetRatingAnalytics(String sellerId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'GetRatingAnalytics'");
     }
 
 }
