@@ -7,7 +7,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { UpdateProductDetails } from '../fetchers'
 import { UpdateProductDetailsStruct } from '../class'
 import { UpdateProductListState } from '@/app/redux/Seller/SellerProductsSlice'
-
+import { FaPen } from "react-icons/fa";
 const UpdateProductInfoDisplay = () => {
 
   const {items:selectedProduct}=useAppSelector((state)=>state.selectedSellerProduct)
@@ -58,6 +58,10 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
       <div className='text-red-600'>No product selected!!</div>
     )
   }
+
+  const toggleUpdateEnb=()=>{
+    setIsUpdateDisabled(!isUpdateDisabled)
+  }
   return (
     <DrawerContent className='h-5/6 flex flex-col items-center justify-start font-sans '>
         <DrawerTitle className='w-full bg-blue-600 text-slate-50 text-center p-3'>Update Product Information</DrawerTitle>
@@ -65,7 +69,7 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
         <form onSubmit={handleDetailsSubmit}>
         <main
     
-    className='flex flex-col gap-2  items-center justify-center border shadow-lg w-96 p-6 rounded-md'>
+    className='flex flex-col gap-2 relative  items-center justify-center border shadow-lg w-96 p-6 rounded-md'>
       <label htmlFor='productName' className='flex flex-col gap-1'>
         <span className='font-semibold'>ProductName</span>
       <Input id='productName' name='productName'   value={productDetails.productName} onChange={handleInputChange} 
@@ -88,8 +92,14 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
        readOnly={isUpdateDisabled}
        />
       </label>
-     {!isUpdateDisabled && <Button className='bg-green-500' type='submit'>Save</Button>}
-     {isUpdateDisabled&& <Button onClick={()=>setIsUpdateDisabled(!isUpdateDisabled)}>Update</Button>}
+      {!isUpdateDisabled && <div className='flex gap-1'>
+   <Button className='bg-green-500' type='submit'>Save</Button>
+    <Button className='bg-red-600' onClick={()=>toggleUpdateEnb()}>Discard</Button>
+    </div>}
+   
+     {isUpdateDisabled&& <Button className='absolute top-1 right-2 rounded-full ' size={"icon"} variant={'outline'} onClick={()=>toggleUpdateEnb()}>
+      <FaPen/>
+      </Button>}
     {serverResponse&&<span>{serverResponse}</span>}
     </main>
         </form>

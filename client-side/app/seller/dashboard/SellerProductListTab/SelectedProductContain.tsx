@@ -45,7 +45,7 @@ const SelectedProductContain = () => {
         </main>
               <DrawerFooter className='absolute top-1 right-4 flex flex-row items-center'>
                 
-                  <Drawer direction='left'>
+                  <Drawer direction='bottom'    >
                     <DrawerTrigger><FaCog className='text-gray-500' size={24}/></DrawerTrigger>
                     <UpdateProductInfoDisplay/>
                   </Drawer>
