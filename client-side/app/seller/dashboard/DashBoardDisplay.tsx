@@ -31,9 +31,9 @@ const DashBoardDisplay = () => {
     },[items])
    
   return (
-    <div className="merriwheather md:overflow-hidden">
-        <Tabs defaultValue="analytics" className="flex ">
-            <TabsList className="flex flex-col items-start justify-start h-screen p-6 border-r-2 border-t-2 border-gray-200 rounded-none ">
+    <div className="merriwheather ">
+        <Tabs defaultValue="analytics" className="flex relative ">
+            <TabsList className=" sticky top-0 flex flex-col items-start justify-start h-screen p-6 border-r-2 border-t-2 border-gray-200 rounded-none ">
                 <TabsTrigger value="analytics" className="w-full flex gap-2 justify-start"> <FaChartLine className="text-blue-700" size={20}/> analytics </TabsTrigger>
                 <TabsTrigger value="orderRequest" className="w-full flex gap-2">
                
@@ -52,15 +52,18 @@ const DashBoardDisplay = () => {
                     </TabsTrigger>
                   
             </TabsList>
-            <TabsContent value="analytics" className="w-full ">                
+            <div className=" overflow-scroll w-full h-screen  ">
+            <TabsContent value="analytics" >                
                 <Analytics/>
                 </TabsContent>
-            <TabsContent value="orderRequest" className="overflow-hidden w-full  ">
+            <TabsContent value="orderRequest" >
                 <OrderDisplay/>
             </TabsContent>
-            <TabsContent value="products" className="overflow-hidden w-full  ">
+            <TabsContent value="products" >
                 <SellerListIndex/>
             </TabsContent>
+            </div>
+           
            
         </Tabs>
     </div>

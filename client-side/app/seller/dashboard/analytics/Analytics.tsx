@@ -6,7 +6,7 @@ import PreAndCurrentComparison from './Charts/PreAndCurrentComparison'
 
 const Analytics = () => {
   return (
-    <div className='flex flex-col  h-full  gap-4 ml-2'>
+    <div className='flex flex-col  gap-4 ml-2 '>
       <OverViewDisplay/>
         
 
