@@ -9,7 +9,7 @@ import { SetSelectedProduct } from '@/app/redux/Seller/SelectedProductSplice'
 import { Drawer, DrawerTrigger } from '@/components/ui/drawer'
 import SelectedProductContain from './SelectedProductContain'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import RatingDisplay from '../RatingsTab/RatingDisplay'
+import RatingDisplay from './RatingDisplay'
 
 
 const SellerProductListDisplay = () => {
@@ -30,7 +30,7 @@ const SellerProductListDisplay = () => {
     }
     
   return (
-    <div className='flex  items-start justify-center gap-8'>
+  
        <div className='w-7/12 flex flex-col justify-center items-center'>
        <span >Your Products</span>
        <Table className='border'>
@@ -62,9 +62,9 @@ const SellerProductListDisplay = () => {
         </Table>
        </div>
       
-        <RatingDisplay />
+    
        
-    </div>
+ 
   )
 }
 

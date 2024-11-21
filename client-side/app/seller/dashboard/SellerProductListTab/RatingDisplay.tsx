@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
 
@@ -6,11 +6,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { IoReload } from "react-icons/io5";
 import { FetchSellerProductRating } from '@/app/redux/ProductRatings/SellerRatingListSplice';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ProductRatingStruct } from '@/app/product/order/types';
+import { SetSelectedRating } from '@/app/redux/ProductRatings/SelectedRatingSlice';
+import { Dialog, DialogTrigger } from '@radix-ui/react-dialog';
+import RatingDialogDisplay from './RatingDialogDisplay';
 const RatingDisplay = () => {
 
     const {items:userDetails}=useAppSelector((state)=>state.userDetails)
     const {items:ratingList,loading:listLoading}=useAppSelector((state)=>state.sellerRatingList)
    
+    const [selectedIdx,setSelectedIdx]=useState<number|null>(null)
     const dispatcher=useAppDispatch()
 
     if(!userDetails){
@@ -27,7 +32,10 @@ const RatingDisplay = () => {
         <IoReload size={23} className={`mr-2 w-fit active:rotate-90 transition-transform duration-150 `} onClick={()=>handleListRefresh()}/>
     ]
 
-   
+   const handleSelectedItem=(rating:ProductRatingStruct,idx:number)=>{
+      setSelectedIdx(idx);
+      dispatcher(SetSelectedRating(rating))
+   }
 
   return (
 
@@ -63,17 +71,21 @@ const RatingDisplay = () => {
                             {rating.ratedBy}
                         </TableCell>
                         <TableCell>
-                            <span className='underline cursor-pointer'>View</span>
+                         <Dialog>
+                         <DialogTrigger className='underline cursor-pointer' onClick={()=>handleSelectedItem(rating,idx)}>View</DialogTrigger>
+                       {selectedIdx===idx&&  <RatingDialogDisplay/>}
+                         </Dialog>
                         </TableCell>
                     </TableRow>
                 ))}
-           
+                
             </TableBody>
         </ScrollArea>
        
          
       </Table>
       )}
+      
       </div>
 
   )

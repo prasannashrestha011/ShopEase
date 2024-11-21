@@ -11,9 +11,10 @@ import { FaChartLine, FaShoppingCart } from "react-icons/fa"
 import { GetUnReadRequest } from "@/utils/GetUnReadRequest"
 import SellerProductListDisplay from "./SellerProductListTab/SellerProductListDisplay"
 import { FetchSellerProductList } from "@/app/redux/Seller/SellerProductsSlice"
-import RatingDisplay from "./RatingsTab/RatingDisplay"
-import { FetchSellerProductRating } from "@/app/redux/ProductRatings/SellerRatingListSplice"
 
+import { FetchSellerProductRating } from "@/app/redux/ProductRatings/SellerRatingListSplice"
+import { MdInventory } from 'react-icons/md';
+import SellerListIndex from "./SellerProductListTab"
 const DashBoardDisplay = () => {
     const dispatcher=useAppDispatch();
     const {items}=useAppSelector((state)=>state.userDetails);
@@ -45,8 +46,9 @@ const DashBoardDisplay = () => {
                      </div>
                   
                     </TabsTrigger>
-                    <TabsTrigger value="products" className="w-full">
-                    <span>Manage Products</span>
+                    <TabsTrigger value="products" className="w-full flex gap-2">
+                    <MdInventory size={20}/>
+                    <span> Manage Products</span>
                     </TabsTrigger>
                   
             </TabsList>
@@ -57,7 +59,7 @@ const DashBoardDisplay = () => {
                 <OrderDisplay/>
             </TabsContent>
             <TabsContent value="products" className="overflow-hidden w-full  ">
-                <SellerProductListDisplay/>
+                <SellerListIndex/>
             </TabsContent>
            
         </Tabs>
