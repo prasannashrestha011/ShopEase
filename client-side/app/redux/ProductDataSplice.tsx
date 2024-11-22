@@ -1,16 +1,17 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { ProductInfo } from "../product/class/productClass";
 import axios from "axios";
 import { ProductDataState } from "../types/DataState";
+
 const initialState:ProductDataState={
     items:[],
     loading:true,
     error:null
 }
-export const FetchProductList=createAsyncThunk<ProductInfo[]|null,void>('/fetch/products',
-    async()=>{
+export const FetchProductList=createAsyncThunk<ProductInfo[]|null,number>('/fetch/products',
+    async(page)=>{
         try{
-            const response=await axios.get(`http://localhost:8080/product/list`,{withCredentials:true})
+            const response=await axios.get(`http://localhost:8080/product/list?page=${page}`,{withCredentials:true})
             if(response.status!==200) throw new Error("failed to fetch the data")
         
                 return response.data
@@ -23,7 +24,13 @@ export const FetchProductList=createAsyncThunk<ProductInfo[]|null,void>('/fetch/
 const ProductDataSlice=createSlice({
     name:'productData',
     initialState,
-    reducers:{},
+    reducers:{
+        addAdditionalListData:(state,action:PayloadAction<ProductInfo[]>)=>{
+          if(state.items){
+            state.items=[...state.items,...action.payload]
+          }
+        }
+    },
     extraReducers:(builder)=>{
         builder.
         addCase(FetchProductList.pending,(state)=>{
@@ -39,4 +46,5 @@ const ProductDataSlice=createSlice({
         })
     }
 })
+export const {addAdditionalListData}=ProductDataSlice.actions
 export default ProductDataSlice.reducer

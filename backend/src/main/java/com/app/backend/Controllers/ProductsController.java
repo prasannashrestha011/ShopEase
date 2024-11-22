@@ -117,8 +117,8 @@ public class ProductsController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProductEntity>> getProductsList() {
-        var productList = productService.getAllProducts();
+    public ResponseEntity<Object> getProductsList(@RequestParam(name = "page") int page) {
+        var productList = productService.getAllProducts(page);
         if (productList != null) {
             return ResponseEntity.ok().body(productList);
         }

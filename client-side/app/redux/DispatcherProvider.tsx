@@ -1,6 +1,6 @@
 "use client"
 import React, { ReactNode, useEffect } from 'react'
-import { useAppDispatch } from './Store';
+import { useAppDispatch, useAppSelector } from './Store';
 import { FetchUserDetails } from './UserDataSplice';
 import { FetchProductList } from './ProductDataSplice';
 import { onMessage, MessagePayload } from 'firebase/messaging';
@@ -10,6 +10,7 @@ import WebSocketService from '../WebSocketService/WebSocketService';
 
 const DispatcherProvider = ({children}:{children:ReactNode}) => {
     const dispatch=useAppDispatch();
+    const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
     const GetLiveRequest=async()=>{
       console.log("Connecting..."); // Log before attempting to connect
       try {
@@ -21,7 +22,7 @@ const DispatcherProvider = ({children}:{children:ReactNode}) => {
     useEffect(()=>{
       GetLiveRequest()
       dispatch(FetchUserDetails())
-      dispatch(FetchProductList())
+      dispatch(FetchProductList(productListPageValue.page))
       
       onMessage(messaging,(payload:MessagePayload)=>{
         console.log(payload)

@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import ProductList from './ProductsList/ProductList'
 
@@ -7,18 +7,36 @@ import Chart from '../product/chart/Chart'
 import HomeOptions from './HomeOptions'
 import SearchInput from './SearchInput'
 import { GetNotificationPermission } from '../firebase/getPermission'
-import { useAppSelector } from '../redux/Store'
+import { useAppDispatch, useAppSelector } from '../redux/Store'
+import { Button } from '@/components/ui/button'
+import { IncreaseProductListPage } from '../redux/PageSlice'
+import { addAdditionalListData, FetchProductList } from '../redux/ProductDataSplice'
+import { FetchAdditionalProductList } from './fetchers'
 
 
 const HomeDisplay = () => {
     const {items:userDetails}=useAppSelector((state)=>state.userDetails)
+    
+    const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
+   
+    const dispatcher=useAppDispatch()
     useEffect(()=>{
       if(userDetails){
         GetNotificationPermission(userDetails.id,userDetails.username);
-      }
+      } 
       
     },[userDetails])
-  
+  const handleDataLoading=async()=>{
+   
+     dispatcher(IncreaseProductListPage())
+    const dataList= await FetchAdditionalProductList(productListPageValue.page)
+    if(dataList.length==0){
+      console.log("end to the list...")
+      return
+    }
+    dispatcher(addAdditionalListData(dataList))
+  }
+
   return (
     <div className='  flex flex-col justify-center items-center gap-3  ' >
       
@@ -44,6 +62,7 @@ const HomeDisplay = () => {
         <main  >
          
       <ProductList/>
+      <Button onClick={()=>handleDataLoading()}>Load more data..</Button>
       </main>
     </div>
   )

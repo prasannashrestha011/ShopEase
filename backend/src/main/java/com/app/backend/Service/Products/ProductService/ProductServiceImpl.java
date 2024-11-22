@@ -113,8 +113,8 @@ public class ProductServiceImpl implements ProductService {
     // ## product Thread ##//
 
     @Override
-    public List<ProductEntity> getAllProducts() {
-        var productList = productRepo.findAll(PageRequest.of(1, 8, Sort.by("createdAt").descending()));
+    public List<ProductEntity> getAllProducts(int page) {
+        var productList = productRepo.findAll(PageRequest.of(page, 8, Sort.by("createdAt").descending()));
         return productList.getContent();
     }
 

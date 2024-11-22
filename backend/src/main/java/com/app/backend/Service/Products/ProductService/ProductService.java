@@ -16,7 +16,7 @@ public interface ProductService {
 
     CompletableFuture<String> createProduct(ProductEntity productEntity, List<MultipartFile> file, String sellerId);
 
-    List<ProductEntity> getAllProducts();
+    List<ProductEntity> getAllProducts(int page);
 
     Page<ProductEntity> getProductsBySellerId(String sellerId, int page, int size);
 
