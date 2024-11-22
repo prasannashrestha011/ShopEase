@@ -26,7 +26,7 @@ const ProductList = () => {
 
     const {items,loading}=useAppSelector((state)=>state.productList)
     const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
-    const [isListEmpty,setIsListEmpty]=useState<boolean>(false)
+    
     const dispatcher=useAppDispatch();
     const addItemToChart=(productId:string,productName:string)=>{
       dispatcher(addChart({productId,productName}))
@@ -52,7 +52,7 @@ const ProductList = () => {
       return ()=>{
         if(loadingRef.current){
           observer.unobserve(loadingRef.current)
-          setIsListEmpty(!isListEmpty)
+        
         }
       }
     }
