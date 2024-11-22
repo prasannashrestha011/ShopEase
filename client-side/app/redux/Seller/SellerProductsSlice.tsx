@@ -14,7 +14,7 @@ const initialState:ProductDataState={
 }
 export const FetchSellerProductList=createAsyncThunk('/fetch/seller/productList',async(sellerId:string)=>{
     try{
-        const response=await GetProductListOfSeller(sellerId);
+        const response=await GetProductListOfSeller(sellerId,1);
         if(response==null) throw new Error("failed to fetch the data")
     
         return response;
@@ -27,6 +27,11 @@ const SellerProducts=createSlice({
     name:'sellerProduct',
     initialState,
     reducers:{
+        AddFurtherSellerProductList:(state,action:PayloadAction<ProductInfo[]>)=>{
+            if(state.items){
+                state.items=[...state.items,...action.payload]
+            }
+        },
         UpdateProductListState:(state,action:PayloadAction<PayloadProps>)=>{
            if(state.items){
             console.log("state updated")
@@ -53,5 +58,5 @@ const SellerProducts=createSlice({
       
     }
 })
-export const {UpdateProductListState}=SellerProducts.actions
+export const {AddFurtherSellerProductList,UpdateProductListState}=SellerProducts.actions
 export default SellerProducts.reducer

@@ -9,7 +9,6 @@ import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
@@ -130,9 +129,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductEntity> getProductsBySellerId(String sellerId, int page, int size) {
+    public List<ProductEntity> getProductsBySellerId(String sellerId, int page, int size) {
         return productRepo.findProductBySellerId(sellerId,
-                PageRequest.of(page, size, Sort.by("createdAt").descending()));
+                PageRequest.of(page, size, Sort.by("createdAt").descending())).getContent();
     }
 
     @Override

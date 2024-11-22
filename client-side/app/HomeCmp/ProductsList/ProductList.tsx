@@ -1,14 +1,32 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store';
 import { addChart } from '@/app/redux/ChartDataSplice';
 import { Skeleton } from '@/components/ui/skeleton';
+import { IncreaseProductListPage } from '@/app/redux/PageSlice';
+import { addAdditionalListData } from '@/app/redux/ProductDataSplice';
+import { FetchAdditionalProductList } from '../fetchers';
 const ProductList = () => {
     const router=useRouter()
+    const loadingRef=useRef(null)
+    const observer=new IntersectionObserver(
+      (entries:IntersectionObserverEntry[])=>{
+        if(entries[0].isIntersecting){
+          handleDataLoading()
+        }
+      },{
+        root:null,
+        rootMargin:'0px',
+        threshold:1.0
+      }
+    )
+
     const {items,loading}=useAppSelector((state)=>state.productList)
+    const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
+    const [isListEmpty,setIsListEmpty]=useState<boolean>(false)
     const dispatcher=useAppDispatch();
     const addItemToChart=(productId:string,productName:string)=>{
       dispatcher(addChart({productId,productName}))
@@ -17,6 +35,29 @@ const ProductList = () => {
       console.log(product_id);
       router.push(`/product/order/${product_id}`)
     }
+
+    const handleDataLoading=async()=>{
+   
+      dispatcher(IncreaseProductListPage())
+     const dataList= await FetchAdditionalProductList(productListPageValue.page)
+     if(dataList.length==0){
+       console.log("end to the list...")
+       return
+     }
+     dispatcher(addAdditionalListData(dataList))
+   }
+   useEffect(()=>{
+    if(loadingRef.current){
+      observer.observe(loadingRef.current)
+      return ()=>{
+        if(loadingRef.current){
+          observer.unobserve(loadingRef.current)
+          setIsListEmpty(!isListEmpty)
+        }
+      }
+    }
+   })
+
     if(loading){
       return(
         <div className='grid grid-cols-4 md:gap-4 '>
@@ -56,6 +97,7 @@ const ProductList = () => {
           </li>
    
         ))}
+      <span ref={loadingRef} className='opacity-0' >Loading..</span>
           </ul>
    
   )

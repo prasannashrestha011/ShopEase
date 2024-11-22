@@ -123,9 +123,10 @@ export async function GetCurrentWeekRevenueRecords(sellerId:string):Promise<Dail
     }
 }
 
-export async function GetProductListOfSeller(sellerId:string):Promise<ProductInfo[]>{
+export async function GetProductListOfSeller(sellerId:string,page:number):Promise<ProductInfo[]>{
     try{
-        const response=await axios.get(`http://localhost:8080/product/seller?sellerId=${sellerId}`,{withCredentials:true})
+        const response=await axios.get(`http://localhost:8080/product/seller?sellerId=${sellerId}&page=${page}`,{withCredentials:true})
+        console.log(response.data)
         return response.data
     }catch(err){
        return []

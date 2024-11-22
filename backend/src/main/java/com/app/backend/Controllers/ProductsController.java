@@ -65,10 +65,9 @@ public class ProductsController {
     @PreAuthorize("hasRole('SELLER')")
     @GetMapping("/seller")
     public ResponseEntity<Object> getProductBySellerId(@RequestParam(value = "sellerId") String sellerId,
-            @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") int size) {
+            @RequestParam(value = "page") int page) {
         try {
-            var productList = productService.getProductsBySellerId(sellerId, page, size);
+            var productList = productService.getProductsBySellerId(sellerId, page, 4);
             if (productList.isEmpty())
                 throw new Exception("product list is empty");
             return ResponseEntity.ok().body(productList);
