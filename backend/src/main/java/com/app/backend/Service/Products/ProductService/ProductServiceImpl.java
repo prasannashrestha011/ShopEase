@@ -9,6 +9,8 @@ import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -112,8 +114,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> getAllProducts() {
-        var productList = productRepo.findAll();
-        return productList;
+        var productList = productRepo.findAll(PageRequest.of(1, 8, Sort.by("createdAt").descending()));
+        return productList.getContent();
     }
 
     @Override
@@ -128,8 +130,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductEntity> getProductsBySellerId(String sellerId) {
-        return productRepo.findProductBySellerId(sellerId, Sort.by("createdAt"));
+    public Page<ProductEntity> getProductsBySellerId(String sellerId, int page, int size) {
+        return productRepo.findProductBySellerId(sellerId,
+                PageRequest.of(page, size, Sort.by("createdAt").descending()));
     }
 
     @Override
