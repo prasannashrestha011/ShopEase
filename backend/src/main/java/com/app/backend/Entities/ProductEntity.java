@@ -52,6 +52,9 @@ public class ProductEntity {
     @Column(nullable = false, name = "category")
     private String productCategory;
 
+    @Column(nullable = false)
+    private Long productViews = 0L;
+
     @PrePersist
     protected void OnCreated() {
         productId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);

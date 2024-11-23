@@ -154,6 +154,20 @@ public class ProductsController {
 
     }
 
+    @PutMapping("/update/views")
+    public ResponseEntity<Object> updateProductViewsCount(@RequestParam(name = "productId") String productId) {
+        try {
+            int response = productService.UpdateProductViewsCount(productId);
+            if (response == 0)
+                throw new Exception("unable to update view count");
+            System.out.println("updated");
+            return ResponseEntity.ok().body(Map.of("success", "product views count updated sucessfully"));
+        } catch (Exception e) {
+            logger.error("error {}", e.getMessage());
+            return ResponseEntity.internalServerError().body(Map.of("error", e.getMessage()));
+        }
+    }
+
     // for product queries
     @GetMapping("/get/queries")
     public ResponseEntity<Object> getProductQuery(

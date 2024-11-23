@@ -12,6 +12,7 @@ import RatingDisplay from './ProductRating/RatingDisplay'
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
 import { SetRatingProp } from '@/app/redux/ProductRatings/SelectedProductSlice'
 import { SelectedProductStruct } from './types'
+import { UpdateProductViewsCount } from '@/app/HomeCmp/fetchers'
 
 
 interface OrderDisplayProp{
@@ -39,6 +40,7 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
           
             if(product==null) throw new Error("unable to get the product")
                 setProductDetails(product);
+            await UpdateProductViewsCount(product_id)
         
         }catch(err){
             console.error(err)
@@ -47,6 +49,7 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
 
     useEffect(()=>{
         SetProductDetails()
+
     },[product_details])
     
     useEffect(()=>{

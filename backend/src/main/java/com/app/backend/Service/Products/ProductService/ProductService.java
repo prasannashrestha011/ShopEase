@@ -21,6 +21,8 @@ public interface ProductService {
 
     int UpdateProductDetails(UpdateProductDetails updateProductDetails);
 
+    int UpdateProductViewsCount(String productId);
+
     String deleteAllProductList();
 
 }

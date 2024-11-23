@@ -4,6 +4,8 @@ import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import {  useRouter } from 'next/navigation'
 import axios from "axios";
+import { Card, CardContent, CardFooter,CardHeader, CardTitle } from "@/components/ui/card";
+
 
  interface ResponseProp{
     message:string
@@ -27,6 +29,7 @@ const LoginInputs = () => {
     }
     const handleAuth=async(e:FormEvent)=>{
       e.preventDefault()
+      if(!formData.username || !formData.password) return
       try{
         const response=await axios.post(`http://localhost:8080/account/login`,{
             username:formData.username,
@@ -50,12 +53,25 @@ const LoginInputs = () => {
   return (
    
       <form className="flex flex-col gap-4 justify-center items-center  h-full" onSubmit={handleAuth}>
+      <div className="flex flex-col gap-4">
+      <Card className="shadow-md bg-blue-600 flex flex-col gap-4 text-slate-100 ">
+       <CardHeader>
+        
+       <CardTitle>Login</CardTitle>
+       </CardHeader>
       
-			<Input type="text" name="username"  placeholder="Username" className="w-80 " value={formData.username} onChange={handleFormValue}/>
+			<CardContent className="flex flex-col gap-2">
+      <Input type="text" name="username"  placeholder="Username" className="w-80 " value={formData.username} onChange={handleFormValue}/>
       <Input type="Password" name="password" placeholder="Password" className="w-80 mb-10 " value={formData.password} onChange={handleFormValue}/>
+      </CardContent>
+     <CardFooter className="flex flex-col gap-2">
+     <p className="w-full">   <a href="/user/register">Register account</a></p>
       <Button className="w-72 " type="submit" >Login</Button>
       {responseMessage&& <span className="text-green-500">{responseMessage.message}</span>}
       {errorMessage&& <span className="text-red-500">{errorMessage}</span>}
+     </CardFooter>
+      </Card>
+      </div>
 	        </form>  	
   )
 }

@@ -24,7 +24,11 @@ class ProductInfo{
     createdAt:Date | null;
     updatedAt:Date |null;
     productCategory:string
-    constructor(product_id:string,product_name:string,product_price:number,productDes:string,sellerId:string,product_images:string[],created_at:Date,updated_at:Date,productCategory:string){
+    productViews?:number
+    constructor(product_id:string,product_name:string,
+        product_price:number,productDes:string,sellerId:string,
+        product_images:string[],created_at:Date,updated_at:Date,
+        productCategory:string,productViews?:number){
         this.productId=product_id;
         this.productName=product_name;
         this.productPrice=product_price;
@@ -34,6 +38,7 @@ class ProductInfo{
         this.createdAt=created_at;
         this.updatedAt=updated_at
         this.productCategory=productCategory
+        this.productViews=productViews
     }
 }
 export  {ProductStruct,ProductInfo}

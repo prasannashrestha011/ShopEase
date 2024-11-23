@@ -13,3 +13,21 @@ export async function FetchAdditionalProductList(page:number):Promise<ProductInf
         return []
     }
 }
+
+export async function UpdateProductViewsCount(productId:string):Promise<string>{
+    try{
+        const response=await axios.put(`http://localhost:8080/product/update/views?productId=${productId}`,
+            {},
+            {withCredentials:true})
+        if(response.status==500) throw new Error(response.data)
+        
+            return response.data 
+    }catch(err){
+        console.error(err)
+        if(axios.isAxiosError(err)){
+            console.error("Axios error:",err.message)
+            return err.message
+        }
+        return "unknow server error"
+    }
+}

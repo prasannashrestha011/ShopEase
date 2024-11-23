@@ -64,7 +64,7 @@ const SellerProductListDisplay = () => {
                 observer.unobserve(loadRef.current)
             }
         }
-    },[productList])
+    },[])
   return (
   
        <div className='w-7/12 flex flex-col justify-center items-center   ml-3'>

@@ -144,4 +144,11 @@ public class ProductServiceImpl implements ProductService {
         return rowsUpdated;
     }
 
+    @Override
+    @Transactional
+    public int UpdateProductViewsCount(String productId) {
+        int rowsUpdated = productRepo.updateProductViewCount(productId);
+        return rowsUpdated;
+    }
+
 }

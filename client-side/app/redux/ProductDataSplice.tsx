@@ -13,7 +13,7 @@ export const FetchProductList=createAsyncThunk<ProductInfo[]|null,number>('/fetc
         try{
             const response=await axios.get(`http://localhost:8080/product/list?page=${page}`,{withCredentials:true})
             if(response.status!==200) throw new Error("failed to fetch the data")
-        
+                console.log(response.data)
                 return response.data
         }catch(err){
             console.error(err)
@@ -27,7 +27,9 @@ const ProductDataSlice=createSlice({
     reducers:{
         addAdditionalListData:(state,action:PayloadAction<ProductInfo[]>)=>{
           if(state.items){
-            state.items=[...state.items,...action.payload]
+            const existingId=new Set(state.items.map(item=>item.productId))
+            const uniqueItems=action.payload.filter(item=>!existingId.has(item.productId))
+            state.items=[...state.items,...uniqueItems]
           }
         }
     },

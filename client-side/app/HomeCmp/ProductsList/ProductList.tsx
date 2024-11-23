@@ -56,7 +56,7 @@ const ProductList = () => {
         }
       }
     }
-   })
+   },[])
 
     if(loading){
       return(

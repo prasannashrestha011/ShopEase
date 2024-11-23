@@ -4,7 +4,7 @@ interface Prop{
     page:number
 }
 const dataState:Prop={
-    page:1
+    page:0
 }
 const initialState={
     items:dataState,

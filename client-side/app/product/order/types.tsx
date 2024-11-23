@@ -1,5 +1,6 @@
 import { ProductInfo } from "../class/productClass"
 
+
 class ProductQueryStruct{
     queryId:string
     productId?:string
