@@ -158,3 +158,12 @@ export async function GetProductRatingsOfSeller(sellerId:string):Promise<Product
     return null
   }
 }
+export async function GetTotalViewsCount(sellerId:string){
+  try{
+    const response=await axios.get(`http://localhost:8080/product/total/views?sellerId=${sellerId}`,{withCredentials:true})
+
+    return response.data.totalViews;
+  }catch(err){
+    return null
+  }
+}

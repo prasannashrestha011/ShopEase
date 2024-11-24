@@ -19,6 +19,8 @@ public interface ProductService {
 
     List<ProductEntity> getProductsBySellerId(String sellerId, int page, int size);
 
+    Long getProductViewsBySellerId(String sellerId);
+
     int UpdateProductDetails(UpdateProductDetails updateProductDetails);
 
     int UpdateProductViewsCount(String productId);

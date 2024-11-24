@@ -154,6 +154,19 @@ public class ProductsController {
 
     }
 
+    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("/total/views")
+    public ResponseEntity<Object> getTotalViews(@RequestParam(name = "sellerId") String sellerId) {
+        try {
+            var viewsCount = productService.getProductViewsBySellerId(sellerId);
+            if (viewsCount == null)
+                throw new Exception("unable to provide total views");
+            return ResponseEntity.ok().body(Map.of("totalViews", viewsCount));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", e.getMessage()));
+        }
+    }
+
     @PutMapping("/update/views")
     public ResponseEntity<Object> updateProductViewsCount(@RequestParam(name = "productId") String productId) {
         try {

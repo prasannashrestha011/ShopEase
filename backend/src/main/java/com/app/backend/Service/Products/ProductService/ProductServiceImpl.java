@@ -151,4 +151,10 @@ public class ProductServiceImpl implements ProductService {
         return rowsUpdated;
     }
 
+    @Override
+    public Long getProductViewsBySellerId(String sellerId) {
+        Long viewsCount = productRepo.findTotalViewsBySellerId(sellerId);
+        return viewsCount;
+    }
+
 }

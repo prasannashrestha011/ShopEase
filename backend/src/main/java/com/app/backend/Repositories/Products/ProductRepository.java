@@ -22,6 +22,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, String> 
         Page<ProductEntity> findProductBySellerId(String sellerId,
                         org.springframework.data.domain.Pageable page);
 
+        @Query("SELECT SUM(p.productViews) from ProductEntity p WHERE p.sellerId=:sellerId")
+        Long findTotalViewsBySellerId(@Param("sellerId") String sellerId);
+
         @Modifying
         @Query("UPDATE ProductEntity p SET p.productName=:productName , p.productPrice=:productPrice , productDes=:productDes WHERE p.productId=:productId")
         int updateProductDetails(@Param("productId") String productId,

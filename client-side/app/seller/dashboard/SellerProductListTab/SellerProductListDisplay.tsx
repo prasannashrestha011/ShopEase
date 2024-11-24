@@ -19,6 +19,7 @@ const SellerProductListDisplay = () => {
         'product id',
         'product Name',
         'product Price',
+        'views',
         ''
     ]
     const loadRef=useRef(null)
@@ -84,6 +85,7 @@ const SellerProductListDisplay = () => {
                         <TableCell>{product.productId}</TableCell>
                         <TableCell>{product.productName}</TableCell>
                         <TableCell>{product.productPrice}</TableCell>
+                        <TableCell>{product.productViews}</TableCell>
                         <TableCell className='text-right'>
                             <Drawer>
                                 <DrawerTrigger onClick={()=>handleSelectedProduct(product,idx)} ><span className='underline font-bold'>See details</span></DrawerTrigger>
