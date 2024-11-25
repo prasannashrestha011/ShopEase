@@ -153,7 +153,7 @@ public class ProductsController {
         }
 
     }
-
+    
     @PreAuthorize("hasRole('SELLER')")
     @GetMapping("/total/views")
     public ResponseEntity<Object> getTotalViews(@RequestParam(name = "sellerId") String sellerId) {
