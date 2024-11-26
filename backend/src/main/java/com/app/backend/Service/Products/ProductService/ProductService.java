@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.backend.App_class.PrevAndCurrentMonthViews;
 import com.app.backend.App_class.UpdateProductDetails;
 import com.app.backend.Entities.ProductEntity;
 
@@ -19,7 +20,7 @@ public interface ProductService {
 
     List<ProductEntity> getProductsBySellerId(String sellerId, int page, int size);
 
-    Long getProductViewsBySellerId(String sellerId);
+    PrevAndCurrentMonthViews getProductViewsBySellerId(String sellerId);
 
     int UpdateProductDetails(UpdateProductDetails updateProductDetails);
 

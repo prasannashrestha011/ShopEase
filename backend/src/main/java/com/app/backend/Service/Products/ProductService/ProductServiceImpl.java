@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.backend.App_class.PrevAndCurrentMonthViews;
 import com.app.backend.Entities.ProductEntity;
 import com.app.backend.Repositories.Products.ProductRepository;
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
@@ -152,8 +153,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long getProductViewsBySellerId(String sellerId) {
-        Long viewsCount = productRepo.findTotalViewsBySellerId(sellerId);
+    public PrevAndCurrentMonthViews getProductViewsBySellerId(String sellerId) {
+        Long currMonthViews = productRepo.findCurrentMonthProductViews(sellerId);
+        Long prevMonthViews=productRepo.findPrevMonthProductViews(sellerId);
+
+        PrevAndCurrentMonthViews viewsCount=new PrevAndCurrentMonthViews(prevMonthViews, currMonthViews);
         return viewsCount;
     }
 
