@@ -1,6 +1,6 @@
 import { TransactionStruct } from "@/app/product/class/transactionClass";
 import axios from "axios";
-import { CurrAndPrevRevenueStruct, RevenueStruct,CustomerStruct,DailyRevenueStruct, UpdateProductDetailsStruct } from "./class";
+import { CurrAndPrevRevenueStruct, RevenueStruct,CustomerStruct,DailyRevenueStruct, UpdateProductDetailsStruct, PrevAndCurrentMonthProductViews } from "./class";
 import { ProductInfo } from "@/app/product/class/productClass";
 import { ProductRatingStruct } from "@/app/product/order/types";
 
@@ -161,8 +161,8 @@ export async function GetProductRatingsOfSeller(sellerId:string):Promise<Product
 export async function GetTotalViewsCount(sellerId:string){
   try{
     const response=await axios.get(`http://localhost:8080/product/total/views?sellerId=${sellerId}`,{withCredentials:true})
-
-    return response.data.totalViews;
+    console.log(response.data)
+    return response.data.totalViews as PrevAndCurrentMonthProductViews;
   }catch(err){
     return null
   }

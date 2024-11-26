@@ -49,6 +49,14 @@ class UpdateProductDetailsStruct{
         this.productDes=productDes  
     }
 }
+class PrevAndCurrentMonthProductViews{
+    prevMonthViews:number 
+    currentMonthViews:number 
+    constructor(prevMonthViews:number,currentMonthViews:number){
+        this.prevMonthViews=prevMonthViews 
+        this.currentMonthViews=currentMonthViews
+    }
+}
 interface CurrAndPrevRevenueStruct {
     [key:number]:{
         records:{
@@ -73,5 +81,5 @@ interface OrderDetailsStruct{
 }
 
 
-export {CustomerStruct,RevenueStruct,DailyRevenueStruct,UpdateProductDetailsStruct}
+export {CustomerStruct,RevenueStruct,DailyRevenueStruct,UpdateProductDetailsStruct,PrevAndCurrentMonthProductViews}
 export type {CurrAndPrevRevenueStruct,ChartData,PrevAndCurrentStruct,OrderDetailsStruct}

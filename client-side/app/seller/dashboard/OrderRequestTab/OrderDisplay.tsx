@@ -63,7 +63,7 @@ const OrderDisplay = () => {
     )
 }
   return (
-    <div className='flex  w-screen h-screen min-w-0 merriwheather bg-black'>
+    <div className='flex  w-screen h-screen min-w-0 merriwheather '>
  
  <Table className=' md:table-fixed w-full'>
         <TableHeader className='cursor-pointer'>
