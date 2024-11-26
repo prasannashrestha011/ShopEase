@@ -29,7 +29,10 @@ const SellerProducts=createSlice({
     reducers:{
         AddFurtherSellerProductList:(state,action:PayloadAction<ProductInfo[]>)=>{
             if(state.items){
-                state.items=[...state.items,...action.payload]
+                const newItems = action.payload.filter(newItem =>
+                    !state.items?.some(existingItem => existingItem.productId === newItem.productId)
+                );
+                state.items=[...state.items,...newItems]
             }
         },
         UpdateProductListState:(state,action:PayloadAction<PayloadProps>)=>{
