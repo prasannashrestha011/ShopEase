@@ -31,7 +31,7 @@ const HomeDisplay = () => {
   return (
     <div className='  flex flex-col justify-center items-center gap-3  ' >
       
-      <div className='w-full  flex flex-col items-center justify-center  bg-blue-700 h-32'>
+      <div className='w-full  flex flex-col items-center justify-center  bg-gradient-to-b from-[#2523ad] to-[#2a23f0] text-slate-100 h-32'>
       <nav className='absolute md:right-7 right-2 top-1 yatraone text-xl flex gap-4 items-center '>
         <section>
           <Chart/>

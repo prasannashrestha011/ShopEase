@@ -52,26 +52,29 @@ const LoginInputs = () => {
     
   return (
    
-      <form className="flex flex-col gap-4 justify-center items-center  h-full" onSubmit={handleAuth}>
-      <div className="flex flex-col gap-4">
-      <Card className="shadow-md bg-blue-600 flex flex-col gap-4 text-slate-100 ">
+      <form className="h-full " onSubmit={handleAuth}>
+      
+      <Card className="shadow-md  border-none flex flex-col gap-4 h-full rounded-none  bg-blue-700 text-slate-50 ">
        <CardHeader>
         
        <CardTitle>Login</CardTitle>
        </CardHeader>
       
-			<CardContent className="flex flex-col gap-2">
-      <Input type="text" name="username"  placeholder="Username" className="w-80 " value={formData.username} onChange={handleFormValue}/>
-      <Input type="Password" name="password" placeholder="Password" className="w-80 mb-10 " value={formData.password} onChange={handleFormValue}/>
+			<CardContent className="flex flex-col gap-2 ">
+
+      <Input type="text" name="username"  
+       placeholder="Username" className="w-80 bg-neutral-500 text-black" 
+      value={formData.username} onChange={handleFormValue}/>
+      <Input type="Password" name="password" placeholder="Password" className="w-80 mb-10 text-black " value={formData.password} onChange={handleFormValue}/>
       </CardContent>
      <CardFooter className="flex flex-col gap-2">
      <p className="w-full">   <a href="/user/register">Register account</a></p>
-      <Button className="w-72 " type="submit" >Login</Button>
+      <Button className="w-72 " variant={"destructive"} type="submit" >Login</Button>
       {responseMessage&& <span className="text-green-500">{responseMessage.message}</span>}
       {errorMessage&& <span className="text-red-500">{errorMessage}</span>}
      </CardFooter>
       </Card>
-      </div>
+     
 	        </form>  	
   )
 }

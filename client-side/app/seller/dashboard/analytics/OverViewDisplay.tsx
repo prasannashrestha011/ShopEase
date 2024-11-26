@@ -54,7 +54,10 @@ const OverViewDisplay = () => {
             </CardContent>
         </Card>
         <Card className='w-fit p-0  bg-gradient-to-b from-[#5B14E8] to-[#5953F6] text-slate-100'>
-            <CardHeader className='text-sm'>Total product views</CardHeader>
+            <CardHeader className='text-sm flex flex-col items-center justify-center p-2 m-0'>
+               <span> Total product views </span>
+               <span className='text-xs'>(Current Month)</span>
+                </CardHeader>
             <CardContent className='flex justify-center items-center'>
                 <span>
                     {totalViews?.currentMonthViews}
