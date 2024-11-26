@@ -54,7 +54,7 @@ const LoginInputs = () => {
    
       <form className="h-full " onSubmit={handleAuth}>
       
-      <Card className="shadow-md  border-none flex flex-col gap-4 h-full rounded-none  bg-blue-700 text-slate-50 ">
+      <Card className="shadow-md  border-none flex flex-col gap-4 h-full rounded-none  bg-gradient-to-b from-[#3f3dbe] to-[#2a23f0] text-slate-100   ">
        <CardHeader>
         
        <CardTitle>Login</CardTitle>

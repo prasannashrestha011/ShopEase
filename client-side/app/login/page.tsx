@@ -14,7 +14,7 @@ const Login = () => {
 
         </div>
       </section>
-        <section className=''>
+        <section className=' '>
         <LoginInputs/>
         </section>
     </main>
