@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.App_class.UpdateProductDetails;
+import com.app.backend.Entities.ChartEntity;
 import com.app.backend.Entities.ProductEntity;
 import com.app.backend.Entities.ProductQueries.ProductQueryEntity;
 import com.app.backend.Entities.ProductQueries.ProductRatingEntity;
 import com.app.backend.Entities.ProductQueries.QueryReplyEntity;
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
+import com.app.backend.Service.Products.Charts.ProductChartServiceImpl;
 import com.app.backend.Service.Products.ProductQueriesService.ProductQuery.ProductQueryServiceImpl;
 import com.app.backend.Service.Products.ProductRatingServices.ProductRatingServiceImpl;
 import com.app.backend.Service.Products.ProductService.ProductServiceImpl;
@@ -41,13 +43,16 @@ import com.app.backend.Service.Products.ProductService.ProductServiceImpl;
 public class ProductsController {
 
     @Autowired
-    ProductServiceImpl productService;
+    ProductServiceImpl productService; //for product CRUD operations
 
     @Autowired
-    ProductQueryServiceImpl productQueryService;
+    ProductQueryServiceImpl productQueryService; //for user queries
 
     @Autowired
-    ProductRatingServiceImpl productRatingService;
+    ProductRatingServiceImpl productRatingService; //for productRating
+
+    @Autowired
+    ProductChartServiceImpl productChartService; //for charts
 
     @Autowired
     CloudinaryImageServiceImpl cloudinaryImageService;
@@ -266,6 +271,27 @@ public class ProductsController {
             return ResponseEntity.ok().body(analyticsDetails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    //charts
+    @GetMapping("/charts")
+    public ResponseEntity<Object> GetUserCharts(@RequestParam(name = "userId") String userId){
+        try{
+            var chartList=productChartService.getChartByUserId(userId);
+            if(chartList.isEmpty()) throw new Exception("chart is emtpy");
+            return ResponseEntity.ok().body(Map.of("chartList",chartList));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(Map.of("error","no chart founded"));
+        }
+    }
+    @PostMapping("/save/chart")
+    public ResponseEntity<Object> SaveUserChart(@RequestBody ChartEntity chartEntity){
+        try{
+            productChartService.saveUserChart(chartEntity);
+            return ResponseEntity.ok().body(Map.of("success","Chart saved"));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(Map.of("error","Failed to save the chart"));
         }
     }
 }
