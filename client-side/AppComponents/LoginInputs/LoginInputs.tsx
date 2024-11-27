@@ -43,6 +43,7 @@ const LoginInputs = () => {
    
         router.replace('/')
 
+        window.location.reload()
       }catch( err){
         const errorMessage=err as Error;
         setErrorMessage(errorMessage.message)

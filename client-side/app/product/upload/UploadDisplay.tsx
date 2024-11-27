@@ -12,10 +12,10 @@ const UploadDisplay = () => {
   
   const {items}=useAppSelector((state)=>state.userDetails);
   const addProductList=()=>{
-    const newProduct=new ProductStruct("",0,"",[],"")
+    const newProduct=new ProductStruct("",0,[],[],"")
     setProductList(prevList=>[...prevList,newProduct])
   }
-  const handleValueChange=(e:ChangeEvent<HTMLInputElement>,idx:number,field:keyof ProductStruct)=>{
+  const handleValueChange=(e:ChangeEvent<HTMLInputElement>,idx:number,field:keyof ProductStruct,desIdx?:number)=>{
     const newList=[...productList]
     if(field == "productImages" && e.target.files && e.target.files.length>0){
       const filesArray=Array.from(e.target.files)
@@ -23,7 +23,11 @@ const UploadDisplay = () => {
       console.log(newList)
       setProductList(newList);
       return
-    }else{
+    }else if(field=="productDes" && typeof desIdx=="number"){
+      newList[idx][field][desIdx]=e.target.value
+      setProductList(newList)
+    }
+    else{
       newList[idx]={...newList[idx],[field]:e.target.value}
     setProductList(newList);
     }
@@ -60,8 +64,11 @@ const UploadDisplay = () => {
             </section>
             <section>
               <label className='ml-2'>Product Description</label>
+            {Array(4).fill(0).map((des,descIdx)=>(
               <Input className='w-80'  type='text' placeholder='Product Description $'
-                onChange={(e)=>handleValueChange(e,idx,'productDes')} required/>
+                onChange={(e)=>handleValueChange(e,idx,'productDes',descIdx)} required/>  
+            ))}
+            
             </section>
             <section>
             <label className='ml-2'>Category</label>

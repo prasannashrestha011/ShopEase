@@ -37,8 +37,10 @@ public class ProductEntity {
     @Column(name = "product_images")
     private List<String> productImages;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_des",joinColumns = @JoinColumn(name="product_id"))
     @Column(nullable = false, name = "product_des")
-    private String productDes;
+    private List<String> productDes;
 
     @Column(nullable = false, name = "seller_id")
     private String sellerId;

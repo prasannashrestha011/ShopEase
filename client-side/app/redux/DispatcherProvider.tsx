@@ -33,7 +33,7 @@ const DispatcherProvider = ({children}:{children:ReactNode}) => {
         console.log(payload)
         alert(payload.notification?.body)
       })
-    },[productListPageValue])
+    },[])
   return (
     <>
       {children}

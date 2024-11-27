@@ -76,27 +76,24 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
                  <div className='flex flex-col flex-1 '>
                     <div className=' bg-white mt-2 flex-1 flex flex-col justify-between h-full border p-2 w-full rounded-md'>
                  
-                 <div className='flex flex-col justify-center items-start  gap-4  w-5/12 '>
-                 
-                     <section>
+                 <div className='flex flex-col justify-center items-start  gap-4  w-10/12 '>     
+                    {/*for description */}
+                     <section className=' border p-2 '>
                          
                      <header className='font-bold '>Description</header>
-                     <p className=' text-wrap'>{product_details?.productDes}</p>
-                     </section>
-                     
-                   
-                         <section>
-                         <p className='font-bold '>Retailer:</p>
-                         <span>{product_details?.sellerId}</span>
-                         </section>
-                        
-                      
-                        <section>
+                    
+                    <ol className='border-t'>                  
+                       {product_details?.productDes.map((des,idx)=>(
+                        <li key={idx}>{des}</li>
+                     ))}
+                    </ol>           
+                     </section>  
+                    
+                    {/*for price */}
+                    <section>
                         <p className='font-bold '>Price</p>
                         ${product_details?.productPrice}
-                        </section>
-
-                    
+                    </section>          
                  </div>
                  <div className='md:mb-9'>
                  {product_details&& <OrderDialog productName={product_details?.productName} price={product_details?.productPrice} sellerId={product_details.sellerId}/>}
