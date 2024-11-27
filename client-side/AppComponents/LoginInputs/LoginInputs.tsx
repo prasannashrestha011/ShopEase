@@ -38,8 +38,8 @@ const LoginInputs = () => {
         if(response.status!==200){
             throw new Error("Failed to login , invalid username or password");
         }
-        setResponseMessage(response.data)
-        window.localStorage.setItem("UUID",formData.username.toString())
+        setResponseMessage(response.data.id)
+        window.localStorage.setItem("UUID",response.data.id??"")
    
         router.replace('/')
 

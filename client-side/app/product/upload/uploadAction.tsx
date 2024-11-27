@@ -37,7 +37,7 @@ export async function UploadAction(productObject:ProductStruct[],sellerId:string
 
 export async function GetUserCharts(userId:string):Promise<ChartStruct[]>{
     try{
-        const response=await axios.get(`http://localhost:8080/product/charts`,{withCredentials:true})
+        const response=await axios.get(`http://localhost:8080/product/charts?userId=${userId}`,{withCredentials:true})
         if(response.status==400) throw new Error(response.data.error)
         console.log(response.data)
         return response.data.chartList;

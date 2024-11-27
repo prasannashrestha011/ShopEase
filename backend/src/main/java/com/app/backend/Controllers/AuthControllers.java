@@ -3,6 +3,7 @@ package com.app.backend.Controllers;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +43,11 @@ public class AuthControllers {
     private static final Logger logger = LoggerFactory.getLogger(AuthControllers.class);
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> signInUser(@RequestBody UserEntity authUser) {
+    public ResponseEntity<Object> signInUser(@RequestBody UserEntity authUser) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword()));
-            ApiResponse response = new ApiResponse("User authenticated");
+          
             var authUserDetails = userService.findUserByUsername(authUser.username);
             if (authUserDetails == null)
                 throw new Exception("User details empty");
@@ -60,10 +61,10 @@ public class AuthControllers {
                     .path("/")
                     .build();
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-                    .header("Authorization", "Bearer " + authToken).body(response);
+                    .header("Authorization", "Bearer " + authToken).body(Map.of("id",authUserDetails.getId()));
         } catch (Exception e) {
-            ApiResponse err = new ApiResponse(e.getMessage());
-            return new ResponseEntity<ApiResponse>(err, HttpStatus.BAD_REQUEST);
+          
+            return ResponseEntity.badRequest().body(Map.of("error",e.getMessage()));
         }
     }
 

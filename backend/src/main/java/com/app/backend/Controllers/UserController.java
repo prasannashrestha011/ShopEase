@@ -26,10 +26,10 @@ public class UserController {
 
     @GetMapping("/credentials")
     public ResponseEntity<UserEntity> getUserCredentials(
-            @RequestParam(value = "user_id", required = false) String user_id,
+            @RequestParam(value = "userId", required = false) String userId,
             @RequestParam(value = "username", required = false) String username) {
 
-        var response = (user_id != null) ? userServiceImpl.findUserById(user_id)
+        var response = (!userId.isEmpty()) ? userServiceImpl.findUserById(userId)
                 : userServiceImpl.findUserByUsername(username);
 
         Map<String, Object> apiResponse = new HashMap<>();
