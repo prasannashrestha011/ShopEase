@@ -1,5 +1,6 @@
 import axios from "axios";
 import {ProductStruct} from "../class/productClass";
+import { ChartStruct } from "../chart/ChartStruct";
 
 export async function UploadAction(productObject:ProductStruct[],sellerId:string ):Promise<{message:string,statusCode:number}>{
     try{
@@ -32,4 +33,34 @@ export async function UploadAction(productObject:ProductStruct[],sellerId:string
     }
 
 
+}
+
+export async function GetUserCharts(userId:string):Promise<ChartStruct[]>{
+    try{
+        const response=await axios.get(`http://localhost:8080/product/charts`,{withCredentials:true})
+        if(response.status==400) throw new Error(response.data.error)
+        console.log(response.data)
+        return response.data.chartList;
+    }catch(err){
+        if(axios.isAxiosError(err)){
+            console.error(err.message)
+            return []
+        }
+        console.error("unknown error")
+        return []
+    }
+}
+export async function SaveProductChart(chartDetails:ChartStruct){
+    try{
+        const response=await axios.post(`http://localhost:8080/product/save/chart`,chartDetails,{withCredentials:true})
+        if(response.status==400) throw new Error(response.data.error)
+        console.log(response.data.success)
+        return
+    }catch(err){
+        if(axios.isAxiosError(err)){
+            console.error("Error: ",err.message)
+            return
+        }
+        console.error("unknow error")
+    }
 }

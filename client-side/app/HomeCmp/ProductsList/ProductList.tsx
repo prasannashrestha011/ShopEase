@@ -9,9 +9,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { IncreaseProductListPage } from '@/app/redux/PageSlice';
 import { addAdditionalListData } from '@/app/redux/ProductDataSplice';
 import { FetchAdditionalProductList } from '../fetchers';
+import { SaveProductChart } from '@/app/product/upload/uploadAction';
+import { ChartStruct } from '@/app/product/chart/ChartStruct';
 const ProductList = () => {
     const router=useRouter()
     const loadingRef=useRef(null)
+    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
     const observer=new IntersectionObserver(
       (entries:IntersectionObserverEntry[])=>{
         if(entries[0].isIntersecting){
@@ -28,8 +31,14 @@ const ProductList = () => {
     const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
     
     const dispatcher=useAppDispatch();
-    const addItemToChart=(productId:string,productName:string)=>{
-      dispatcher(addChart({productId,productName}))
+    const addItemToChart=async(productId:string,productName:string)=>{
+      dispatcher(addChart({productId,productName,userId:userDetails?.id}))
+      const chartDetails:ChartStruct={
+        productId,
+        productName,
+        userId:userDetails?.id
+      }
+      await SaveProductChart(chartDetails)
     }
     const handleOrder=async(product_id:string)=>{
       console.log(product_id);
