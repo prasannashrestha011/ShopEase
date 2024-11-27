@@ -5,6 +5,7 @@ const   schema=z.object({
     }),
     username:z.string().min(4,"Username is required"),
     password:z.string().min(8,"Password is required"),
+
     contactNumber:z.number().int().min(8,"Invalid number format"),
     address:z.string().min(2,"Address is required"),
     postalCode:z.number().int().min(4,"invalid post code"),

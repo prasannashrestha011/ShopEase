@@ -12,7 +12,7 @@ const page:React.FC<PageProp> = ({params}) => {
         )
     }
   return (
-    <div>
+    <div className='bg-blue-600 flex items-center justify-center'>
       <InputComponents role={params.role}/>
     </div>
   )
