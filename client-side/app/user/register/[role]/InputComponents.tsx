@@ -100,13 +100,13 @@ const InputComponents:React.FC<Prop> = ({role}) => {
 
   return (
    <div className=' flex flex-col justify-center items-center   font-sans'>
-    <header className='font-semibold text-3xl flex gap-2 items-center justify-center'>
+    <header className='font-semibold text-3xl flex gap-2 items-center justify-center mr-2 mb-1'>
       {role=="seller"&& <img src='/icons/seller.png' className='w-8'/>}
-      <span>   {role.toUpperCase()}</span>
+      <span className='text-slate-300'>   {role.toUpperCase()}</span>
    
       </header>
    <form>
-   <div className="md:w-96 w-80 flex flex-col gap-4 justify-center items-center bg-white p-2 rounded-md mx-auto " >
+   <div className="md:w-96 w-80 flex flex-col gap-4 justify-center items-center bg-white p-3 rounded-md mx-auto " >
     <label className="w-full">
     <p className='font-semibold'>Email</p>
     <Input name='email' placeholder="Enter your email address " type="email" value={formData.email} onChange={handleValueChange}  />

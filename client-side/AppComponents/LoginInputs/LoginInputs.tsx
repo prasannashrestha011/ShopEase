@@ -52,7 +52,7 @@ const LoginInputs = () => {
     
   return (
    
-      <form className="h-full " onSubmit={handleAuth}>
+      <form className="h-full font-sans" onSubmit={handleAuth}>
       
       <Card className="shadow-md  border-none flex flex-col gap-4 h-full rounded-none  bg-gradient-to-b from-[#3f3dbe] to-[#2a23f0] text-slate-100   ">
        <CardHeader>
@@ -69,7 +69,7 @@ const LoginInputs = () => {
       </CardContent>
      <CardFooter className="flex flex-col gap-2">
      <p className="w-full">   <a href="/user/register">Register account</a></p>
-      <Button className="w-72 " variant={"destructive"} type="submit" >Login</Button>
+      <Button className="w-72 bg-orange-500 hover:bg-orange-600 text-slate-300"   type="submit" >Login</Button>
       {responseMessage&& <span className="text-green-500">{responseMessage.message}</span>}
       {errorMessage&& <span className="text-red-500">{errorMessage}</span>}
      </CardFooter>

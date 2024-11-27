@@ -6,7 +6,7 @@ export async function UploadAction(productObject:ProductStruct[],sellerId:string
         console.log(productObject)
         const formData=new FormData();
         const ProductEntity=productObject.map(({productName,productPrice,productDes,productCategory})=>({productName,productPrice,productDes,productCategory}))
-        ProductEntity.forEach(item=>console.log(item))
+       
 
         formData.append("productEntities", new Blob([JSON.stringify(ProductEntity)], { type: "application/json" }));
         console.log(productObject[0].productImages[0])
