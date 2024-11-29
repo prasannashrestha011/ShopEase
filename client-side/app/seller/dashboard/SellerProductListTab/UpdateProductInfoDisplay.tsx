@@ -7,7 +7,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { UpdateProductDetails } from '../fetchers'
 import { UpdateProductDetailsStruct } from '../class'
 import { UpdateProductListState } from '@/app/redux/Seller/SellerProductsSlice'
-import { FaPen } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 const UpdateProductInfoDisplay = () => {
 
   const {items:selectedProduct}=useAppSelector((state)=>state.selectedSellerProduct)
@@ -20,7 +20,8 @@ const UpdateProductInfoDisplay = () => {
     productId:"",
     productName:"",
     productPrice:0,
-    productDes:""
+    productDes:[],
+    productImages:[]
   })
   
 
@@ -35,7 +36,8 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
       const newDetails=new UpdateProductDetailsStruct(productDetails.productId,
       productDetails.productName,
       productDetails.productPrice,
-      productDetails.productDes)
+      productDetails.productDes,
+      productDetails.productImages)
       
       const response=await UpdateProductDetails(newDetails)
     
@@ -46,6 +48,9 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
             idx:selectedProduct.idx
           }))
         }
+}
+const handleProductImagesDeletion=(productImagesURL:string[])=>{
+    
 }
   useEffect(()=>{
     if(selectedProduct.data){
@@ -68,7 +73,6 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
         <br/>
         <form onSubmit={handleDetailsSubmit}>
         <main
-    
     className='flex flex-col gap-2 relative  items-center justify-center border shadow-lg w-96 p-6 rounded-md'>
       <label htmlFor='productName' className='flex flex-col gap-1'>
         <span className='font-semibold'>ProductName</span>
@@ -99,6 +103,7 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
    
      {isUpdateDisabled&& <Button className='absolute top-1 right-2 rounded-full ' size={"icon"} variant={'outline'} onClick={()=>toggleUpdateEnb()}>
       <FaPen/>
+      <FaTrash onClick={()=>handleProductImagesDeletion(selectedProduct.data?.productImages??[])}/>
       </Button>}
     {serverResponse&&<span>{serverResponse}</span>}
     </main>

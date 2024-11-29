@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.App_class.PrevAndCurrentMonthViews;
+import com.app.backend.App_utils.Extractors;
 import com.app.backend.Entities.ProductEntity;
 import com.app.backend.Repositories.Products.ProductRepository;
 import com.app.backend.Service.CloudinaryService.CloudinaryImageServiceImpl;
@@ -160,5 +161,24 @@ public class ProductServiceImpl implements ProductService {
         PrevAndCurrentMonthViews viewsCount=new PrevAndCurrentMonthViews(prevMonthViews, currMonthViews);
         return viewsCount;
     }
+
+    @Override
+    @Transactional
+
+    public int deleteProduct(String productId) {
+        //for deleting images from cloud we retrive the image url from db
+        var productEntity=productRepo.findById(productId);
+        if(productEntity==null) return 0;
+
+        var publicIds=Extractors.PublicIdsExtractor(productEntity.get().getProductImages());
+        if(publicIds.isEmpty()) return 0;
+
+        //now delete Images using ids from cloud
+
+         cloudinaryImageService.deleteByPublicId(publicIds);
+         //
+
+       return productRepo.deleteByProductId(productId);
+    }   
 
 }

@@ -28,4 +28,6 @@ public interface ProductService {
 
     String deleteAllProductList();
 
+    int deleteProduct(String productId);
+
 }

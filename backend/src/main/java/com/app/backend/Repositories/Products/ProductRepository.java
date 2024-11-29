@@ -21,6 +21,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, String> 
 
         Page<ProductEntity> findProductBySellerId(String sellerId,
                         org.springframework.data.domain.Pageable page);
+        
+        int deleteByProductId(String productId); 
+  
 
         @Query("SELECT SUM(p.productViews) from ProductEntity p " 
         + "WHERE MONTH(p.createdAt)=MONTH(CURRENT_DATE)"

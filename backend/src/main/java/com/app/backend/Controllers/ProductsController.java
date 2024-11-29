@@ -139,10 +139,21 @@ public class ProductsController {
         return ResponseEntity.internalServerError().body(null);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<String> deleteProductList() {
         var response = productService.deleteAllProductList();
         return ResponseEntity.ok().body(response);
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<Object> deleteProduct(@RequestParam(name = "productId")String productId){
+        try{
+            var rowsUpdated=productService.deleteProduct(productId);
+            if(rowsUpdated==0) throw new Exception("failed to delete the product");
+            return ResponseEntity.ok().body(Map.of("success","product deleted"));
+        }catch(Exception e){
+            logger.error("error:", e.getMessage());
+            return ResponseEntity.internalServerError().body(Map.of("error",e.getMessage()));
+        }
     }
 
     @PutMapping("/update")
