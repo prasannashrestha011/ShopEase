@@ -56,8 +56,8 @@ public class AuthControllers {
             ResponseCookie cookie = ResponseCookie.from("Authorization", authToken)
                     .httpOnly(true)
                     .secure(true)
-                    .sameSite("Lax")
-                    .maxAge(Duration.ofHours(24))
+                    .sameSite("None")
+                    .maxAge(Duration.ofDays(7))
                     .path("/")
                     .build();
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
