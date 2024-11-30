@@ -9,7 +9,7 @@ import Analytics from "./analytics/Analytics"
 import { FetchAnalyticData } from "@/app/redux/AnalyticsSplice"
 import { FaChartLine, FaShoppingCart } from "react-icons/fa"
 import { GetUnReadRequest } from "@/utils/GetUnReadRequest"
-import SellerProductListDisplay from "./SellerProductListTab/SellerProductListDisplay"
+
 import { FetchSellerProductList } from "@/app/redux/Seller/SellerProductsSlice"
 
 import { FetchSellerProductRating } from "@/app/redux/ProductRatings/SellerRatingListSplice"

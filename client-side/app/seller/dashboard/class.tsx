@@ -46,8 +46,8 @@ class UpdateProductDetailsStruct{
     constructor(productId:string,productName:string,productPrice:number,productDes:string[],  productImages?:string[]){
         this.productId=productId
         this.productName=productName
-        this.productPrice=productPrice,
-        this.productDes=productDes,
+        this.productPrice=productPrice
+        this.productDes=productDes
         this.productImages=productImages  
     }
 }

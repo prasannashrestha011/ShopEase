@@ -7,7 +7,7 @@ import Chart from '../product/chart/Chart'
 import HomeOptions from './HomeOptions'
 import SearchInput from './SearchInput'
 import { GetNotificationPermission } from '../firebase/getPermission'
-import { useAppDispatch, useAppSelector } from '../redux/Store'
+import { useAppSelector } from '../redux/Store'
 
 
 

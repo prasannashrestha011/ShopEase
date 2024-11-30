@@ -12,7 +12,7 @@ import { FetchProductCharts } from './ChartDataSplice';
 const DispatcherProvider = ({children}:{children:ReactNode}) => {
     const dispatch=useAppDispatch();
     const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
-    const {items:userDetails}=useAppSelector((state)=>state.userDetails)
+
     const GetLiveRequest=async()=>{
       console.log("Connecting..."); // Log before attempting to connect
       try {

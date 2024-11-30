@@ -1,6 +1,7 @@
+"use client"
 import { ProductInfo } from '@/app/product/class/productClass'
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store'
-import React, { useEffect, useRef, useState } from 'react'
+import React, {  useRef, useState } from 'react'
 
 
 import { Table,TableHead, TableHeader,TableRow } from '@/components/ui/table'
@@ -30,18 +31,7 @@ const SellerProductListDisplay = () => {
     const [selectedIdx,setSelectedIdx]=useState<number|null>(null)
  
 
-    //lazyloading
-    const observer=new IntersectionObserver(
-        (entries:IntersectionObserverEntry[])=>{
-           if(entries[0].isIntersecting){
-            triggerPageLoad()
-           }
-        },{
-            root:null,
-            rootMargin:'0px',
-            threshold:1.0
-        }
-    )
+   
     //
     const handleSelectedProduct=(selectedProductDetails:ProductInfo,idx:number)=>{
         dispatcher(SetSelectedProduct({data:selectedProductDetails,idx}))
@@ -56,16 +46,7 @@ const SellerProductListDisplay = () => {
             dispatcher(AddFurtherSellerProductList(furtherList))
         }
     }
-    useEffect(()=>{
-        if(loadRef.current){
-            observer.observe(loadRef.current)
-        }
-        return ()=>{
-            if(loadRef.current){
-                observer.unobserve(loadRef.current)
-            }
-        }
-    },[])
+    
   return (
   
        <div className='w-7/12 flex flex-col justify-center items-center   ml-3'>
@@ -95,7 +76,7 @@ const SellerProductListDisplay = () => {
                      
                      </TableRow>
                 ))}
-                      <span className='underline' ref={loadRef}>Load more..</span>
+                      <span className='underline' ref={loadRef} onClick={()=>triggerPageLoad()}>Load more..</span>
             </TableBody>
           </ScrollArea>
           

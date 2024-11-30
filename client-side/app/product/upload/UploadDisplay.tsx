@@ -66,7 +66,7 @@ const UploadDisplay = () => {
               <label className='ml-2'>Product Description</label>
             {Array(4).fill(0).map((des,descIdx)=>(
               <Input className='w-80'  type='text' placeholder='Product Description $'
-                onChange={(e)=>handleValueChange(e,idx,'productDes',descIdx)} required/>  
+                onChange={(e)=>handleValueChange(e,idx,'productDes',descIdx)} key={descIdx} required/>  
             ))}
             
             </section>

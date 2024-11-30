@@ -29,7 +29,7 @@ const RatingDisplay = () => {
         'product Id',
         'rating',
         'rated by',
-        <IoReload size={23} className={`mr-2 w-fit active:rotate-90 transition-transform duration-150 `} onClick={()=>handleListRefresh()}/>
+        <IoReload key="reload-icon" size={23} className={`mr-2 w-fit active:rotate-90 transition-transform duration-150 `} onClick={()=>handleListRefresh()}/>
     ]
 
    const handleSelectedItem=(rating:ProductRatingStruct,idx:number)=>{
@@ -50,9 +50,12 @@ const RatingDisplay = () => {
         <ScrollArea className="h-96 w-fit m-0 p-0 rounded-md border">
         <TableHeader className='bg-gradient-to-b from-[#FCF3F3] to-[#CCC9C9] hover:from-[#FCF3F3] hover:to-[#CCC9C9] text-black ' >
             <TableRow>
-                {headers.map((head,idx)=>(
-                    <TableHead key={idx}>{head}</TableHead>
+            {headers.map((head, idx) => (
+                <React.Fragment key={idx}>
+                    <TableHead>{head}</TableHead>
+                </React.Fragment>
                 ))}
+
             </TableRow>
           
         </TableHeader>

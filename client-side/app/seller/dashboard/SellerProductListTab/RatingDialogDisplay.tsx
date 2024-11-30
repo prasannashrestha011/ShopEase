@@ -2,7 +2,7 @@ import { useAppSelector } from '@/app/redux/Store'
 import { DialogContent, DialogHeader } from '@/components/ui/dialog'
 import { Rating } from '@mui/material'
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const RatingDialogDisplay = () => {
     const {items:ratingInfo}=useAppSelector((state)=>state.selectedProductRating)

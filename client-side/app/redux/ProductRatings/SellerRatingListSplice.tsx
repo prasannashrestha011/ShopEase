@@ -18,6 +18,7 @@ export const FetchSellerProductRating=createAsyncThunk('/fetch/seller/ratings',a
         if(response==null) throw new Error("Ratings not found !!")
             return response
     }catch(err){
+        console.error(err)
         return null;
     }
 })
@@ -28,14 +29,14 @@ const SellerRatingListSlice=createSlice({
     extraReducers:(builder)=>{
         builder.addCase(FetchSellerProductRating.pending,(state)=>{
             state.loading=true
-        }),
-        builder.addCase(FetchSellerProductRating.fulfilled,(state,action)=>{
+        })
+    .addCase(FetchSellerProductRating.fulfilled,(state,action)=>{
             if(action.payload){
                 state.items=action.payload
                 state.loading=false
             }
         })
-        builder.addCase(FetchSellerProductRating.rejected,(state,action)=>{
+        .addCase(FetchSellerProductRating.rejected,(state,action)=>{
             state.loading=false
          
                 state.error=action.error.message ?? "unknow error"

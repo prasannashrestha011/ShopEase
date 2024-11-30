@@ -7,12 +7,12 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { UpdateProductDetails } from '../fetchers'
 import { UpdateProductDetailsStruct } from '../class'
 import { UpdateProductListState } from '@/app/redux/Seller/SellerProductsSlice'
-import { FaPen, FaTrash } from "react-icons/fa";
+import { FaPen } from "react-icons/fa";
 const UpdateProductInfoDisplay = () => {
 
   const {items:selectedProduct}=useAppSelector((state)=>state.selectedSellerProduct)
   const [isUpdateDisabled,setIsUpdateDisabled]=useState<boolean>(true)
-  const [serverResponse,setServerResponse]=useState<string>("")
+
 
   const dispatcher=useAppDispatch()
 
@@ -49,9 +49,7 @@ const handleDetailsSubmit=async(e:FormEvent)=>{
           }))
         }
 }
-const handleProductImagesDeletion=(productImagesURL:string[])=>{
-    
-}
+
   useEffect(()=>{
     if(selectedProduct.data){
       setProductDetails(selectedProduct.data)
@@ -103,9 +101,9 @@ const handleProductImagesDeletion=(productImagesURL:string[])=>{
    
      {isUpdateDisabled&& <Button className='absolute top-1 right-2 rounded-full ' size={"icon"} variant={'outline'} onClick={()=>toggleUpdateEnb()}>
       <FaPen/>
-      <FaTrash onClick={()=>handleProductImagesDeletion(selectedProduct.data?.productImages??[])}/>
+     
       </Button>}
-    {serverResponse&&<span>{serverResponse}</span>}
+   
     </main>
         </form>
     </DrawerContent>

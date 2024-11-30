@@ -1,34 +1,22 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import React, { useEffect, useRef, useState } from 'react'
+import React, {  useRef } from 'react'
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/redux/Store';
 import { addChart } from '@/app/redux/ChartDataSplice';
 import { Skeleton } from '@/components/ui/skeleton';
-import { IncreaseProductListPage } from '@/app/redux/PageSlice';
-import { addAdditionalListData } from '@/app/redux/ProductDataSplice';
-import { FetchAdditionalProductList } from '../fetchers';
+
 import { SaveProductChart } from '@/app/product/upload/uploadAction';
 import { ChartStruct } from '@/app/product/chart/ChartStruct';
 const ProductList = () => {
     const router=useRouter()
     const loadingRef=useRef(null)
     const {items:userDetails}=useAppSelector((state)=>state.userDetails)
-    const observer=new IntersectionObserver(
-      (entries:IntersectionObserverEntry[])=>{
-        if(entries[0].isIntersecting){
-          handleDataLoading()
-        }
-      },{
-        root:null,
-        rootMargin:'0px',
-        threshold:1.0
-      }
-    )
+   
 
     const {items,loading}=useAppSelector((state)=>state.productList)
-    const {items:productListPageValue}=useAppSelector((state)=>state.productListPage)
+  
     
     const dispatcher=useAppDispatch();
     const addItemToChart=async(productId:string,productName:string)=>{
@@ -45,27 +33,8 @@ const ProductList = () => {
       router.push(`/product/order/${product_id}`)
     }
 
-    const handleDataLoading=async()=>{
    
-      dispatcher(IncreaseProductListPage())
-     const dataList= await FetchAdditionalProductList(productListPageValue.page)
-     if(dataList.length==0){
-       console.log("end to the list...")
-       return
-     }
-     dispatcher(addAdditionalListData(dataList))
-   }
-   useEffect(()=>{
-    if(loadingRef.current){
-      observer.observe(loadingRef.current)
-      return ()=>{
-        if(loadingRef.current){
-          observer.unobserve(loadingRef.current)
-        
-        }
-      }
-    }
-   },[])
+ 
 
     if(loading){
       return(

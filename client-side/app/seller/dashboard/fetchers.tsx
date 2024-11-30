@@ -129,6 +129,7 @@ export async function GetProductListOfSeller(sellerId:string,page:number):Promis
         console.log(response.data)
         return response.data
     }catch(err){
+      console.error(err)
        return []
     }
 }
@@ -140,8 +141,10 @@ export async function UpdateProductDetails(newProductDetails:UpdateProductDetail
     return response.data.success
   }catch(err){
     if(axios.isAxiosError(err)){
+      console.error(err.message)
       return null
     }
+    console.error(err)
     return null
   }
 }
@@ -153,8 +156,10 @@ export async function GetProductRatingsOfSeller(sellerId:string):Promise<Product
     return response.data as ProductRatingStruct[]
   }catch(err){
     if(axios.isAxiosError(err)){
+      console.error(err.message)
       return null
     }
+    console.error(err)
     return null
   }
 }
@@ -164,6 +169,7 @@ export async function GetTotalViewsCount(sellerId:string){
     console.log(response.data)
     return response.data.totalViews as PrevAndCurrentMonthProductViews;
   }catch(err){
+    console.error(err)
     return null
   }
 }
