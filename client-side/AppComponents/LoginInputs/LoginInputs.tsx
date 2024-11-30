@@ -40,7 +40,7 @@ const LoginInputs = () => {
         }
         setResponseMessage(response.data.id)
         console.log(response.data)
-        console.log("Cookies Set by Server:", response.headers['Authorization']);
+        console.log("Cookies Set by Server:", response.headers['set-cookie']);
         window.localStorage.setItem("UUID",response.data.id??"")
    
         router.replace('/')
