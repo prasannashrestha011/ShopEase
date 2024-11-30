@@ -4,7 +4,7 @@ import { ProductInfo } from "../product/class/productClass"
 
 export async function FetchAdditionalProductList(page:number):Promise<ProductInfo[]>{
     try{
-        const response=await axios.get(`http://localhost:8080/product/list?page=${page}`,{withCredentials:true})
+        const response=await axios.get(`https://shopease-nxe0.onrender.com/product/list?page=${page}`,{withCredentials:true})
         if(response.status!==200) throw new Error("failed to fetch the data")
         
             return response.data 
@@ -16,7 +16,7 @@ export async function FetchAdditionalProductList(page:number):Promise<ProductInf
 
 export async function UpdateProductViewsCount(productId:string):Promise<string>{
     try{
-        const response=await axios.put(`http://localhost:8080/product/update/views?productId=${productId}`,
+        const response=await axios.put(`https://shopease-nxe0.onrender.com/product/update/views?productId=${productId}`,
             {},
             {withCredentials:true})
         if(response.status==500) throw new Error(response.data)

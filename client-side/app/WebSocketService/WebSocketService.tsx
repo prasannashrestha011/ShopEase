@@ -13,7 +13,7 @@ class WebSocketService{
 
     connect(dispatch:Dispatch):Promise<string>{
        return new Promise((resolve,reject)=>{
-        const socket=new SocketJs("http://localhost:8080/ws")
+        const socket=new SocketJs("https://shopease-nxe0.onrender.com/ws")
         this.client=new Client({
             webSocketFactory:()=>socket,
             connectHeaders:{},

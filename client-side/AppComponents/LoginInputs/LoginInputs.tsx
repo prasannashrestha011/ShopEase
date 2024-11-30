@@ -31,7 +31,7 @@ const LoginInputs = () => {
       e.preventDefault()
       if(!formData.username || !formData.password) return
       try{
-        const response=await axios.post(`http://localhost:8080/account/login`,{
+        const response=await axios.post(`https://shopease-nxe0.onrender.com/account/login`,{
             username:formData.username,
             password:formData.password,
         },{withCredentials:true})
@@ -39,11 +39,13 @@ const LoginInputs = () => {
             throw new Error("Failed to login , invalid username or password");
         }
         setResponseMessage(response.data.id)
+        console.log(response.data)
+        console.log("Cookies Set by Server:", response.headers['Authorization']);
         window.localStorage.setItem("UUID",response.data.id??"")
    
         router.replace('/')
 
-        window.location.reload()
+ 
       }catch( err){
         const errorMessage=err as Error;
         setErrorMessage(errorMessage.message)

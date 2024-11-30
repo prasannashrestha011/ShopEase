@@ -15,7 +15,10 @@ const jwtConfig = {
 export async function middleware(req:NextRequest){
     const authToken=req.cookies.get('Authorization');
     var pathName=req.nextUrl.pathname;
+    console.log("running middleware")
+    console.log("auth token ->",authToken)
     if(!authToken ){
+      console.log("auth token  not found found!!!")
         if(pathName==="/login"){
           return NextResponse.next()
         }

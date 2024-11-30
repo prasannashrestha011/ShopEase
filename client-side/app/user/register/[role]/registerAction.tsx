@@ -5,7 +5,7 @@ export async function RegisterUser(role:string,userDetails:UserStruct):Promise<s
     let userRole=""
     if(role=="seller") userRole=role;
    try{
-        const response=await axios.post(`http://localhost:8080/account/register?role=${userRole}`,userDetails)
+        const response=await axios.post(`https://shopease-nxe0.onrender.com/account/register?role=${userRole}`,userDetails)
         if(response.status!==200) throw new Error(response.data)
             console.log("message->",response.data)
       

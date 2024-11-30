@@ -12,7 +12,7 @@ export const FetchUserDetails=createAsyncThunk<UserStruct|null,void>('/fetch/dat
         const username=window.localStorage.getItem("UUID")
         if(!username)return null;
       try{
-        const response=await axios.get(`http://localhost:8080/user/credentials?userId=${username}`,{withCredentials:true})
+        const response=await axios.get(`https://shopease-nxe0.onrender.com/user/credentials?userId=${username}`,{withCredentials:true})
         if(response.status!==200) throw new Error("failed to fetch user data")
             
             return response.data as UserStruct
