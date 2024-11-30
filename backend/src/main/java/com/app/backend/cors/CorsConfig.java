@@ -14,7 +14,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000","https://shop-ease-tan-nine.vercel.app\"")
+                .allowedOrigins("http://localhost:3000","https://shop-ease-tan-nine.vercel.app")
                 .allowedHeaders("Authorization", "Content-Type", "X-Requested-With")
                 .exposedHeaders("Authorization")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
@@ -25,7 +25,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","https://shop-ease-tan-nine.vercel.app\""));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","https://shop-ease-tan-nine.vercel.app"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
