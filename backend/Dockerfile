@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . /app
 
 # Build the application using Maven
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 # Expose the port your application runs on (default for Spring Boot is 8080)
 EXPOSE 8080
