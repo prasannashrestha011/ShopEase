@@ -48,9 +48,9 @@ const RatingInput = () => {
     <div>
           
           <Dialog>
-        <DialogTrigger asChild>
+        <DialogTrigger asChild className='flex justify-end'>
           <span>
-          <Button className='bg-green-600'>Rate now</Button>
+          <Button className='bg-green-600 '>Rate now</Button>
             </span>
             </DialogTrigger>
         <DialogContent>

@@ -58,14 +58,14 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
     },[product_id])
   return (
     <div>
-        <Card className='flex flex-col justify-center items-center yatraone   border-none'>
+        <Card className='flex flex-col justify-center items-center font-sans   border-none'>
             <CardHeader className='bg-blue-700 w-full'>
                 <CardTitle className='mx-auto text-slate-100'>{product_details?.productName}</CardTitle>
             </CardHeader>
             <CardContent className='flex flex-col md:flex-row w-full  bg-slate-200 justify-center items-start h-full  '>
 
                     {product_details?.productImages&&
-                    <div className='md:flex-1 md:pl-8 md:w-auto w-10/12 h-full  '>
+                    <div className='md:pl-8 md:w-fit  w-10/12 h-full  '>
                         <ProductCarousel  images={product_details?.productImages}/>
                     </div>
                
@@ -100,14 +100,15 @@ const OrderDisplay:React.FC<OrderDisplayProp> = ({product_id}) => {
                  </div>
                     </div>
 
-                    <div className='flex items-center justify-center'>
-                     <RatingDisplay  />     
-                    </div>
+                 
                  </div>
                   
             </CardContent>
         
         </Card>
+        <div className='flex items-center justify-center'>
+                     <RatingDisplay  />     
+        </div>
          <QueryInput sellerId={product_details?.sellerId??""} productId={product_details?.productId??""}  />
     
     </div>

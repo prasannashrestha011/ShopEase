@@ -22,7 +22,7 @@ export function ProductCarousel({images}:CarouselProp) {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full md:max-w-xl "
+      className="w-96 "
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
@@ -34,7 +34,7 @@ export function ProductCarousel({images}:CarouselProp) {
                <Card>
                  <CardContent className="flex aspect-square items-center justify-center p-6">
                    <span className="text-4xl font-semibold">
-                    <img src={image}/>
+                    <img src={image} className="w-full"/>
                    </span>
                  </CardContent>
                </Card>

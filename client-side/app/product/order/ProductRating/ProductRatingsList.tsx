@@ -19,6 +19,7 @@ const ProductRatingsList = () => {
     },[productProps])
   return (
     <div className='w-full '>
+      <span className='mx-auto font-bold text-xl w-fit'>Reviews</span>
     <ul>
     {ratingList.map((rating,idx)=>(
         <li key={idx} className='flex flex-col gap-3'>
