@@ -13,6 +13,7 @@ const jwtConfig = {
     secret: new TextEncoder().encode(SecretKey),
   }
 export async function middleware(req:NextRequest){
+  console.log("available cookeis",req.cookies)
     const authToken=req.cookies.get('Authorization');
     var pathName=req.nextUrl.pathname;
     console.log("running middleware")
@@ -53,5 +54,5 @@ export async function middleware(req:NextRequest){
     }
 }   
 export const config={
-    matcher:['/login','/','/product/:path*','/seller/:path*',]
+    matcher:['/test',]
 }

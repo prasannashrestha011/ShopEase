@@ -20,6 +20,7 @@ const LoginInputs = () => {
     const [formData,setFormData]=useState<FormData>({username:"",password:""})
     const [responseMessage,setResponseMessage]=useState<ResponseProp | null>(null)
     const [errorMessage,setErrorMessage]=useState<string>("")
+    const backendURL=process.env.NEXT_PUBLIC_BACKEND_ROOT_API
     const router=useRouter()
     const handleFormValue=(e:ChangeEvent<HTMLInputElement>)=>{
       setFormData({
@@ -31,7 +32,7 @@ const LoginInputs = () => {
       e.preventDefault()
       if(!formData.username || !formData.password) return
       try{
-        const response=await axios.post(`https://shopease-nxe0.onrender.com/account/login`,{
+        const response=await axios.post(`${backendURL}/account/login`,{
             username:formData.username,
             password:formData.password,
         },{withCredentials:true})
@@ -44,7 +45,10 @@ const LoginInputs = () => {
         window.localStorage.setItem("UUID",response.data.id??"")
    
         router.replace('/')
-
+        
+        setTimeout(()=>{
+          window.location.reload()
+        },3000)
  
       }catch( err){
         const errorMessage=err as Error;

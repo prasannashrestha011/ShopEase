@@ -1,6 +1,6 @@
 package com.app.backend.ProjectConfigs.Firebase;
 
-import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,11 +15,13 @@ import com.google.firebase.FirebaseOptions;
 public class FirebaseConfig {
     @Bean
     public FirebaseApp initializeFirebaseApp() throws IOException {
-        String firebaseServiceAccountFilePath = "/etc/secrets/serviceAccount.json";
       
- FileInputStream serviceAccount = new FileInputStream(firebaseServiceAccountFilePath);
+      
+        InputStream serviceAccount=getClass().getClassLoader().getResourceAsStream("FireBase/serviceAccount.json");
         
-
+        if(serviceAccount==null){
+            throw  new IOException("service account not found");
+        }
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();

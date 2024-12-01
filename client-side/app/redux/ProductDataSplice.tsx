@@ -2,7 +2,7 @@ import { createSlice,createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { ProductInfo } from "../product/class/productClass";
 import axios from "axios";
 import { ProductDataState } from "../types/DataState";
-
+const backendURL=process.env.BACKEND_ROOT_API
 const initialState:ProductDataState={
     items:[],
     loading:true,
@@ -11,7 +11,7 @@ const initialState:ProductDataState={
 export const FetchProductList=createAsyncThunk<ProductInfo[]|null,number>('/fetch/products',
     async(page)=>{
         try{
-            const response=await axios.get(`https://shopease-nxe0.onrender.com/product/list?page=${page}`,{withCredentials:true})
+            const response=await axios.get(`${backendURL}/product/list?page=${page}`,{withCredentials:true})
             if(response.status!==200) throw new Error("failed to fetch the data")
                 console.log(response.data)
                 return response.data

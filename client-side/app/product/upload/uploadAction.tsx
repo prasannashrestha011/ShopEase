@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ProductStruct} from "../class/productClass";
 import { ChartStruct } from "../chart/ChartStruct";
-
+const backedURL=process.env.NEXT_PUBLIC_BACKEND_ROOT_API
 export async function UploadAction(productObject:ProductStruct[],sellerId:string ):Promise<{message:string,statusCode:number}>{
     try{
         console.log(productObject)
@@ -18,7 +18,7 @@ export async function UploadAction(productObject:ProductStruct[],sellerId:string
         })
        
        
-     const response=await axios.post(`https://shopease-nxe0.onrender.com/product/create?seller_id=${sellerId}`,formData,{
+     const response=await axios.post(`${backedURL}/product/create?seller_id=${sellerId}`,formData,{
         withCredentials:true,
       
      },)
@@ -37,7 +37,7 @@ export async function UploadAction(productObject:ProductStruct[],sellerId:string
 
 export async function GetUserCharts(userId:string):Promise<ChartStruct[]>{
     try{
-        const response=await axios.get(`https://shopease-nxe0.onrender.com/product/charts?userId=${userId}`,{withCredentials:true})
+        const response=await axios.get(`${backedURL}/product/charts?userId=${userId}`,{withCredentials:true})
         if(response.status==400) throw new Error(response.data.error)
         console.log(response.data)
         return response.data.chartList;
@@ -52,7 +52,7 @@ export async function GetUserCharts(userId:string):Promise<ChartStruct[]>{
 }
 export async function SaveProductChart(chartDetails:ChartStruct){
     try{
-        const response=await axios.post(`https://shopease-nxe0.onrender.com/product/save/chart`,chartDetails,{withCredentials:true})
+        const response=await axios.post(`${backedURL}/product/save/chart`,chartDetails,{withCredentials:true})
         if(response.status==400) throw new Error(response.data.error)
         console.log(response.data.success)
         return
