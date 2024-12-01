@@ -11,7 +11,7 @@ const initialState:ProductDataState={
 export const FetchProductList=createAsyncThunk<ProductInfo[]|null,number>('/fetch/products',
     async(page)=>{
         try{
-            const response=await axios.get(`${backendURL}/product/list?page=${page}`,{withCredentials:true})
+            const response=await axios.get(`http://localhost:8080/product/list?page=${page}`,{withCredentials:true})
             if(response.status!==200) throw new Error("failed to fetch the data")
                 console.log(response.data)
                 return response.data

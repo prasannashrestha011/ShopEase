@@ -3,7 +3,7 @@ import SocketJs from 'sockjs-client'
 import { TransactionStruct } from '../product/class/transactionClass'
 import { AddNewProductRequest } from '../redux/OrderRequests/ProductRequestsStateSlice'
 import { Dispatch } from '@reduxjs/toolkit'
-
+const backedURL=process.env.NEXT_PUBLIC_BACKEND_ROOT_API
 
 class WebSocketService{
     private client:Client|null=null
@@ -13,7 +13,7 @@ class WebSocketService{
 
     connect(dispatch:Dispatch):Promise<string>{
        return new Promise((resolve,reject)=>{
-        const socket=new SocketJs("https://shopease-nxe0.onrender.com/ws")
+        const socket=new SocketJs(`${backedURL}/ws`)
         this.client=new Client({
             webSocketFactory:()=>socket,
             connectHeaders:{},

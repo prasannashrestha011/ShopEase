@@ -55,8 +55,8 @@ public class AuthControllers {
             var authToken = jwtService.generateToken(authUserDetails);
             ResponseCookie cookie = ResponseCookie.from("Authorization", authToken)
                     .httpOnly(true)
-                    .secure(true)
-                    .sameSite("None")
+                    .secure(false) // for local development only
+                    .sameSite("Lax")
                     .maxAge(Duration.ofDays(7))
                     .path("/")
                     .build();

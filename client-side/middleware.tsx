@@ -15,6 +15,8 @@ const jwtConfig = {
 export async function middleware(req:NextRequest){
   console.log("available cookeis",req.cookies)
     const authToken=req.cookies.get('Authorization');
+    const headerCookies=req.headers.get("cookies");
+    console.log(headerCookies)
     var pathName=req.nextUrl.pathname;
     console.log("running middleware")
     console.log("auth token ->",authToken)
@@ -54,5 +56,5 @@ export async function middleware(req:NextRequest){
     }
 }   
 export const config={
-    matcher:['/test',]
+    matcher:['/login','/','/product/:id']
 }
